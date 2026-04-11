@@ -1,10 +1,9 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://concrete_material"]
 
-[sub_resource type="ProceduralNoiseTexture2D" id="noise_texture"]
+[sub_resource type="NoiseTexture2D" id="noise_texture"]
 width = 512
 height = 512
 noise = 1
-color_ramp = Gradient.new()
 
 [resource]
 albedo_color = Color(0.15, 0.15, 0.18, 1)

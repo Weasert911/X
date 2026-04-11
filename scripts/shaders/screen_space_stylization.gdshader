@@ -11,6 +11,10 @@ uniform float dither_strength : hint_range(0.0, 1.0, 0.05) = 0.15;
 
 uniform bool enable_dither = true;
 
+uniform sampler2D palette_texture : filter_nearest;
+uniform int palette_size : hint_range(2, 64, 1) = 16;
+uniform bool use_palette = false;
+
 float hash(vec2 p) {
     p = fract(p * vec2(123.34, 456.21));
     p += dot(p, p + 45.32);
@@ -59,6 +63,29 @@ vec3 quantize_color(vec3 color, float levels, float dither, vec2 uv) {
     return clamp(quantized, 0.0, 1.0);
 }
 
+vec3 match_palette_color(vec3 color) {
+    vec3 closest_color = color;
+    float min_distance = 999999.0;
+    
+    for (int i = 0; i < 64; i++) {
+        if (i >= palette_size) {
+            break;
+        }
+        
+        float palette_u = (float(i) + 0.5) / 64.0;
+        vec3 palette_color = texture(palette_texture, vec2(palette_u, 0.5)).rgb;
+        
+        float dist = distance(color, palette_color);
+        
+        if (dist < min_distance) {
+            min_distance = dist;
+            closest_color = palette_color;
+        }
+    }
+    
+    return closest_color;
+}
+
 void fragment() {
     vec2 uv = SCREEN_UV;
     
@@ -66,12 +93,24 @@ void fragment() {
     
     vec4 screen_color = texture(SCREEN_TEXTURE, pixelated_uv);
     
-    vec3 stylized_color = quantize_color(
-        screen_color.rgb,
-        color_levels,
-        dither_strength,
-        pixelated_uv
-    );
+    vec3 stylized_color;
+    
+    if (use_palette) {
+        stylized_color = match_palette_color(screen_color.rgb);
+        
+        if (enable_dither) {
+            float dither_offset = (bayer_dither(pixelated_uv, 1.0) - 0.5) * dither_strength * 0.1;
+            stylized_color += dither_offset;
+            stylized_color = clamp(stylized_color, 0.0, 1.0);
+        }
+    } else {
+        stylized_color = quantize_color(
+            screen_color.rgb,
+            color_levels,
+            dither_strength,
+            pixelated_uv
+        );
+    }
     
     COLOR = vec4(stylized_color, screen_color.a);
 }

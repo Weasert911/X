@@ -14,10 +14,10 @@ func _configure_particles() -> void:
 	emitting = true
 	lifetime = particle_lifetime
 	
-	emission_shape = 3
-	emission_box_extents = Vector3(20, 10, 5)
-	
 	var process_material = ParticleProcessMaterial.new()
+	
+	process_material.emission_shape = 3
+	process_material.emission_box_extents = Vector3(20, 10, 5)
 	
 	process_material.gravity = Vector3(0, -0.1, 0)
 	
