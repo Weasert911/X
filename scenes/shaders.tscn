@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://tq2g54wwiqgv"]
+
+[ext_resource type="Shader" uid="uid://ch0bgkp1brcon" path="res://scripts/shaders/screen_space_stylization.gdshader" id="1_wainb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crhbq"]
+shader = ExtResource("1_wainb")
+shader_parameter/pixel_size = 4.0
+shader_parameter/color_levels = 8.0
+shader_parameter/dither_strength = 0.15
+shader_parameter/enable_dither = true
+
+[node name="Shaders" type="CanvasLayer" unique_id=12616868]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=955888921]
+material = SubResource("ShaderMaterial_crhbq")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

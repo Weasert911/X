@@ -1,0 +1,189 @@
+[gd_scene format=3 uid="uid://b48e35bcu7joy"]
+
+[ext_resource type="PackedScene" uid="uid://c7djpsf3cougd" path="res://scenes/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://tq2g54wwiqgv" path="res://scenes/shaders.tscn" id="1_sqw1a"]
+[ext_resource type="Script" uid="uid://cn4ygebtwcc2f" path="res://scripts/camera_follow.gd" id="2_camera"]
+[ext_resource type="Material" path="res://materials/ground_material.tres" id="3_ground_mat"]
+[ext_resource type="Material" path="res://materials/platform_rust_material.tres" id="4_rust_mat"]
+[ext_resource type="PackedScene" path="res://scenes/background_elements.tscn" id="4_ux66b"]
+[ext_resource type="Material" path="res://materials/platform_dark_material.tres" id="5_dark_mat"]
+
+[sub_resource type="Sky" id="Sky_et23n"]
+
+[sub_resource type="Environment" id="environment"]
+background_mode = 2
+sky = SubResource("Sky_et23n")
+ambient_light_source = 2
+ambient_light_color = Color(0.15, 0.15, 0.2, 1)
+ambient_light_energy = 0.3
+tonemap_mode = 2
+tonemap_exposure = 0.8
+tonemap_white = 2.0
+ssao_radius = 0.5
+ssao_intensity = 1.5
+ssil_radius = 0.5
+sdfgi_use_occlusion = true
+sdfgi_min_cell_size = 0.09375
+glow_enabled = true
+glow_intensity = 0.5
+glow_blend_mode = 2
+fog_light_color = Color(0.05, 0.05, 0.08, 1)
+fog_light_energy = 0.8
+fog_density = 0.02
+fog_sky_affect = 0.5
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.096
+volumetric_fog_albedo = Color(0.1, 0.1, 0.12, 1)
+volumetric_fog_ambient_inject = 1.0
+
+[sub_resource type="BoxMesh" id="ground_mesh"]
+size = Vector3(30, 1, 5)
+
+[sub_resource type="BoxShape3D" id="ground_collision"]
+size = Vector3(30, 1, 5)
+
+[sub_resource type="BoxMesh" id="platform_mesh_1"]
+size = Vector3(4, 0.5, 3)
+
+[sub_resource type="BoxShape3D" id="platform_collision_1"]
+size = Vector3(4, 0.5, 3)
+
+[sub_resource type="BoxMesh" id="platform_mesh_2"]
+size = Vector3(3, 0.5, 3)
+
+[sub_resource type="BoxShape3D" id="platform_collision_2"]
+size = Vector3(3, 0.5, 3)
+
+[sub_resource type="BoxMesh" id="platform_mesh_3"]
+size = Vector3(5, 0.5, 3)
+
+[sub_resource type="BoxShape3D" id="platform_collision_3"]
+size = Vector3(5, 0.5, 3)
+
+[node name="LittleNightmaresPrototype" type="Node3D" unique_id=1136861293]
+
+[node name="Shaders" parent="." unique_id=12616868 instance=ExtResource("1_sqw1a")]
+
+[node name="Environment" type="Node3D" parent="." unique_id=630574558]
+
+[node name="Sky" type="WorldEnvironment" parent="Environment" unique_id=805089770]
+environment = SubResource("environment")
+
+[node name="Lighting" type="Node3D" parent="." unique_id=2068638501]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lighting" unique_id=333338937]
+transform = Transform3D(0.7071068, -0.35355338, 0.61237246, 0, 0.8660254, 0.5, -0.7071068, -0.35355338, 0.61237246, 0, 10, 0)
+light_energy = 2.59
+light_bake_mode = 1
+shadow_enabled = true
+shadow_bias = 0.05
+shadow_blur = 1.273
+directional_shadow_mode = 1
+directional_shadow_blend_splits = true
+directional_shadow_fade_start = 1.0
+directional_shadow_max_distance = 64.5
+
+[node name="AmbientLight" type="OmniLight3D" parent="Lighting" unique_id=1636288736]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.785557, 6.6285934, 0)
+light_color = Color(0.3, 0.35, 0.4, 1)
+light_energy = 15.729
+light_indirect_energy = 11.406
+light_volumetric_fog_energy = 0.95
+light_size = 0.584
+shadow_enabled = true
+shadow_bias = 0.05
+omni_range = 7.923462
+omni_attenuation = -2.961
+
+[node name="MoodLight" type="SpotLight3D" parent="Lighting" unique_id=1245641003]
+transform = Transform3D(0.8660254, -0.5, 0, 0, 0, 1, -0.5, -0.8660254, 0, -8, 8, 0)
+light_color = Color(0.4, 0.3, 0.2, 1)
+light_energy = 16.0
+light_indirect_energy = 5.594
+light_volumetric_fog_energy = 0.0
+shadow_enabled = true
+shadow_bias = 0.05
+spot_range = 15.0
+spot_attenuation = -0.69
+
+[node name="Level" type="Node3D" parent="." unique_id=1752273410]
+
+[node name="Ground" type="StaticBody3D" parent="Level" unique_id=920520617]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Ground" unique_id=1144855702]
+mesh = SubResource("ground_mesh")
+surface_material_override/0 = ExtResource("3_ground_mat")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Ground" unique_id=787481680]
+shape = SubResource("ground_collision")
+
+[node name="Platform1" type="StaticBody3D" parent="Level" unique_id=698453609]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Platform1" unique_id=354575555]
+mesh = SubResource("platform_mesh_1")
+surface_material_override/0 = ExtResource("4_rust_mat")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Platform1" unique_id=1240856170]
+shape = SubResource("platform_collision_1")
+
+[node name="Platform2" type="StaticBody3D" parent="Level" unique_id=759745447]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Platform2" unique_id=246309730]
+mesh = SubResource("platform_mesh_2")
+surface_material_override/0 = ExtResource("5_dark_mat")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Platform2" unique_id=2136720091]
+shape = SubResource("platform_collision_2")
+
+[node name="Platform3" type="StaticBody3D" parent="Level" unique_id=1534251743]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Platform3" unique_id=502892079]
+mesh = SubResource("platform_mesh_3")
+surface_material_override/0 = ExtResource("4_rust_mat")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Platform3" unique_id=1455868299]
+shape = SubResource("platform_collision_3")
+
+[node name="Platform4" type="StaticBody3D" parent="Level" unique_id=253741319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Platform4" unique_id=113330352]
+mesh = SubResource("platform_mesh_1")
+surface_material_override/0 = ExtResource("5_dark_mat")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Platform4" unique_id=1687934408]
+shape = SubResource("platform_collision_1")
+
+[node name="Platform5" type="StaticBody3D" parent="Level" unique_id=1324363544]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 4, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Platform5" unique_id=2078994228]
+mesh = SubResource("platform_mesh_2")
+surface_material_override/0 = ExtResource("4_rust_mat")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Platform5" unique_id=374512861]
+shape = SubResource("platform_collision_2")
+
+[node name="Platform6" type="StaticBody3D" parent="Level" unique_id=223355609]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3.964795, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Platform6" unique_id=210569827]
+mesh = SubResource("platform_mesh_3")
+surface_material_override/0 = ExtResource("5_dark_mat")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Platform6" unique_id=191706106]
+shape = SubResource("platform_collision_3")
+
+[node name="BackgroundElements" parent="Level" unique_id=635780578 instance=ExtResource("4_ux66b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8386135, 3.2481308, -4.0709877)
+
+[node name="Player" parent="." unique_id=960795895 instance=ExtResource("1_player")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 1, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2061702919]
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.258819, 0, -0.258819, 0.9659258, 0, 3, 8)
+script = ExtResource("2_camera")
