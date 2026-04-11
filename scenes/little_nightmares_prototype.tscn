@@ -24,7 +24,6 @@ ssao_intensity = 1.5
 ssil_radius = 0.5
 sdfgi_use_occlusion = true
 sdfgi_min_cell_size = 0.09375
-glow_enabled = true
 glow_intensity = 0.5
 glow_blend_mode = 2
 fog_light_color = Color(0.05, 0.05, 0.08, 1)
@@ -73,9 +72,8 @@ environment = SubResource("environment")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lighting" unique_id=333338937]
 transform = Transform3D(0.7071068, -0.35355338, 0.61237246, 0, 0.8660254, 0.5, -0.7071068, -0.35355338, 0.61237246, 0, 10, 0)
-light_energy = 16.0
+light_energy = 2.59
 light_bake_mode = 1
-shadow_enabled = true
 shadow_bias = 0.05
 shadow_blur = 1.273
 directional_shadow_mode = 1
@@ -86,12 +84,16 @@ directional_shadow_max_distance = 64.5
 [node name="AmbientLight" type="OmniLight3D" parent="Lighting" unique_id=1636288736]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.785557, 6.6285934, 0)
 light_color = Color(0.3, 0.35, 0.4, 1)
-light_energy = 15.729
-light_indirect_energy = 11.406
-light_volumetric_fog_energy = 0.95
+light_energy = 16.0
+light_indirect_energy = 8.396
+light_volumetric_fog_energy = 1.108
 light_size = 0.584
+light_specular = 0.0
+light_bake_mode = 1
 shadow_enabled = true
-shadow_bias = 0.05
+distance_fade_enabled = true
+distance_fade_begin = 10.0
+distance_fade_shadow = 7.0
 omni_range = 7.923462
 omni_attenuation = -2.961
 
@@ -101,8 +103,10 @@ light_color = Color(0.4, 0.3, 0.2, 1)
 light_energy = 16.0
 light_indirect_energy = 5.594
 light_volumetric_fog_energy = 0.0
+light_bake_mode = 1
 shadow_enabled = true
 shadow_bias = 0.05
+shadow_opacity = 0.55
 spot_range = 15.0
 spot_attenuation = -0.69
 
