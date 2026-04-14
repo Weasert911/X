@@ -16,6 +16,14 @@
 - **White or transparent background** for versatility
 - **No shading or very minimal shadow** for flat, graphic look
 
+### Lighting
+
+- **Single light source** from top-left direction
+- **Only ONE shadow tone** per object for consistency
+- **Shadow placement** on bottom-right side of objects
+- **No gradients** - flat colors only
+- **No soft shading** - hard, flat shadow shapes only
+
 ---
 
 ## Characters
