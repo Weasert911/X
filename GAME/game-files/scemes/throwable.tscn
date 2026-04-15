@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://canclws1oka23"]
+
+[ext_resource type="Texture2D" uid="uid://wu62k1velhm8" path="res://Temp/throwable.png" id="1_8ljo4"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mv01n"]
+radius = 7.0
+height = 24.0
+
+[node name="throwable" type="Area2D" unique_id=1219287914]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1539682890]
+position = Vector2(0, 5)
+scale = Vector2(1.06149, 0.56000006)
+shape = SubResource("CapsuleShape2D_mv01n")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1418051320]
+texture = ExtResource("1_8ljo4")
