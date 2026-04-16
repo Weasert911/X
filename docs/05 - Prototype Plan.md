@@ -1,10 +1,12 @@
 # Prototype Plan (MVP)
 
 ## Goal
+
 Build a playable version that proves:
 - Chaos is fun
 - Multiplayer works
 - Core loop is engaging
+- Gang identity adds personality without breaking balance
 
 ---
 
@@ -27,12 +29,25 @@ Build a playable version that proves:
 - 1 explosive (cooker)
 - 1 vehicle (rickshaw)
 
+### Gang System (NEW)
+- 2–3 gang archetypes (basic versions)
+  - IAS Aspirant
+  - Corporate Majdur
+  - Tapori Gunda
+- Basic gang selection UI
+- Gang visual identity (simple outfit differences)
+- Gang indicators above players
+- Minor passives implemented (very light, non-meta breaking)
+
 ---
 
 ## Phase 3: Multiplayer
 
 - 4–8 players
 - Basic sync (movement + actions)
+- Gang visibility in multiplayer
+- Gang indicators synced across clients
+- Basic gang scoring (points per gang)
 
 ---
 
@@ -40,6 +55,7 @@ Build a playable version that proves:
 
 - Police spawn
 - Basic enemy AI
+- Chaos events affect all gangs equally
 
 ---
 
@@ -47,6 +63,16 @@ Build a playable version that proves:
 
 - 3 signals
 - Radial menu
+- Gang-specific voice variations for signals
+
+---
+
+## Phase 6: Territory Control (LIGHT)
+
+- Basic zone spawning
+- Zone capture mechanic
+- Gang ownership display
+- Simple scoring for zone control
 
 ---
 
@@ -55,6 +81,10 @@ Build a playable version that proves:
 - Do players laugh?
 - Do players troll each other?
 - Does chaos feel fair?
+- Are gangs recognizable at a glance?
+- Do gang passives feel balanced (not overpowered)?
+- Do players form and break alliances naturally?
+- Does territory control add fun without dominating gameplay?
 
 ---
 
@@ -63,21 +93,29 @@ Build a playable version that proves:
 - Matches feel different each time
 - Players create their own fun
 - No major confusion during chaos
+- Gang identity is clear and adds personality
+- Social dynamics (alliances, betrayal) emerge naturally
+- Chaos system remains dominant over gang abilities
 
 ---
 
 ## Do NOT Build Yet
 
-- Cosmetics
-- Progression
+- Advanced cosmetics
+- Progression systems
 - Store/monetization
 - Advanced UI
+- More than 3 gang archetypes
+- Complex alliance UI (keep it signal-based)
 
 ---
 
 ## Next Step After MVP
 
 Expand:
-- Items
-- Chaos events
-- Maps
+- More jugaad items
+- More chaos events
+- More maps
+- Additional gang archetypes (up to 5 total)
+- Refined territory control mechanics
+- More social chaos interactions

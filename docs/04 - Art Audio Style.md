@@ -17,7 +17,7 @@
 - **Camera tilt:** ~30–45 degrees for optimal gameplay visibility
 - **Wide field of view** to keep multiple players visible at once
 - **Supports chaos readability** – camera designed to maintain clarity during dense action
-- **Player interaction awareness** – camera angle ensures players can see each other’s actions and environmental reactions
+- **Player interaction awareness** – camera angle ensures players can see each other's actions and environmental reactions
 - **Avoids obstruction** in dense environments through careful level design and camera positioning
 - **Avoids first-person and third-person over-the-shoulder** perspectives
 
@@ -25,18 +25,43 @@
 
 ## Characters
 
+### Core Character Design
+
 - **Modular 3D models** with stylized low-poly to mid-poly geometry
 - **Expressive toon-shaded animation** with smooth keyframe animation (not frame-by-frame pixel)
 - **Strong silhouettes** maintained through bold outlines and shape language
-- **Clothing and details** reflect Indian urban culture using simple, bold shapes
-- **Facial expressions** conveyed through exaggerated but clean 3D morphs or texture changes
 - **Proportional stylization** – slightly exaggerated features for readability and humor
 - **Flat colors** with no gradients or complex shading
 - **Clean, readable shapes** that work at various scales
 
+### Gang Identity in Characters
+
+Each gang archetype has distinct visual identity that makes them instantly recognizable:
+
+- **Silhouette Differences:** Each gang has unique body shape and posture
+- **Outfit Identity:** Clothing reflects the gang's personality and background
+- **Color Palette:** Each gang has a primary color that appears on their outfit and UI elements
+- **Accessories:** Gang-specific props and items that reinforce their identity
+
+**Example Visual Directions:**
+
+- **IAS Aspirant:** Glasses, formal shirt (slightly rumpled), books, pens, tired posture
+- **Corporate Majdur:** Laptop bag, ID card, slightly disheveled office wear, coffee cup
+- **Tapori Gunda:** Tank top, sunglasses, chain, confident swagger
+- **Gym Bro:** Tank top, wristbands, muscular build, always flexing
+- **Tech Bro:** Hoodie, headphones, gadgets, slightly hunched posture
+
+### Facial Expressions
+
+- Conveyed through exaggerated but clean 3D morphs or texture changes
+- Gang-specific personality in expressions (IAS Aspirant looks stressed, Tapori looks confident)
+- Clear emotional states for gameplay feedback (panic, triumph, betrayal)
+
 ---
 
 ## Environment
+
+### Core Environment Design
 
 - **Modular 3D environments** built from reusable kits (walls, roofs, props)
 - **Dense Indian streets** (gali, markets, rooftops) recreated with stylized geometry
@@ -52,9 +77,17 @@
 - Street props (crates, carts, water tanks, street vendors) as simple, bold 3D shapes
 - Graffiti and wall art as stylized decals or texture work
 
+### Gang Territory Markers
+
+- Subtle visual cues indicating which gang controls which area
+- Color-coded zones that match gang palettes
+- Temporary ownership markers that appear and disappear
+
 ---
 
 ## Animation Style
+
+### Core Animation Principles
 
 - **Keyframe 3D animation** with snappy, exaggerated motions
 - **Squash & stretch** applied within 3D deformation for impact
@@ -63,9 +96,21 @@
 - **Outline consistency** – outlines remain stable during deformation
 - **Flat colors** consistent across all animation frames
 
+### Gang-Specific Animation
+
+Each gang has unique animation flavor that reflects their personality:
+
+- **IAS Aspirant:** Slightly stiff, tired movements, always checking watch
+- **Corporate Majdur:** Rushed, stressed movements, constantly checking phone
+- **Tapori Gunda:** Confident, swaggering movements, casual stance
+- **Gym Bro:** Exaggerated flexing, powerful movements, always showing off
+- **Tech Bro:** Hunched posture, quick tapping motions, gadget-focused
+
 ---
 
 ## UI Style
+
+### Core UI Design
 
 - **Toon-styled UI** with bold outlines and flat colors matching the 3D art
 - **Clean, simple icons** designed as 2D vector art that complements the 3D look
@@ -74,6 +119,14 @@
 - **Flat design** with no gradients or complex effects
 - **Consistent with game art style** for cohesive visual experience
 - **No pixel fonts** – use clean, readable sans-serif fonts with slight stylization
+
+### Gang UI Elements
+
+- **Gang Selection Screen:** Visual preview of each gang archetype
+- **Gang Indicators:** Color-coded icons above players showing their gang
+- **Alliance Indicators:** Visual lines or icons showing current alliances
+- **Zone Control UI:** Territory ownership markers with gang colors
+- **Gang Scoreboard:** Shows gang scores alongside individual scores
 
 ---
 
@@ -87,12 +140,32 @@
 - Voice acting with mature but playful tone
 - **No chip-tune voice effects** – clean, modern voice processing that matches the 3D style
 
+### Gang-Based Voice Variations
+
+Each gang has unique voice personality that reflects their archetype:
+
+- **IAS Aspirant:** Stressed, slightly formal, always talking about exams or "strategy"
+- **Corporate Majdur:** Burned out, corporate jargon, complaining about deadlines
+- **Tapori Gunda:** Confident, street slang, casual and relaxed
+- **Gym Bro:** Energetic, motivational, always talking about gains
+- **Tech Bro:** Tech jargon, startup talk, slightly nerdy
+
+### Contextual Reactions
+
+Voice lines change based on game situation:
+
+- **Panic:** Different panic reactions per gang (IAS Aspirant: "Mera exam kharab!", Tapori: "Arre yaar!")
+- **Ego:** Taunts and boasts when winning (Corporate Majdur: "I'm crushing it!", Gym Bro: "Too easy!")
+- **Trolling:** Humorous insults and reactions (Tech Bro: "Your code is buggy!")
+- **Betrayal:** Dramatic reactions when alliances break
+
 ### Sound Design
 
 - Environmental chaos (crowds, dogs, horns, street sounds) with stylized audio treatments
 - Comedic timing for effects with exaggerated pitch and timing
 - Clear audio cues for gameplay actions using distinct sound signatures
 - Layered audio for depth while maintaining clarity
+- Gang-specific sound effects for their unique abilities and interactions
 
 ---
 
@@ -104,6 +177,7 @@
 4. **Model Complexity:** Low-poly to mid-poly counts optimized for multiplayer performance
 5. **Camera:** Fixed top-down angled camera with no rotation; level design must account for visibility
 6. **Asset Pipeline:** 3D models in FBX/GLTF format; materials use toon shader with outline parameter
+7. **Gang Visibility:** Gang colors and silhouettes must be readable at a glance during chaos
 
 ---
 
@@ -111,5 +185,6 @@
 
 **Clarity over detail.**  
 Chaos must be readable at all times through shape language, outlines, and strong silhouettes.  
+Gang identity must be instantly recognizable—silhouette, color, and movement should tell you who someone is before you even see their face.  
 Humor through clever design and exaggerated motion, not through childish exaggeration.  
 **Every shape intentional.**
