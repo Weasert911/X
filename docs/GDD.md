@@ -286,6 +286,11 @@ Expand:
 - Export as FBX/GLTF with consistent scale and pivot
 - Material definitions for flat colors and outline thickness
 
+### Shader Implementation
+- A custom screen‑space toon‑outline shader (`toon_outline.gdshader`) provides color controls, posterization, and edge detection.
+- Detailed documentation is available in [06 - Shaders.md](06%20-%20Shaders.md).
+- The shader is applied as a full‑screen post‑process effect via a `CanvasLayer` (`scene/shader.tscn`).
+
 ### Performance Targets
 - 60 FPS on mid-range hardware
 - Support for 8+ players with minimal lag
