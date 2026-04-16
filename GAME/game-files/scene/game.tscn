@@ -1,0 +1,89 @@
+[gd_scene format=4 uid="uid://4jrcmrrb2rx2"]
+
+[ext_resource type="PackedScene" uid="uid://bxkj3dlhyjklk" path="res://scene/shaders.tscn" id="1_5kiuu"]
+[ext_resource type="Texture2D" uid="uid://d2dl3awb7y3cd" path="res://assets/sky/sky_01_2k/sky_01_2k.png" id="2_33cqm"]
+[ext_resource type="PackedScene" uid="uid://btim62k8d8f6k" path="res://scene/player.tscn" id="2_dbls1"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_xwcet"]
+panorama = ExtResource("2_33cqm")
+
+[sub_resource type="Sky" id="Sky_p1ry8"]
+sky_material = SubResource("PanoramaSkyMaterial_xwcet")
+
+[sub_resource type="Environment" id="Environment_n4st5"]
+background_mode = 2
+sky = SubResource("Sky_p1ry8")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 2
+glow_enabled = true
+glow_bloom = 0.38
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_33cqm"]
+_surfaces = [{
+"aabb": AABB(-0.5, -0.5, -0.5, 1, 1, 1),
+"attribute_data": PackedByteArray("AACAPwAAAABNXYc+EBnrPAAAgD8AAIA/AACAPwAAAAAAAAAAAAAAAAAAgD8AAIA/AACAPwAAAAAAAAAAAAAAAAAAgD8AAIA/AACAPwAAgD9OXYc+AAAAAE5dhz44p3g/AACAPwAAgD8AAIA/TV2HPgAAAAAAAIA/AACAPwAAgD9NXYc+EBnrPE1dhz4AAIA/AACAPwAAgD8AAAAAAAAAAAAAAAAAAIA/AACAPwAAgD8AAIA/AAAAAE5dhz4AAAAAAAAAAAAAgD8AAIA/TV2HPgAAAABOXYc+AACAPwAAAAD0yEY+0BjrPE1dhz4QGes8AACAPwAAAAAAAAAAAAAAAPTIRj7QGOs8AAAAAAAAAAD0yEY+AACAP/TIRj7QGOs8AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD9OXYc+OKd4P/jIRj46p3g/AACAPwAAgD/4yEY+Oqd4PwAAAAAAAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAgD/4yEY+Oqd4PwAAAAAAAAAAAAAAAAAAAAAAAAAAAACAP/TIRj4AAIA/AACAPwAAgD8AAAAAAAAAAAAAAAAAAIA/AACAPwAAAAAAAAAA+MhGPgAAgD/0yEY+AAAAAAAAAAD4yEY+Oqd4P/jIRj4AAAAAAACAPwAAAAAAAAAAAAAAAAAAAAD4yEY+1iF4PwAAAADWIXg/AACAPyZxzD0AAAAAAACAP9YheD+Pq+k+1iF4PwAAgD8mccw9kavpPttxZj8AAIA/McX7PAAAgD/bcWY/1iF4PwAAgD8mccw9AACAPyZxzD0AAAAAAACAPzHF+zyRq+k+23FmP5Gr6T4xxfs8AACAPyZxzD2Pq+k+1iF4P4+r6T4mccw9"),
+"format": 34359738391,
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 84,
+"vertex_data": PackedByteArray("AAAAvwAAAL8AAAC/Z0VxPm9O8b4AAAC/AAAAvwAAAD8AAAC/AAAAvwAAAL8AAAC/AAAAvwAAAD8AAAC/AAAAvwAAAL8AAAA/AAAAvwAAAL8AAAC/AAAAvwAAAL8AAAA/AAAAPwAAAL8AAAC/AAAAvwAAAL8AAAA/ZEVxPgAAAD8AAAA/ZEVxPm9O8b4AAAA/AAAAvwAAAD8AAAC/Z0VxPgAAAD8AAAC/AAAAvwAAAD8AAAA/AAAAvwAAAD8AAAC/Z0VxPm9O8b4AAAC/Z0VxPgAAAD8AAAC/AAAAvwAAAL8AAAA/AAAAvwAAAD8AAAC/AAAAvwAAAD8AAAA/AAAAvwAAAL8AAAA/AAAAvwAAAD8AAAA/ZEVxPgAAAD8AAAA/AAAAvwAAAD8AAAA/Z0VxPgAAAD8AAAC/ZEVxPgAAAD8AAAA/AAAAvwAAAL8AAAC/hpucPnNO8b4AAAC/Z0VxPm9O8b4AAAC/AAAAvwAAAL8AAAC/AAAAPwAAAL8AAAC/hpucPnNO8b4AAAC/AAAAPwAAAL8AAAC/hpucPgAAAD8AAAC/hpucPnNO8b4AAAC/AAAAvwAAAL8AAAA/AAAAPwAAAL8AAAA/AAAAPwAAAL8AAAC/AAAAvwAAAL8AAAA/ZEVxPm9O8b4AAAA/hJucPnNO8b4AAAA/AAAAvwAAAL8AAAA/hJucPnNO8b4AAAA/AAAAPwAAAL8AAAA/AAAAPwAAAL8AAAC/AAAAPwAAAL8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAL8AAAA/hJucPnNO8b4AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAL8AAAC/AAAAPwAAAD8AAAC/hpucPgAAAD8AAAC/AAAAPwAAAL8AAAC/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAC/AAAAPwAAAD8AAAC/hJucPgAAAD8AAAA/hpucPgAAAD8AAAC/AAAAPwAAAD8AAAA/hJucPnNO8b4AAAA/hJucPgAAAD8AAAA/AAAAPwAAAD8AAAC/AAAAPwAAAD8AAAA/hJucPgAAAD8AAAA/Z0VxPm9O8b4AAAC/hpucPnNO8b4AAAC/ZEVxPm9O8b4AAAA/hpucPnNO8b4AAAC/hpucPgAAAD8AAAC/hJucPnNO8b4AAAA/ZEVxPgAAAD8AAAA/Z0VxPm9O8b4AAAC/ZEVxPm9O8b4AAAA/hpucPnNO8b4AAAC/hJucPnNO8b4AAAA/ZEVxPm9O8b4AAAA/Z0VxPm9O8b4AAAC/ZEVxPgAAAD8AAAA/Z0VxPgAAAD8AAAC/hJucPnNO8b4AAAA/hpucPgAAAD8AAAC/hJucPgAAAD8AAAA//////wAA/z//////AAD/P/////8AAP8/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAA/3//fwAA/z//f/9/AAD/P/9//38AAP8//3//////AAD/f/////8AAP9//////wAA/////wAA/z//////AAD/P/////8AAP8/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//3//fwAA/z//f/9/AAD/P/9//38AAP8//3//////AAD/f/////8AAP9//////wAA/////wAA/z//////AAD/P/////8AAP8//////wAA/z//////AAD/P/////8AAP8//////wAA/z//////AAD/P/////8AAP8//38AAP//AAD/fwAA//8AAP9/AAD//wAA/3//fwAA/z//f/9/AAD/P/9//38AAP8//3//fwAA/z//f/9/AAD/P/9//38AAP8/////f/9//n////9//3/+f////3//f/5//3//fwAA/z//f/9/AAD/P/9//38AAP8//////wAA/z//////AAD/P/////8AAP8/////f/9//n////9//3/+f////3//f/5//3//////AAD/f/////8AAP9//////wAA/3//fwAA/z//f/9/AAD/P/9//38AAP8//3//////AAD/f/////8AAP9//////wAA/3/+////////f/7///////9//v//////AAD/f/9/AIAAAP9//38AgAAA/3//fwCA////f/9/AID///9//38AgP///3//fwCA/3/+////////f/7///////9//v//////////f/9/AID///9//38AgP///3//fwCAAAD/f/9/AIAAAP9//38AgAAA/3//fwCA")
+}]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xwcet"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_p1ry8"]
+_surfaces = [{
+"aabb": AABB(-0.5, -0.5, -0.5, 1, 1, 1),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/"),
+"format": 34359738391,
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 36,
+"vertex_data": PackedByteArray("AAAAvwAAAL8AAAA/AAAAvwAAAL8AAAC/AAAAvwAAAD8AAAC/AAAAPwAAAL8AAAC/AAAAvwAAAL8AAAC/AAAAvwAAAL8AAAA/AAAAvwAAAD8AAAC/AAAAvwAAAL8AAAC/AAAAPwAAAL8AAAC/AAAAvwAAAD8AAAC/AAAAvwAAAD8AAAA/AAAAvwAAAL8AAAA/AAAAvwAAAL8AAAA/AAAAvwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAvwAAAD8AAAA/AAAAvwAAAD8AAAC/AAAAvwAAAL8AAAA/AAAAPwAAAL8AAAA/AAAAPwAAAL8AAAC/AAAAPwAAAD8AAAA/AAAAPwAAAL8AAAA/AAAAvwAAAL8AAAA/AAAAPwAAAL8AAAC/AAAAPwAAAL8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAL8AAAC/AAAAPwAAAD8AAAC/AAAAvwAAAD8AAAC/AAAAvwAAAD8AAAC/AAAAPwAAAD8AAAC/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAC/AAAAPwAAAL8AAAC/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAA/////wAA/z//////AAD/P/////8AAP8/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//3//fwAA/z//f/9/AAD/P/9//38AAP8//3//////AAD/f/////8AAP9//////wAA/38AAP//AAD/fwAA//8AAP9/AAD//wAA/3//fwAA/z//f/9/AAD/P/9//38AAP8/////f/9//n////9//3/+f////3//f/5//////wAA/z//////AAD/P/////8AAP8//3//////AAD/f/////8AAP9//////wAA////f/9//n////9//3/+f////3//f/5/")
+}]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xlg7c"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[node name="game" type="Node3D" unique_id=493351623]
+
+[node name="Shaders" parent="." unique_id=3074839 instance=ExtResource("1_5kiuu")]
+
+[node name="env" type="Node3D" parent="." unique_id=220677502]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="env" unique_id=1092278299]
+transform = Transform3D(0.7915475, -0.46037152, -0.40188402, 0.14242102, -0.5005526, 0.8539108, -0.5942806, -0.7331474, -0.3306443, 0, 2.5571272, 7.7303076)
+light_volumetric_fog_energy = 3.644
+shadow_enabled = true
+shadow_blur = 2.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="env" unique_id=2144639091]
+environment = SubResource("Environment_n4st5")
+
+[node name="level" type="Node3D" parent="." unique_id=1907808767]
+
+[node name="base" type="MeshInstance3D" parent="level" unique_id=369434635]
+transform = Transform3D(11.08053, 0, 0, 0, 0.2904427, 0, 0, 0, 11.988486, 0, 0, 0)
+mesh = SubResource("ArrayMesh_33cqm")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="level/base" unique_id=875917917]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="level/base/StaticBody3D" unique_id=367453679]
+shape = SubResource("ConvexPolygonShape3D_xwcet")
+
+[node name="house" type="MeshInstance3D" parent="level" unique_id=363886803]
+transform = Transform3D(2.7963536, 0, 0, 0, 3.6489384, 0, 0, 0, 2.2049816, -2.0221975, 0.59279263, 4.376685)
+mesh = SubResource("ArrayMesh_p1ry8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="level/house" unique_id=1497818115]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="level/house/StaticBody3D" unique_id=1811846005]
+shape = SubResource("ConvexPolygonShape3D_xlg7c")
+
+[node name="player" parent="." unique_id=106805292 instance=ExtResource("2_dbls1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3675703, 0)
+
+[node name="Camera3D" type="Camera3D" parent="player" unique_id=207297402]
+transform = Transform3D(1, 0, 0, 0, 0.94587034, 0.32454482, 0, -0.32454482, 0.94587034, 0.28820348, 3.129786, 4.7847304)
