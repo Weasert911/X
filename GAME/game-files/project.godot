@@ -10,9 +10,15 @@ config_version=5
 
 [application]
 
-config/name="Game files"
+config/name="Little Nightmares Prototype"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/mode=3
 
 [physics]
 
@@ -22,3 +28,5 @@ config/icon="res://icon.svg"
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
+environment/defaults/default_clear_color=Color(0.02, 0.02, 0.03, 1)
+anti_aliasing/quality/msaa=2

@@ -12,7 +12,7 @@ Build a playable version that proves:
 
 - Player movement
 - Basic map (gali layout)
-- Camera (top-down)
+- Camera (top-down angled)
 
 ---
 

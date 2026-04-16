@@ -1,39 +1,36 @@
 # Art & Audio Style
 
-## Visual Direction: Hand-Drawn Cartoon Style
+## Visual Direction: 3D Stylized Toon Art with Bold Outlines
 
 ### Core Style
 
-- **Loose hand-drawn cartoon aesthetic** with organic, artistic feel
-- **Thick outer black outline** defining all characters and objects
-- **Flat colors** with no gradients for clean, bold appearance
-- **Slightly uneven lines but controlled** - maintains readability while preserving hand-drawn charm
-- **Simple shapes** for clarity and easy recognition
-- **Big head proportions** (40–50% of body) for expressive, character-focused design
-- **Minimal facial features** - dot eyes, line mouth for universal appeal
-- **Exaggerated proportions** for comedic and expressive effect
-- **Clean readable silhouette** essential for gameplay clarity
-- **White or transparent background** for versatility
-- **No shading or very minimal shadow** for flat, graphic look
+- **3D stylized art** using toon shading with consistent bold outlines for all characters and props
+- **Strong silhouettes** for immediate recognition in chaotic scenes
+- **Flat color shading** with minimal gradients, high contrast color palette inspired by Indian streets (bright, saturated, readable)
+- **Avoid realism completely** – prioritize clarity over detail
+- **No pixel-art rendering or pixel shaders** – all assets are modular 3D models
+- **Materials** designed for visual consistency and readability
+- **Lighting** enhances shape readability, not realism; uses directional light with subtle rim lighting
 
-### Lighting
+### Camera System: Top-Down Angled (Megabonk / Among Us Style)
 
-- **Single light source** from top-left direction
-- **Only ONE shadow tone** per object for consistency
-- **Shadow placement** on bottom-right side of objects
-- **No gradients** - flat colors only
-- **No soft shading** - hard, flat shadow shapes only
+- **Camera tilt:** ~30–45 degrees for optimal gameplay visibility
+- **Wide field of view** to keep multiple players visible at once
+- **Supports chaos readability** – camera designed to maintain clarity during dense action
+- **Player interaction awareness** – camera angle ensures players can see each other’s actions and environmental reactions
+- **Avoids obstruction** in dense environments through careful level design and camera positioning
+- **Avoids first-person and third-person over-the-shoulder** perspectives
 
 ---
 
 ## Characters
 
-- **Head-to-body ratio**: 40–50% head size for expressive, character-focused design
-- **Thick black outlines** defining character shapes and features
-- **Minimal facial features**: simple dot eyes and line mouth for universal appeal
-- **Exaggerated proportions** for comedic and expressive effect
+- **Modular 3D models** with stylized low-poly to mid-poly geometry
+- **Expressive toon-shaded animation** with smooth keyframe animation (not frame-by-frame pixel)
+- **Strong silhouettes** maintained through bold outlines and shape language
 - **Clothing and details** reflect Indian urban culture using simple, bold shapes
-- **Strong silhouettes** for immediate recognition in chaotic scenes
+- **Facial expressions** conveyed through exaggerated but clean 3D morphs or texture changes
+- **Proportional stylization** – slightly exaggerated features for readability and humor
 - **Flat colors** with no gradients or complex shading
 - **Clean, readable shapes** that work at various scales
 
@@ -41,42 +38,42 @@
 
 ## Environment
 
-- **Hand-drawn backgrounds** with consistent cartoon style
-- **Dense Indian streets** (gali, markets, rooftops) recreated with simple, bold shapes
-- **Layered backgrounds** for depth (2-3 layers max)
-- **Isometric or top-down perspective** depending on gameplay needs
-- **Flat colors** with thick outlines matching character style
+- **Modular 3D environments** built from reusable kits (walls, roofs, props)
+- **Dense Indian streets** (gali, markets, rooftops) recreated with stylized geometry
+- **Layered depth** through parallax scrolling or multi-plane camera (optional)
+- **Top-down perspective** optimized for camera angle
+- **Toon-shaded materials** with flat colors and outlines matching character style
 - **Clean, readable environments** that don't compete with characters
 
-### Key Elements (Hand-Drawn Versions)
+### Key Elements (3D Stylized Versions)
 
-- Rickshaws, bikes, auto-rickshaws (simplified iconic shapes with thick outlines)
+- Rickshaws, bikes, auto-rickshaws (simplified iconic shapes with bold outlines)
 - Small houses with accessible interiors (clear, simple doorways)
-- Street props (crates, carts, water tanks, street vendors) as simple, bold shapes
-- Graffiti and wall art as hand-drawn murals with consistent style
+- Street props (crates, carts, water tanks, street vendors) as simple, bold 3D shapes
+- Graffiti and wall art as stylized decals or texture work
 
 ---
 
 ## Animation Style
 
-- **Hand-drawn frame-by-frame animation** with smooth, organic motion
-- **Snappy, exaggerated motions** with cartoon physics
-- **Squash & stretch** for impact and expressiveness
-- **Humor-driven motion** with precise timing
-- **Limited animation cycles** (walk: 4-6 frames, run: 6-8 frames, idle: 2-3 frames)
-- **Maintain thick outlines** throughout animation frames
+- **Keyframe 3D animation** with snappy, exaggerated motions
+- **Squash & stretch** applied within 3D deformation for impact
+- **Humor-driven motion** with precise timing and cartoon physics
+- **Limited animation cycles** for efficiency (walk: 4–6 keyframes, run: 6–8 keyframes, idle: 2–3 keyframes)
+- **Outline consistency** – outlines remain stable during deformation
 - **Flat colors** consistent across all animation frames
 
 ---
 
 ## UI Style
 
-- **Hand-drawn UI elements** with thick black outlines
-- **Clean, simple icons** matching the cartoon art style
-- **Minimal text, more intuitive symbols** using hand-drawn representations
-- **Color coding** for quick recognition
+- **Toon-styled UI** with bold outlines and flat colors matching the 3D art
+- **Clean, simple icons** designed as 2D vector art that complements the 3D look
+- **Minimal text, more intuitive symbols** using stylized representations
+- **Color coding** for quick recognition within the high-contrast palette
 - **Flat design** with no gradients or complex effects
 - **Consistent with game art style** for cohesive visual experience
+- **No pixel fonts** – use clean, readable sans-serif fonts with slight stylization
 
 ---
 
@@ -88,33 +85,31 @@
 - Short, punchy lines with comedic delivery
 - Slight variations to avoid repetition
 - Voice acting with mature but playful tone
-- **8-bit/16-bit chip tune style voice effects** optional for retro consistency
-
----
+- **No chip-tune voice effects** – clean, modern voice processing that matches the 3D style
 
 ### Sound Design
 
-- Environmental chaos (crowds, dogs, horns, street sounds) with chiptune adaptations
-- Comedic timing for effects with retro sound chip limitations (square waves, noise channels)
-- Clear audio cues for gameplay actions using distinct frequency ranges
-- Layered audio for depth while maintaining retro hardware constraints
+- Environmental chaos (crowds, dogs, horns, street sounds) with stylized audio treatments
+- Comedic timing for effects with exaggerated pitch and timing
+- Clear audio cues for gameplay actions using distinct sound signatures
+- Layered audio for depth while maintaining clarity
 
 ---
 
 ## Technical Constraints & Guidelines
 
-1. **Line Quality**: Consistent thick black outlines throughout all assets
-2. **Color Palette**: Flat colors with no gradients, limited palette for cohesion
-3. **Animation Budget**: Max 8 frames per character action, 4 frames for environment
-4. **Asset Organization**: Sprite sheets organized for efficient rendering
-5. **Scaling**: Vector-friendly design for clean scaling at any resolution
-6. **Background**: White or transparent backgrounds for all assets
+1. **Outline Rendering:** Consistent outline thickness across all assets via post-process or geometry shader
+2. **Color Palette:** High-contrast, saturated colors with flat shading; avoid gradients and noisy textures
+3. **Animation Budget:** Max 8 keyframes per character action, 4 for environment objects
+4. **Model Complexity:** Low-poly to mid-poly counts optimized for multiplayer performance
+5. **Camera:** Fixed top-down angled camera with no rotation; level design must account for visibility
+6. **Asset Pipeline:** 3D models in FBX/GLTF format; materials use toon shader with outline parameter
 
 ---
 
 ## Key Principle
 
-**Clarity over detail.**
-Chaos must be readable at all times through clean silhouettes and simple shapes.
-Humor through clever character design and exaggerated proportions, not through childish exaggeration.
-**Every line intentional.**
+**Clarity over detail.**  
+Chaos must be readable at all times through shape language, outlines, and strong silhouettes.  
+Humor through clever design and exaggerated motion, not through childish exaggeration.  
+**Every shape intentional.**

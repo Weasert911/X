@@ -1,7 +1,7 @@
 # Gali Chaos - Game Design Document
 
 ## Version
-1.0 - Updated for 32x32 Pixel Art Style
+1.1 - Updated for 3D Stylized Toon Art & Top-Down Angled Camera
 
 ## Table of Contents
 1. [Overview](#overview)
@@ -140,48 +140,52 @@ Multiplayer must feel:
 
 ## Art & Audio Style
 
-### Visual Direction: 32x32 Pixel Art
-- **32x32 pixel base** for characters and key objects, with environment tiles at same scale
-- **Limited color palette** (16-32 colors) for cohesive retro feel
-- **Clear pixel-level readability** with intentional aliasing and pixel-perfect edges
-- **Vibrant but constrained colors** inspired by Indian street art and classic pixel art games
-- **Balance between detail and simplicity** - each pixel counts for maximum expression
-- **Retro aesthetic with modern polish** - crisp animations, smooth lighting effects
+### Visual Direction: 3D Stylized Toon Art with Bold Outlines
+- **3D stylized art** using toon shading with consistent bold outlines for all characters and props
+- **Strong silhouettes** for immediate recognition in chaotic scenes
+- **Flat color shading** with minimal gradients, high contrast color palette inspired by Indian streets (bright, saturated, readable)
+- **Avoid realism completely** – prioritize clarity over detail
+- **No pixel-art rendering or pixel shaders** – all assets are modular 3D models
+- **Materials** designed for visual consistency and readability
+- **Lighting** enhances shape readability, not realism; uses directional light with subtle rim lighting
+
+### Camera System: Top-Down Angled (Megabonk / Among Us Style)
+- **Camera tilt:** ~30–45 degrees for optimal gameplay visibility
+- **Wide field of view** to keep multiple players visible at once
+- **Supports chaos readability** – camera designed to maintain clarity during dense action
+- **Player interaction awareness** – camera angle ensures players can see each other’s actions and environmental reactions
+- **Avoids obstruction** in dense environments through careful level design and camera positioning
+- **Avoids first-person and third-person over-the-shoulder** perspectives
 
 ### Characters
-- **Base sprite size:** 32x32 pixels (can be taller with multi-tile characters)
-- **Expressive pixel animation** with limited frames (4-8 frames per action)
-- **Strong silhouettes** for immediate recognition in chaotic scenes
-- **Clothing and details** reflect Indian urban culture using minimal pixel representation
-- **Facial expressions** conveyed through subtle pixel changes (eyebrow, mouth shifts)
-- **Proportional stylization:** slightly exaggerated features for readability, not chibi
+- **Modular 3D models** with stylized low-poly to mid-poly geometry
+- **Expressive toon-shaded animation** with smooth keyframe animation (not frame-by-frame pixel)
+- **Strong silhouettes** maintained through bold outlines and shape language
+- **Clothing and details** reflect Indian urban culture using simple, bold shapes
+- **Facial expressions** conveyed through exaggerated but clean 3D morphs or texture changes
+- **Proportional stylization** – slightly exaggerated features for readability and humor
 
 ### Environment
-- **Tile-based environments** with 32x32 pixel tiles
-- **Dense Indian streets** (gali, markets, rooftops) recreated in pixel art detail
-- **Layered parallax backgrounds** for depth (2-3 layers max)
-- **Isometric or top-down perspective** depending on gameplay needs
-- **Pixel art textures** with dithering and pattern techniques for visual interest
-
-#### Key Elements (Pixel Art Versions)
-- Rickshaws, bikes, auto-rickshaws (simplified iconic shapes)
-- Small houses with accessible interiors (doorways as 2x2 pixel openings)
-- Street props (crates, carts, water tanks, street vendors) as 16x16 or 32x32 sprites
-- Graffiti and wall art as pixel art murals (8x8 or 16x16 tile patterns)
+- **Modular 3D environments** built from reusable kits (walls, roofs, props)
+- **Dense Indian streets** (gali, markets, rooftops) recreated with stylized geometry
+- **Layered depth** through parallax scrolling or multi-plane camera (optional)
+- **Top-down perspective** optimized for camera angle
+- **Toon-shaded materials** with flat colors and outlines matching character style
+- **Key elements** as 3D models: rickshaws, bikes, auto-rickshaws, small houses, street props (crates, carts, water tanks, vendors)
 
 ### Animation Style
-- **Frame-by-frame pixel animation** with smooth interpolation
-- **Snappy, exaggerated motions** within pixel grid constraints
-- **Squash & stretch** using 1-2 pixel deformations for impact
-- **Humor-driven motion** with precise timing (pixel-perfect transitions)
-- **Limited animation cycles** (walk: 4 frames, run: 6 frames, idle: 2 frames)
+- **Keyframe 3D animation** with snappy, exaggerated motions
+- **Squash & stretch** applied within 3D deformation for impact
+- **Humor-driven motion** with precise timing and cartoon physics
+- **Limited animation cycles** for efficiency (walk: 4–6 keyframes, run: 6–8 keyframes, idle: 2–3 keyframes)
+- **Outline consistency** – outlines remain stable during deformation
 
 ### UI Style
-- **Pixel font interface** (4x6 or 6x8 pixel fonts)
-- **Clean pixel icons** with 16x16 or 24x24 dimensions
-- **Minimal text, more intuitive symbols** using pixel art representations
-- **Color coding** for quick recognition within limited palette
-- **Retro-inspired menus** with scanlines or CRT filter options
+- **Toon-styled UI** with bold outlines and flat colors matching the 3D art
+- **Clean, simple icons** designed as 2D vector art that complements the 3D look
+- **Minimal text, more intuitive symbols** using stylized representations
+- **Color coding** for quick recognition within the high-contrast palette
+- **No pixel fonts** – use clean, readable sans-serif fonts with slight stylization
 
 ### Audio Direction
 
@@ -190,26 +194,27 @@ Multiplayer must feel:
 - Short, punchy lines with comedic delivery
 - Slight variations to avoid repetition
 - Voice acting with mature but playful tone
-- **8-bit/16-bit chip tune style voice effects** optional for retro consistency
+- **No chip-tune voice effects** – clean, modern voice processing that matches the 3D style
 
 #### Sound Design
-- Environmental chaos (crowds, dogs, horns, street sounds) with chiptune adaptations
-- Comedic timing for effects with retro sound chip limitations (square waves, noise channels)
-- Clear audio cues for gameplay actions using distinct frequency ranges
-- Layered audio for depth while maintaining retro hardware constraints
+- Environmental chaos (crowds, dogs, horns, street sounds) with stylized audio treatments
+- Comedic timing for effects with exaggerated pitch and timing
+- Clear audio cues for gameplay actions using distinct sound signatures
+- Layered audio for depth while maintaining clarity
 
 ### Technical Constraints & Guidelines
-1. **Pixel Grid:** All assets align to 32x32 grid, sub-elements to 16x16 or 8x8
-2. **Color Palette:** Primary palette of 16 colors, extended palette of 32 for accents
-3. **Animation Budget:** Max 8 frames per character action, 4 frames for environment
-4. **Memory Considerations:** Sprite sheets organized for efficient rendering
-5. **Scaling:** Integer scaling only (2x, 3x, 4x) to preserve pixel perfection
+1. **Outline Rendering:** Consistent outline thickness across all assets via post-process or geometry shader
+2. **Color Palette:** High-contrast, saturated colors with flat shading; avoid gradients and noisy textures
+3. **Animation Budget:** Max 8 keyframes per character action, 4 for environment objects
+4. **Model Complexity:** Low-poly to mid-poly counts optimized for multiplayer performance
+5. **Camera:** Fixed top-down angled camera with no rotation; level design must account for visibility
+6. **Asset Pipeline:** 3D models in FBX/GLTF format; materials use toon shader with outline parameter
 
 ### Key Principle
 **Clarity over detail.**  
-Chaos must be readable at all times, even at pixel level.  
-Humor through clever pixel design, not through childish exaggeration.  
-**Every pixel intentional.**
+Chaos must be readable at all times through shape language, outlines, and strong silhouettes.  
+Humor through clever design and exaggerated motion, not through childish exaggeration.  
+**Every shape intentional.**
 
 ---
 
@@ -224,7 +229,7 @@ Build a playable version that proves:
 ### Phase 1: Core Setup
 - Player movement
 - Basic map (gali layout)
-- Camera (top-down)
+- Camera (top-down angled)
 
 ### Phase 2: Core Mechanics
 - **Chaos System:**
@@ -274,17 +279,18 @@ Expand:
 ## Technical Considerations
 
 ### Engine
-- Unity or Godot recommended for 2D pixel art and multiplayer support
+- Unity or Godot recommended for 3D stylized rendering and multiplayer support
 
 ### Asset Pipeline
-- All art assets must be created at 1x scale (32x32 base)
-- Export as sprite sheets with consistent naming conventions
-- Use Aseprite or Pyxel Edit for pixel art creation
+- All 3D assets created in Blender/Maya with toon shader and outline setup
+- Export as FBX/GLTF with consistent scale and pivot
+- Material definitions for flat colors and outline thickness
 
 ### Performance Targets
 - 60 FPS on mid-range hardware
 - Support for 8+ players with minimal lag
 - Efficient netcode for chaotic real-time interactions
+- Outline rendering optimized for multiplayer visibility
 
 ### Platform Targets
 - PC (Steam) primary
@@ -294,5 +300,6 @@ Expand:
 ---
 
 ## Revision History
+- **2026-04-16:** Updated visual style to 3D stylized toon art with top-down angled camera
 - **2026-04-12:** Updated visual style to 32x32 pixel art, consolidated GDD
 - **Previous:** Initial documentation split across multiple files
