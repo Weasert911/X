@@ -4,10 +4,11 @@ render_mode blend_mix;
 // Subtle animated film grain
 // Helps hide banding in flat toon shading
 
-uniform float intensity : hint_range(0.0, 0.2, 0.001) = 0.03;
-uniform float speed : hint_range(0.0, 5.0, 0.1) = 1.0;
-uniform float scale : hint_range(0.5, 10.0, 0.1) = 3.0;
-uniform bool colored : hint_toggle = false;
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+uniform float intensity : hint_range(0.0, 0.2) = 0.03;
+uniform float speed : hint_range(0.0, 5.0) = 1.0;
+uniform float scale : hint_range(0.5, 10.0) = 3.0;
+uniform bool colored = false;
 
 // Simple pseudo‑random hash
 float hash(vec2 p) {
@@ -29,7 +30,7 @@ float noise(vec2 uv) {
 }
 
 void fragment() {
-	vec4 screen_color = texture(SCREEN_TEXTURE, SCREEN_UV);
+	vec4 screen_color = texture(screen_texture, SCREEN_UV);
 	
 	// Animated noise coordinate
 	vec2 uv = SCREEN_UV * scale + vec2(TIME * 0.1 * speed, TIME * 0.07 * speed);

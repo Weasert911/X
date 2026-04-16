@@ -4,14 +4,15 @@ render_mode blend_mix;
 // Color grading with Indian street vibe
 // Warm highlights, cool shadows, high contrast midtones
 
-uniform float warmth : hint_range(0.0, 2.0, 0.01) = 1.2;
-uniform float cool_shadows : hint_range(0.0, 1.0, 0.01) = 0.3;
-uniform float contrast : hint_range(0.5, 2.0, 0.01) = 1.4;
-uniform float saturation : hint_range(0.0, 2.0, 0.01) = 1.1;
-uniform float vibrance : hint_range(0.0, 2.0, 0.01) = 1.3;
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+uniform float warmth : hint_range(0.0, 2.0) = 1.2;
+uniform float cool_shadows : hint_range(0.0, 1.0) = 0.3;
+uniform float contrast : hint_range(0.5, 2.0) = 1.4;
+uniform float saturation : hint_range(0.0, 2.0) = 1.1;
+uniform float vibrance : hint_range(0.0, 2.0) = 1.3;
 
 void fragment() {
-	vec4 screen_color = texture(SCREEN_TEXTURE, SCREEN_UV);
+	vec4 screen_color = texture(screen_texture, SCREEN_UV);
 	vec3 color = screen_color.rgb;
 	
 	// Apply contrast

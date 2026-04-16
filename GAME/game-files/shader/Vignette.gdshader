@@ -4,13 +4,14 @@ render_mode blend_mix;
 // Subtle vignette (edge darkening)
 // Never over‑darkens center, preserves gameplay visibility
 
-uniform float strength : hint_range(0.0, 1.0, 0.01) = 0.3;
-uniform float smoothness : hint_range(0.0, 1.0, 0.01) = 0.5;
-uniform float roundness : hint_range(0.0, 1.0, 0.01) = 0.5;
-uniform vec2 center : hint_range(-0.5, 1.5, 0.01) = vec2(0.5, 0.5);
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+uniform float strength : hint_range(0.0, 1.0) = 0.3;
+uniform float smoothness : hint_range(0.0, 1.0) = 0.5;
+uniform float roundness : hint_range(0.0, 1.0) = 0.5;
+uniform vec2 center = vec2(0.5, 0.5);
 
 void fragment() {
-	vec4 screen_color = texture(SCREEN_TEXTURE, SCREEN_UV);
+	vec4 screen_color = texture(screen_texture, SCREEN_UV);
 	vec2 uv = SCREEN_UV;
 	
 	// Distance from center, with aspect‑ratio correction

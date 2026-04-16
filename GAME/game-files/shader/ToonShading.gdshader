@@ -4,12 +4,13 @@ render_mode blend_mix;
 // Toon shading via posterization
 // Creates strong flat shading look
 
-uniform int bands : hint_range(2, 8, 1) = 4;
-uniform float edge_threshold : hint_range(0.0, 0.5, 0.01) = 0.1;
-uniform float brightness_floor : hint_range(0.0, 1.0, 0.01) = 0.3;
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+uniform int bands : hint_range(2, 8) = 4;
+uniform float edge_threshold : hint_range(0.0, 0.5) = 0.1;
+uniform float brightness_floor : hint_range(0.0, 1.0) = 0.3;
 
 void fragment() {
-	vec4 screen_color = texture(SCREEN_TEXTURE, SCREEN_UV);
+	vec4 screen_color = texture(screen_texture, SCREEN_UV);
 	
 	// Convert to luminance
 	float luminance = dot(screen_color.rgb, vec3(0.299, 0.587, 0.114));
@@ -25,10 +26,10 @@ void fragment() {
 	vec2 uv_left = SCREEN_UV + vec2(-pixel_size.x, 0.0);
 	vec2 uv_right = SCREEN_UV + vec2(pixel_size.x, 0.0);
 	
-	float lum_up = dot(texture(SCREEN_TEXTURE, uv_up).rgb, vec3(0.299, 0.587, 0.114));
-	float lum_down = dot(texture(SCREEN_TEXTURE, uv_down).rgb, vec3(0.299, 0.587, 0.114));
-	float lum_left = dot(texture(SCREEN_TEXTURE, uv_left).rgb, vec3(0.299, 0.587, 0.114));
-	float lum_right = dot(texture(SCREEN_TEXTURE, uv_right).rgb, vec3(0.299, 0.587, 0.114));
+	float lum_up = dot(texture(screen_texture, uv_up).rgb, vec3(0.299, 0.587, 0.114));
+	float lum_down = dot(texture(screen_texture, uv_down).rgb, vec3(0.299, 0.587, 0.114));
+	float lum_left = dot(texture(screen_texture, uv_left).rgb, vec3(0.299, 0.587, 0.114));
+	float lum_right = dot(texture(screen_texture, uv_right).rgb, vec3(0.299, 0.587, 0.114));
 	
 	float edge = 0.0;
 	edge += abs(luminance - lum_up);

@@ -4,9 +4,10 @@ render_mode blend_mix, unshaded;
 // Outline detection via Sobel filter on luminance
 // Outputs edge mask (white = edge, black = no edge)
 
-uniform float edge_threshold : hint_range(0.0, 1.0, 0.01) = 0.15;
-uniform float edge_softness : hint_range(0.0, 1.0, 0.01) = 0.05;
-uniform float intensity : hint_range(0.0, 2.0, 0.01) = 1.0;
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+uniform float edge_threshold : hint_range(0.0, 1.0) = 0.15;
+uniform float edge_softness : hint_range(0.0, 1.0) = 0.05;
+uniform float intensity : hint_range(0.0, 2.0) = 1.0;
 
 void fragment() {
 	vec2 uv = SCREEN_UV;
@@ -22,7 +23,7 @@ void fragment() {
 	// Sample luminance in 3x3 neighborhood
 	float lum[9];
 	for (int i = 0; i < 9; i++) {
-		vec3 col = texture(SCREEN_TEXTURE, uv + offsets[i]).rgb;
+		vec3 col = texture(screen_texture, uv + offsets[i]).rgb;
 		lum[i] = dot(col, vec3(0.299, 0.587, 0.114));
 	}
 	
