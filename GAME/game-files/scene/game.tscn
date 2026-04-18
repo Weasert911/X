@@ -18,6 +18,7 @@ ambient_light_source = 3
 reflected_light_source = 2
 tonemap_mode = 2
 glow_bloom = 0.38
+volumetric_fog_sky_affect = 0.025
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_33cqm"]
 _surfaces = [{
@@ -57,7 +58,7 @@ points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="env" unique_id=1092278299]
 transform = Transform3D(0.7915475, -0.46037152, -0.40188402, 0.14242102, -0.5005526, 0.8539108, -0.5942806, -0.7331474, -0.3306443, 0, 2.5571272, 7.7303076)
-light_volumetric_fog_energy = 3.644
+light_volumetric_fog_energy = 3.327
 shadow_enabled = true
 shadow_blur = 2.0
 
@@ -85,7 +86,4 @@ mesh = SubResource("ArrayMesh_p1ry8")
 shape = SubResource("ConvexPolygonShape3D_xlg7c")
 
 [node name="player" parent="." unique_id=106805292 instance=ExtResource("2_dbls1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3675703, 0)
-
-[node name="Camera3D" type="Camera3D" parent="player" unique_id=207297402]
-transform = Transform3D(1, 0, 0, 0, 0.94587034, 0.32454482, 0, -0.32454482, 0.94587034, 0.28820348, 3.129786, 4.7847304)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3668694, 0)

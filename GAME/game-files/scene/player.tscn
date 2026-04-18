@@ -1,12 +1,14 @@
 [gd_scene format=3 uid="uid://btim62k8d8f6k"]
 
-[ext_resource type="Script" uid="uid://dgd04t6dcl6nx" path="res://script/player.gd" id="1_xo3ru"]
+[ext_resource type="Script" uid="uid://bakyto4qtnvfe" path="res://script/player.gd" id="1_xo3ru"]
+[ext_resource type="Script" uid="uid://palh7kpkbah4" path="res://script/camera_controller.gd" id="2_camera_controller"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hjaqi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fvtld"]
 
 [node name="player" type="CharacterBody3D" unique_id=106805292]
+floor_stop_on_slope = false
 script = ExtResource("1_xo3ru")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=798420979]
@@ -14,3 +16,14 @@ mesh = SubResource("CapsuleMesh_hjaqi")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=221856694]
 shape = SubResource("CapsuleShape3D_fvtld")
+
+[node name="CameraRig" type="Node3D" parent="." unique_id=999999998]
+script = ExtResource("2_camera_controller")
+camera_angle_degrees = 20.0
+base_distance = 8.0
+base_height = 4.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig" unique_id=999999999]
+transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.64278764, 0, -0.64278764, 0.76604444, 0, 8, 12)
+current = true
+fov = 70.0

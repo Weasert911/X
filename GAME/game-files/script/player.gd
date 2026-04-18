@@ -1,68 +1,111 @@
 extends CharacterBody3D
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+# ========================
+# 🎛️ CONFIG
+# ========================
 
-# Mouse look settings
-const MOUSE_SENSITIVITY = 0.002
-const MAX_PITCH = deg_to_rad(89.0)  # 89 degrees up/down
+@export var move_speed := 8.0
+@export var acceleration := 20.0
+@export var deceleration := 25.0
 
-# Camera references
-@onready var camera: Camera3D = $Camera3D
+@export var jump_force := 7.5
+@export var gravity := 20.0
 
-# Rotation accumulators
-var mouse_rotation: Vector2 = Vector2.ZERO
+@export var rotation_speed := 10.0
 
+# ========================
+# 🧠 INTERNAL
+# ========================
 
-func _ready() -> void:
-	# Capture mouse
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+@onready var camera_rig: Node3D = $CameraRig
+@onready var cam: Camera3D = $CameraRig/Camera3D
 
+var input_dir := Vector2.ZERO
+var current_velocity := Vector3.ZERO  # Track current velocity for camera system
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		# Accumulate mouse motion
-		mouse_rotation -= event.relative * MOUSE_SENSITIVITY
-		# Clamp vertical rotation to prevent over-rotation
-		mouse_rotation.y = clamp(mouse_rotation.y, -MAX_PITCH, MAX_PITCH)
-		
-		# Apply rotations
-		# Horizontal rotation (yaw) affects the player node
-		rotation.y = mouse_rotation.x
-		# Vertical rotation (pitch) affects only the camera
-		camera.rotation.x = mouse_rotation.y
-	
-	# Optional: Press Escape to release mouse
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_ESCAPE:
-			if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-			else:
-				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+# ========================
+# 🎮 INPUT
+# ========================
 
+func _get_input():
+	input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 
-func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+# ========================
+# 🚀 MAIN LOOP
+# ========================
 
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# Movement is now relative to camera's horizontal orientation
-	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	
-	# Create a basis that only considers the player's yaw (horizontal rotation)
-	var camera_basis = Basis(Vector3.UP, rotation.y)
-	var direction := (camera_basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
-
+func _physics_process(delta):
+	_get_input()
+	_apply_gravity(delta)
+	_handle_jump()
+	_handle_movement(delta)
 	move_and_slide()
+	
+	# Update current velocity for camera system
+	current_velocity = velocity
+
+# ========================
+# 🌍 MOVEMENT
+# ========================
+
+func _handle_movement(delta):
+	var direction = Vector3.ZERO
+
+	if input_dir != Vector2.ZERO:
+		# World-space movement (camera no longer rotates)
+		# Forward is negative Z, Right is positive X
+		var forward = Vector3.FORWARD  # -Z
+		var right = Vector3.RIGHT     # +X
+
+		direction = (forward * input_dir.y + right * input_dir.x).normalized()
+
+	var target_velocity = direction * move_speed
+
+	# Smooth accel/decel
+	velocity.x = move_toward(velocity.x, target_velocity.x, acceleration * delta)
+	velocity.z = move_toward(velocity.z, target_velocity.z, acceleration * delta)
+
+	if direction == Vector3.ZERO:
+		velocity.x = move_toward(velocity.x, 0, deceleration * delta)
+		velocity.z = move_toward(velocity.z, 0, deceleration * delta)
+
+	# Kill micro jitter
+	if abs(velocity.x) < 0.05: velocity.x = 0
+	if abs(velocity.z) < 0.05: velocity.z = 0
+
+	_handle_rotation(direction, delta)
+
+# ========================
+# 🔄 ROTATION
+# ========================
+
+func _handle_rotation(direction: Vector3, delta):
+	if direction.length() > 0.1:
+		var target_angle = atan2(direction.x, direction.z)
+		rotation.y = lerp_angle(rotation.y, target_angle, rotation_speed * delta)
+
+# ========================
+# 🦘 JUMP
+# ========================
+
+func _handle_jump():
+	if is_on_floor() and Input.is_action_just_pressed("jump"):
+		velocity.y = jump_force
+
+# ========================
+# 🌌 GRAVITY
+# ========================
+
+func _apply_gravity(delta):
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+	else:
+		if velocity.y < 0:
+			velocity.y = 0
+
+# ========================
+# 📊 VELOCITY ACCESS
+# ========================
+
+func get_current_velocity() -> Vector3:
+	return current_velocity
