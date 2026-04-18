@@ -101,10 +101,9 @@ points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="env" unique_id=2144639091]
 environment = SubResource("Environment_n4st5")
 
-[node name="SpotLight3D" type="OmniLight3D" parent="env" unique_id=1220484483]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 5.180011, 0)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="env" unique_id=935261986]
+transform = Transform3D(1, 0, 0, 0, 0.55234444, 0.833616, 0, -0.833616, 0.55234444, 2.9096751, 0, 16.250313)
 shadow_enabled = true
-omni_range = 33.0
 
 [node name="level" type="Node3D" parent="." unique_id=1907808767]
 
@@ -115,15 +114,6 @@ mesh = SubResource("ArrayMesh_33cqm")
 [node name="StaticBody3D" type="StaticBody3D" parent="level/base" unique_id=875917917]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/base/StaticBody3D" unique_id=367453679]
-shape = SubResource("ConvexPolygonShape3D_xwcet")
-
-[node name="base2" type="MeshInstance3D" parent="level" unique_id=767098651]
-transform = Transform3D(18.16439, 0, 0, 0, 0.2904427, 0, 0, 0, 16.097872, 0, 5.019272, 0)
-mesh = SubResource("ArrayMesh_33cqm")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="level/base2" unique_id=1377298638]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="level/base2/StaticBody3D" unique_id=420372772]
 shape = SubResource("ConvexPolygonShape3D_xwcet")
 
 [node name="house" type="MeshInstance3D" parent="level" unique_id=363886803]
@@ -196,24 +186,6 @@ mesh = SubResource("ArrayMesh_qpk70")
 [node name="StaticBody3D" type="StaticBody3D" parent="level/Wall3/wall pr" unique_id=709825225]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="level/Wall3/wall pr/StaticBody3D" unique_id=374884741]
-shape = SubResource("ConvexPolygonShape3D_ll5lq")
-
-[node name="Wall4" type="MeshInstance3D" parent="level" unique_id=2026609834]
-transform = Transform3D(-4.371139e-08, 0, 16.989481, 0, 5.6662025, 0, -1, 0, -7.4263386e-07, 0.33140993, 2.5800064, 7.609148)
-mesh = SubResource("ArrayMesh_xlg7c")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="level/Wall4" unique_id=1824685771]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="level/Wall4/StaticBody3D" unique_id=1948317918]
-shape = SubResource("ConvexPolygonShape3D_qpk70")
-
-[node name="wall pr" type="MeshInstance3D" parent="level/Wall4" unique_id=1991801275]
-transform = Transform3D(0.73285156, 0, 0, 0, 0.37788773, 0, 0, 0, 0.13324386, -0.7079927, 0.17601866, -0.022061467)
-mesh = SubResource("ArrayMesh_qpk70")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="level/Wall4/wall pr" unique_id=410846548]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="level/Wall4/wall pr/StaticBody3D" unique_id=1156837413]
 shape = SubResource("ConvexPolygonShape3D_ll5lq")
 
 [node name="player" parent="." unique_id=106805292 instance=ExtResource("2_dbls1")]
