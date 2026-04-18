@@ -92,6 +92,12 @@ b={
 "events": []
 }
 
+[layer_names]
+
+3d_physics/quality/msaa_3d=0
+3d_physics/quality/screen_space_aa=0
+3d_physics/quality/use_taa=false
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
