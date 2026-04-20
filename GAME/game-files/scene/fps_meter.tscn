@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dul2ydjs8g8n7"]
 
-[ext_resource type="Script" uid="uid://i267rogof2ih" path="res://script/fps_meter.gd" id="1_17n8p"]
+[ext_resource type="Script" uid="uid://i267rogof2ih" path="res://script/ui/fps_meter.gd" id="1_17n8p"]
 
 [node name="fps meter" type="Control" unique_id=1332310309]
 layout_mode = 3

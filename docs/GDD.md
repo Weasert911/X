@@ -1,16 +1,18 @@
-# Gali Chaos - Game Design Document
+# Game Design Document
 
 ## Version
-1.2 - Updated for Gang-Based Gameplay and Identity
+2.0 - Single-Player FPS Narrative Game
 
 ## Table of Contents
 1. [Overview](#overview)
-2. [Core Pillars](#core-pillars)
-3. [Gameplay Systems Overview](#gameplay-systems-overview)
-4. [Art & Audio Overview](#art--audio-overview)
-5. [Technical & Prototype Overview](#technical--prototype-overview)
-6. [Document Structure](#document-structure)
-7. [Revision History](#revision-history)
+2. [Story](#story)
+3. [Game Mechanics](#game-mechanics)
+4. [Weapons](#weapons)
+5. [Game Structure](#game-structure)
+6. [Art & Audio Overview](#art--audio-overview)
+7. [Technical Overview](#technical-overview)
+8. [Document Structure](#document-structure)
+9. [Revision History](#revision-history)
 
 ---
 
@@ -18,68 +20,146 @@
 
 ### Core Idea
 
-A fast-paced multiplayer gang warfare game set in dense Indian environments where rival street gangs fight for dominance using improvised jugaad tools, creating chaos that triggers unpredictable world reactions.
-
-In a cramped Indian gali where power cuts, loud fights, and street politics are part of daily life, small-time groups—failed dreamers, hustlers, and survivors—form chaotic street gangs trying to control the area for reputation, survival, and ego.
+A single-player First Person Shooter (FPS) narrative game about an Indian boy (age 25-27) who was preparing for UPSC but failed. After being hit by a truck, he wakes up in an unfamiliar slum and witnesses child trafficking. He decides to fulfill his childhood dream of being a hero by fighting against the traffickers.
 
 ### Target Experience
 
-**Not:** Structured competitive battle royale or esports shooter
+**Not:** Multiplayer competitive shooter or open-world RPG
 
-**But:** Loud, funny, unpredictable gang warfare where anything can go wrong, alliances shift in seconds, and the last gang standing—or the one who caused the most chaos—wins
+**But:** A focused, 1-hour narrative FPS experience with 5 stages, tight gameplay mechanics, and an emotional story about redemption and heroism
 
 ### Player Fantasy
 
-- **Belong to a gang** – Choose your identity, represent your crew, fight for your territory
-- **Outplay rival gangs** – Use chaos as a weapon, manipulate the world against your enemies
-- **Create chaos for dominance** – Turn the gali into your playground, make your mark, become the most notorious gang on the street
-- **Survive ridiculous situations** – Power cuts, police raids, riots—handle it all with jugaad and street smarts
-- **Create "clip-worthy" moments** – Betrayals, explosions, last-minute escapes—moments worth sharing
+- **Be a Hero** – Fulfill the childhood dream of saving others
+- **Fight Injustice** – Take down child traffickers and their henchmen
+- **Solve Mysteries** – Uncover the truth through dialogue and investigation
+- **Protect the Innocent** – Save children from trafficking
+- **Experience Redemption** – A story about finding purpose after failure
 
 ---
 
-## Core Pillars
+## Story
 
-### 1. Chaos Over Skill
+### Prologue
 
-Unpredictability drives fun. Players win through clever decisions, timing, and sometimes pure luck. Gangs that understand how to manipulate chaos—using it against rivals while protecting their own—gain the upper hand.
+The protagonist is a 25-27 year old Indian boy who was preparing for UPSC exams but failed. His parents and relatives were calling him, but he wasn't answering their calls. While crossing the road, lost in thought, a truck hit him.
 
-### 2. Social Gameplay First
+### The Dream
 
-Helping, trolling, and betrayal are core mechanics, not side effects. Alliances form and break between gangs in seconds. Trust is temporary, betrayal is inevitable.
+He opens his eyes in an unfamiliar place - a slum. Confused and disoriented, he searches for a way out. While exploring, he witnesses someone dragging children into a truck. He immediately understands it's child trafficking and decides to stop them, fulfilling his childhood dream to be a hero.
 
-### 3. Short Matches
+### The Journey
 
-Sessions last 5–8 minutes for high replayability. Quick, intense gang skirmishes that anyone can jump into.
+He solves mysteries, uncovers the truth by talking to people, fights with henchmen, defeats their trusted men, and finally defeats the main boss. Throughout his journey, he discovers the depth of the trafficking operation and the people behind it.
 
-### 4. Indian Identity
+### The Climax
 
-Gameplay systems (not just visuals) reflect Indian environments and behavior. Gang archetypes are grounded in real Indian urban life—IAS aspirants, corporate slaves, tapori locals—each with their own personality and style.
+In the final confrontation, he dies protecting a child from a bullet - a true hero's sacrifice.
+
+### The Revelation
+
+When he wakes up, he finds out he was in a coma for 10 years after the truck hit him and ran - he was dreaming the entire scenario. The dream was his subconscious processing his failure and his desire to be a hero.
 
 ---
 
-## Gameplay Systems Overview
+## Game Mechanics
 
-*Detailed documentation: [Gameplay-Core.md](Gameplay%20Core.md)*
+### Core Movement
 
-### Core Loop
-Spawn → Join/Represent Gang → Loot → Create Chaos → Rival Gangs React → World Reacts → Control / Survive / Betray → Score
+- **Run:** Sprint for faster movement, limited by stamina
+- **Walk:** Normal movement speed, stealthy approach
+- **Jump:** Navigate obstacles and reach higher areas
+- **Hide:** Take cover behind objects to avoid detection
+- **Crouch:** Move silently, reduce profile, access low areas
 
-### Key Systems
-- **Chaos (Noise) System:** Shared meter that escalates with player actions, triggering world reactions (police, riots, blackouts).
-- **Gang System:** Social identities with light passives, visual flair, and personality-driven voice lines.
-- **Jugaad System:** Improvised items (chappal, cooker, rickshaw) as the great equalizer.
-- **Desi Signal System:** Radial communication using Indian voice lines that generate noise.
-- **Social Chaos Mechanics:** Betrayal, alliances, item stealing, and gang‑specific social moves.
-- **Territory Control:** Light zone‑capture system that creates dynamic conflict points.
+### Combat & Interaction
 
-### Multiplayer Modes
-- **Loose Gang Chaos:** Free‑for‑all with temporary alliances.
-- **Gang vs Gang:** Pre‑selected gang warfare.
-- **Dynamic Alliances:** Player‑driven, betrayal‑focused emergent gameplay.
+- **Attack:** Use weapons to fight enemies
+- **Interact:** Talk to NPCs, investigate clues, use objects
 
-### Scoring & Winning
-Individual and gang scoring based on survival, chaos contribution, zone control, alliances, and betrayals.
+### Design Philosophy
+
+The mechanics are designed to support the narrative experience. Combat is challenging but fair, encouraging strategic thinking and use of the environment. Stealth options allow for different approaches to encounters.
+
+---
+
+## Weapons
+
+### Throwable Weapons
+
+- **Petrol Bomb:** Area-of-effect fire damage, creates temporary fire zones
+
+### Explosive Weapons
+
+- **Grenades:** Standard fragmentation grenades for area damage
+
+### Ranged Weapons
+
+- **Rifle:** Primary weapon, good range and damage
+- **Handgun:** Secondary weapon, reliable backup
+
+### Melee Weapons
+
+- **Knife:** Silent takedowns, close-quarters combat
+- **Other Melee:** Improvised weapons found in the slum environment
+
+### Weapon Balance
+
+Weapons are balanced to encourage different playstyles. Players can choose stealth (knife, handgun), aggressive (rifle, grenades), or tactical (petrol bombs for crowd control) approaches.
+
+---
+
+## Game Structure
+
+### Duration
+
+Total gameplay time: Approximately 1 hour
+
+### Size
+
+Target size: Less than 500 MB
+
+### Stage Structure
+
+The game consists of 5 stages, each focusing on different aspects of world building, enemies, and mysteries:
+
+#### Stage 1: Awakening
+- Introduction to the slum environment
+- Witnessing the child trafficking incident
+- Learning basic mechanics
+- First combat encounters with low-level henchmen
+
+#### Stage 2: Investigation
+- Exploring the slum, talking to residents
+- Gathering information about the trafficking operation
+- Solving environmental puzzles
+- Fighting mid-level enemies
+
+#### Stage 3: The Trail
+- Following leads to the traffickers' hideout
+- More challenging combat encounters
+- Introduction to tougher enemy types
+- Uncovering the scope of the operation
+
+#### Stage 4: The Stronghold
+- Infiltrating the main trafficking base
+- Intense combat sequences
+- Boss fight with the trusted lieutenant
+- Rescuing children
+
+#### Stage 5: The Final Confrontation
+- Confronting the main boss
+- The climactic battle
+- The sacrifice (protecting a child)
+- The awakening (coma revelation)
+
+### Narrative Delivery
+
+Major plot points are told through:
+- Environmental storytelling (clues, documents, scene composition)
+- Dialogue with NPCs
+- Cutscenes for key moments
+- Player actions and choices
 
 ---
 
@@ -88,65 +168,55 @@ Individual and gang scoring based on survival, chaos contribution, zone control,
 *Detailed documentation: [Art-Design.md](Art%20Design.md)*
 
 ### Visual Style
-- **3D Stylized Toon Art** with bold outlines, flat colors, and strong silhouettes.
-- **Top‑Down Angled Camera** (~30–45°) for optimal visibility in chaotic scenes.
-- **Gang‑Driven Identity:** Each archetype has distinct silhouette, outfit, color palette, and accessories.
+
+- **3D Stylized Toon Art** with bold outlines, flat colors, and strong silhouettes
+- **First-Person Perspective** for immersive gameplay
+- **Indian Slum Setting:** Dense, atmospheric environments that tell a story
 
 ### Environment
-Modular 3D kits recreating dense Indian streets (gali, markets, rooftops) with stylized geometry and toon‑shaded materials.
+
+Modular 3D kits recreating Indian slums with stylized geometry and toon-shaded materials. Environments are designed to be both navigable and visually rich, supporting both combat and exploration.
 
 ### Animation
-Keyframe 3D animation with snappy, exaggerated motions and gang‑specific movement flavors.
+
+Keyframe 3D animation with snappy, exaggerated motions. First-person weapon animations and third-person character animations for NPCs.
 
 ### UI
-Toon‑styled UI with bold outlines, flat colors, and gang‑aware elements (gang indicators, alliance lines, zone markers).
+
+Toon-styled UI with bold outlines, flat colors, and clear information display. Minimalist design that doesn't distract from the immersive experience.
 
 ### Audio
-- **Voice:** Natural Indian slang with gang‑based personality variations.
-- **Sound Design:** Stylized environmental chaos, comedic timing, clear gameplay cues.
-- **Contextual Reactions:** Panic, ego, trolling, and betrayal voice lines.
 
-### Gang Archetypes
-Five grounded Indian urban archetypes:
-1. **IAS Aspirant** – Stressed UPSC dreamer
-2. **Corporate Majdur** – Burned‑out office worker
-3. **Tapori Gunda** – Street‑smart local
-4. **Gym Bro** – Fitness‑obsessed motivator
-5. **Tech Bro** – Startup jargon‑speaking gadget lover
-
-Each has visual identity, voice personality, and a very light passive (10–15% modifier).
+- **Voice:** Natural Indian dialogue with emotional delivery
+- **Sound Design:** Atmospheric slum sounds, clear combat cues, impactful weapon sounds
+- **Music:** Emotional score that enhances narrative moments
 
 ---
 
-## Technical & Prototype Overview
+## Technical Overview
 
 *Detailed documentation: [Technical-Plan.md](Technical%20Plan.md)*
 
-### Prototype (MVP) Goal
-Prove chaos is fun, multiplayer works, core loop engages, and gang identity adds personality without breaking balance.
+### Technical Goals
 
-### MVP Phases
-1. **Core Setup:** Movement, map, camera
-2. **Core Mechanics:** Chaos meter, jugaad items, gang system
-3. **Multiplayer:** 4–8 players, sync, gang visibility
-4. **Events:** Police spawn, enemy AI
-5. **Signals:** Basic radial communication
-6. **Territory Control:** Light zone capture
+- **Size:** Less than 500 MB total
+- **Performance:** 60 FPS on mid-range hardware
+- **Duration:** 1 hour of gameplay
+- **Structure:** 5 distinct stages
 
 ### Technical Stack
-- **Engine:** Unity or Godot (3D stylized rendering + multiplayer support)
-- **Asset Pipeline:** Blender/Maya → FBX/GLTF with toon shader & outline setup
-- **Shader:** Custom screen‑space toon‑outline shader (`toon_outline.gdshader`) – see [06 - Shaders.md](Shaders.md)
-- **Performance:** 60 FPS on mid‑range hardware, 8+ players with minimal lag
-- **Platforms:** PC (Steam) primary, consoles possible later
 
-### Success Criteria
-- Matches feel different each time
-- Players create their own fun
-- No major confusion during chaos
-- Gang identity clear and personality‑adding
-- Social dynamics (alliances, betrayal) emerge naturally
-- Chaos system remains dominant over gang abilities
+- **Engine:** Godot (already in use, supports 3D FPS and toon shaders)
+- **Asset Pipeline:** Blender → FBX/GLTF with toon shader & outline setup
+- **Shader:** Custom toon-outline shader (`toon_outline.gdshader`) – see [Shaders.md](Shaders.md)
+- **Platforms:** PC primary
+
+### Performance Considerations
+
+- Optimized asset loading for small size
+- Efficient level streaming for 5 stages
+- Streamlined audio assets
+- Compressed textures without quality loss
 
 ---
 
@@ -156,29 +226,16 @@ This GDD serves as the master overview. Detailed specifications are split into f
 
 | Document | Purpose |
 |----------|---------|
-| **[Gameplay-Core.md](Gameplay%20Core.md)** | Core gameplay mechanics, multiplayer systems, scoring, and interaction details |
-| **[Art-Design.md](Art%20Design.md)** | Visual style, audio direction, gang archetypes, and art technical constraints |
-| **[Technical-Plan.md](Technical%20Plan.md)** | Prototype (MVP) plan, technical considerations, engine, and performance targets |
-| **[06 - Shaders.md](Shaders.md)** | Technical shader implementation details (toon‑outline, post‑process) |
+| **[Gameplay-Core.md](Gameplay%20Core.md)** | Core gameplay mechanics, movement, combat, and interaction details |
+| **[Art-Design.md](Art%20Design.md)** | Visual style, audio direction, and art technical constraints |
+| **[Technical-Plan.md](Technical%20Plan.md)** | Technical requirements, size optimization, and implementation plan |
+| **[Shaders.md](Shaders.md)** | Technical shader implementation details (toon-outline, post-process) |
 
-**Total documents:** 5 (including this master GDD)
-
-### Consolidation Note
-Originally 8 documents (01–07 + GDD) have been consolidated into 5 documents:
-- GDD.md (overview/master)
-- Gameplay‑Core.md (merged gameplay mechanics + multiplayer systems)
-- Art‑Design.md (merged art/audio + gang archetypes)
-- Technical‑Plan.md (merged prototype plan + technical considerations)
-- 06 - Shaders.md (unchanged technical shader doc)
-
-All original content is preserved; redundant files (01–05, 07) have been archived.
+**Total documents:** 4 (including this master GDD)
 
 ---
 
 ## Revision History
 
-- **2026-04-17:** Consolidated 8 documents into 5; split GDD into overview + three detailed docs; updated references.
-- **2026-04-16:** Updated for gang-based gameplay and identity, added Gang Archetypes section
-- **2026-04-16:** Updated visual style to 3D stylized toon art with top-down angled camera
-- **2026-04-12:** Updated visual style to 32x32 pixel art, consolidated GDD
-- **Previous:** Initial documentation split across multiple files
+- **2026-04-19:** Complete redesign to single-player FPS narrative game; removed all multiplayer and gang content
+- **Previous:** Multiplayer gang warfare game (archived)

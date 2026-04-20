@@ -1,259 +1,323 @@
 # Gameplay Core Systems
 
-*Part of the Gali Chaos Game Design Document*
+*Part of the Game Design Document*
 
-**Version:** 1.2  
-**Last Updated:** 2026-04-16  
-**Source:** Extracted from GDD.md sections "Gameplay Mechanics" and "Multiplayer Systems"
+**Version:** 2.0  
+**Last Updated:** 2026-04-19  
+**Source:** Single-player FPS narrative game
 
 ---
 
 ## Table of Contents
 
-1. [Gameplay Mechanics](#gameplay-mechanics)
-   - [Core Loop](#core-loop)
-   - [Chaos (Noise) System](#chaos-noise-system)
-   - [Gang System](#gang-system)
-   - [Territory / Zone Control](#territory--zone-control-light-system)
-   - [Jugaad System](#jugaad-system)
-   - [Desi Signal System](#desi-signal-system)
-   - [Social Chaos Mechanics](#social-chaos-mechanics)
-2. [Multiplayer Systems](#multiplayer-systems)
-   - [Modes](#modes)
-   - [Match Structure](#match-structure)
-   - [Scoring](#scoring)
-   - [Player Interaction Systems](#player-interaction-systems)
-   - [Networking Considerations](#networking-considerations)
-   - [Key Requirement](#key-requirement)
-   - [Gang Visibility](#gang-visibility)
+1. [Movement Mechanics](#movement-mechanics)
+2. [Combat Mechanics](#combat-mechanics)
+3. [Interaction Mechanics](#interaction-mechanics)
+4. [Stealth Mechanics](#stealth-mechanics)
+5. [Weapon Systems](#weapon-systems)
+6. [Enemy AI](#enemy-ai)
+7. [Progression Systems](#progression-systems)
 
 ---
 
-## Gameplay Mechanics
+## Movement Mechanics
 
-### Core Loop
+### Run
 
-Spawn → Join/Represent Gang → Loot → Create Chaos → Rival Gangs React → World Reacts → Control / Survive / Betray → Score
-
-### Chaos (Noise) System
-
-**Overview:** All player actions contribute to a shared Chaos Meter. Chaos affects everyone equally—smart gangs use this to their advantage by triggering chaos when rivals are vulnerable.
-
-**Chaos Levels:**
-- Low: Light threats (zombies, stray dogs)
-- Medium: Police patrolling, angry crowds, street fights
-- High: Full riots, explosions, blackout, total chaos
-
-**Chaos Sources:**
-- Weapons and jugaad items
-- Explosions and environmental destruction
-- Vehicles (honking, crashing)
-- Signals (voice communication)
-- Gang conflicts (multiple gangs fighting in same area)
-
-**Design Goal:** Force players to balance action vs stealth. Gangs must decide when to escalate chaos and when to lay low. Chaos is a weapon—use it wisely.
-
-### Gang System
-
-**Overview:** Gangs are social identities that players choose before or during a match. They provide personality, visual flair, and very light gameplay flavor—NOT hard classes or ability systems.
-
-**Gang Selection:**
-- Pre-match selection in Gang vs Gang Mode
-- Cosmetic identity in Loose Gang Chaos (FFA)
-- Gangs are visible through outfit, silhouette, and voice lines
-
-**What Each Gang Has:**
-- Visual Identity: Distinct outfit, color palette, silhouette
-- Voice Lines: Personality-driven reactions and taunts
-- Minor Passive: VERY LIGHT, non-meta breaking bonus
-
-**Example Gang Passives:**
-- IAS Aspirant: Slightly better map awareness (can see chaos indicators from farther)
-- Corporate Majdur: Slight stamina/endurance boost (can sprint a bit longer)
-- Tapori Gunda: Slightly faster movement in narrow spaces (galis)
-- Gym Bro: Slightly stronger melee knockback
-- Tech Bro: Slightly faster interaction with gadgets/vehicles
-
-**Design Goal:** Gangs are about identity and personality, not power. The chaos system must remain dominant. Passives are subtle flavor, not game-changing abilities.
-
-### Territory / Zone Control (LIGHT SYSTEM)
-
-**Overview:** Temporary control zones appear randomly on the map. Gangs can hold these zones for points, but zones shift and disappear—keeping things chaotic and dynamic.
-
-**How It Works:**
-- Zones appear at random locations
-- Standing in a zone starts capturing it for your gang
-- First gang to fully capture gets ownership
-- Owned zones generate points over time
-- Rival gangs can contest and steal zones
-
-**Zone Types:**
-- Street Corner: Basic control point, appears frequently
-- Roof Top: High-value zone, harder to reach
-- Market Area: Large zone, requires multiple players to hold
-
-**Design Goal:** Add a light territorial element without turning the game into a domination mode. Zones create conflict points where gangs naturally meet and fight.
-
-### Jugaad System
-
-**Overview:** Players use improvised items instead of fixed abilities. Jugaad items are the great equalizer—any gang can use any item, and creativity beats power.
-
-**Item Categories:**
-- Throwable: Chappal, bricks, empty bottles
-- Explosive: Gas cylinder, cooker, firecrackers
-- Utility: Rickshaw, water tank, ladders
-- Melee: Bat, danda, hockey stick
-
-**Examples:**
-- Cooker: Timed explosion—set it and run
-- Gas cylinder: Knockback blast—push enemies into chaos
-- Rickshaw: Mobile cover—drive it or hide behind it
-- Chappal: Stun—humiliating but effective
-
-**Design Goal:** Encourage creativity and emergent gameplay. The best jugaad user wins, not the best shooter.
-
-### Desi Signal System
-
-**Overview:** A radial communication system using expressive Indian voice lines. Signals are how gangs coordinate, taunt, and betray each other.
-
-**Features:**
-- 6–8 signals per gang
-- Each includes audio, animation, and gameplay meaning
-- Gang-specific voice variations (same signal, different personality)
-
-**Example Signals:**
-- "Bhaag!" → Danger warning
-- "Dawa de!" → Heal request
-- "Maaro!" → Attack call
-- "Tu gaya 😏" → Troll taunt
-- "Alliance?" → Propose temporary gang alliance
-- "Sorry bro!" → Fake apology before betrayal
-
-**Twist:** Signals generate noise and increase chaos. Using signals strategically is part of the game—too much talking attracts police and other threats.
-
-### Social Chaos Mechanics
-
-**Overview:** Social interactions are as important as combat. Gangs can help, hurt, or betray each other in countless ways.
+**Overview:** Sprint for faster movement, limited by stamina
 
 **Mechanics:**
-- Item Stealing: Snatch items from rival gang members
-- Action Interruption: Stop enemies from using items or capturing zones
-- Vehicle Hijacking: Steal rickshaws and other vehicles mid-use
-- Fake Signaling: Pretend to help, then betray
-- Gang Betrayal: Switch alliances mid-match, backstab your temporary partners
-- Fake Alliances: Propose alliance, use it to get close, then attack
-- Group Fights: Multiple gangs fighting in the same area—chaos compounds
+- Hold sprint button to run at increased speed (1.5x walk speed)
+- Stamina depletes while running
+- Stamina regenerates when not running
+- Cannot run while crouching or hiding
+- Running generates noise that can alert enemies
 
-**Gang-Specific Social Moves:**
-Each gang has unique social interactions based on their personality:
-- IAS Aspirant: Can "lecture" enemies (stuns them briefly with boredom)
-- Corporate Majdur: Can "delegate" tasks (force enemy to drop item)
-- Tapori Gunda: Can "intimidate" (enemies move slower nearby)
-- Gym Bro: Can "flex" (distracts enemies briefly)
-- Tech Bro: Can "pitch startup" (confuses enemies with jargon)
+**Stamina System:**
+- Full stamina: 5-8 seconds of continuous running
+- Stamina regenerates over 3-5 seconds when walking
+- Stamina regenerates faster when standing still
+- Visual indicator: Stamina bar on HUD
 
-**Design Goal:** Encourage interaction beyond combat. The most memorable moments come from betrayal, not shooting.
+**Design Goal:** Encourage tactical use of running - use it to close distance or escape, but manage stamina carefully
+
+### Walk
+
+**Overview:** Normal movement speed, stealthy approach
+
+**Mechanics:**
+- Default movement state
+- Moderate speed (balanced for exploration and combat)
+- Minimal noise generation
+- Can transition to run, crouch, or hide at any time
+- No stamina cost
+
+**Design Goal:** The baseline movement for most gameplay situations - balanced between speed and stealth
+
+### Jump
+
+**Overview:** Navigate obstacles and reach higher areas
+
+**Mechanics:**
+- Press jump button to leap
+- Can jump while walking or running
+- Cannot jump while crouching
+- Jump height: Standard FPS jump (enough to clear waist-high obstacles)
+- Can grab ledges for climbing (optional advanced mechanic)
+- Landing has slight recovery time
+
+**Design Goal:** Enable vertical exploration and navigation without becoming a platformer
+
+### Hide
+
+**Overview:** Take cover behind objects to avoid detection and incoming fire
+
+**Mechanics:**
+- Press hide button near cover objects (walls, crates, vehicles)
+- Player snaps to cover position
+- First-person camera adjusts to show over/around cover
+- Reduces player profile significantly
+- Provides protection from enemy fire
+- Can peek out to shoot or observe
+- Enemies may lose track of player while hiding
+
+**Cover Types:**
+- Low cover: Can crouch behind, peek over
+- High cover: Full protection, must peek around sides
+- Partial cover: Some protection, not complete
+
+**Design Goal:** Add tactical depth to combat - use cover strategically to survive encounters
+
+### Crouch
+
+**Overview:** Move silently, reduce profile, access low areas
+
+**Mechanics:**
+- Hold crouch button to lower stance
+- Movement speed reduced (0.6x walk speed)
+- Significantly reduced noise generation
+- Can fit under low obstacles
+- Can crouch behind low cover
+- Can transition to prone (optional)
+- More accurate shooting while crouched
+
+**Design Goal:** Enable stealth approaches and access to hidden areas
 
 ---
 
-## Multiplayer Systems
+## Combat Mechanics
 
-### Modes
+### Attack
 
-**Loose Gang Chaos (formerly Free For All):**
-- Every player for themselves, but temporary gang alliances are possible
-- Players can form and break alliances mid-match
-- Gang identity is cosmetic—choose your archetype for personality, not power
-- Perfect for casual play and chaotic social dynamics
+**Overview:** Use weapons to fight enemies
 
-**Gang vs Gang (formerly Squad Mode):**
-- Pre-selected gangs fight each other
-- 2–4 players per gang
-- True gang warfare—your crew vs theirs
-- Gang scoring and territory control matter here
+**Mechanics:**
+- Primary attack: Fire equipped weapon
+- Secondary attack: Melee attack with equipped weapon or fists
+- Aim down sights for improved accuracy (ranged weapons)
+- Recoil affects accuracy during sustained fire
+- Headshots deal bonus damage
+- Different weapons have different attack patterns
 
-**Dynamic Alliances (New):**
-- Non-forced, player-driven alliance system
-- Players can propose alliances using the signal system
-- Alliances are temporary—can be broken at any time
-- Betrayal is a core mechanic—backstab your partners when it benefits you
-- Creates emergent social gameplay: 2v2 becomes 3v1 becomes everyone for themselves
+**Combat Flow:**
+1. Detect enemy (visual or audio)
+2. Choose engagement approach (stealth, aggressive, tactical)
+3. Use appropriate weapon and tactics
+4. Manage ammo and health
+5. Adapt to enemy behavior
 
-### Match Structure
+**Design Goal:** Combat should be challenging but fair, encouraging strategic thinking and use of the environment
 
-- Duration: 5–8 minutes
-- Objective: Survive longest, score highest, or control most territory
-- Gang Scoring: Points awarded for gang actions, not just individual performance
+### Damage System
 
-### Scoring
+**Player Health:**
+- Health bar displayed on HUD
+- Damage varies by weapon type and hit location
+- Health regenerates slowly after taking no damage for 10 seconds
+- Medkits can be found in the environment for instant healing
 
-**Individual Scoring:**
-- Survival time
-- Personal chaos contribution
-- Player interactions (kills, assists, betrayals)
+**Enemy Health:**
+- Different enemy types have different health values
+- Weak points (head) deal bonus damage
+- Some enemies have armor that reduces damage
 
-**Gang Scoring (New):**
-- Gang Contribution: Points for actions that benefit your gang
-- Zone Control: Points for holding territory zones
-- Chaos Impact: Points for causing chaos that affects rival gangs
-- Alliance Bonus: Temporary points for successful alliances (lost if betrayed)
-- Betrayal Bonus: Points for successfully backstabbing allies (high risk, high reward)
+**Design Goal:** Clear damage feedback with meaningful consequences for player actions
 
-**Winning Conditions:**
-- Loose Gang Chaos: Highest individual score OR last survivor
-- Gang vs Gang: Highest gang score OR last surviving gang
-- Dynamic Alliances: Most points when match ends—whether through cooperation or betrayal
+---
 
-### Player Interaction Systems
+## Interaction Mechanics
 
-**Cooperative:**
-- Reviving gang members
-- Sharing items and jugaad tools
-- Coordinating attacks on rival gangs
-- Holding zones together
+### Interact
 
-**Competitive:**
-- Stealing items from rival gangs
-- Blocking paths and trapping enemies
-- Triggering chaos near rival gang positions
-- Betraying temporary allies
-- Contesting and stealing territory zones
+**Overview:** Talk to NPCs, investigate clues, use objects
 
-**Gang-Specific Interactions:**
-Each gang has unique ways to interact with others:
-- IAS Aspirant: Can "mentor" allies (small temporary boost)
-- Corporate Majdur: Can "outsource" tasks (share item cooldowns)
-- Tapori Gunda: Can "call backup" (summon AI street dogs to harass enemies)
-- Gym Bro: Can "spot" allies (help them recover faster)
-- Tech Bro: Can "share WiFi" (reveal nearby items to allies)
+**Mechanics:**
+- Press interact button when near interactive objects
+- Interaction prompt appears when object is in range
+- Different interaction types:
+  - Dialogue: Talk to NPCs to gather information
+  - Investigation: Examine clues and documents
+  - Object Use: Open doors, activate switches, use items
+  - Pickup: Collect weapons, ammo, health items
 
-### Networking Considerations
+**Dialogue System:**
+- Branching conversations with NPCs
+- Choices can affect information received
+- Some dialogue is mandatory for story progression
+- Optional dialogue provides lore and world-building
 
-- Server authoritative model
-- Minimal physics sync
-- Event-based updates for chaos system
-- Gang state synchronization (who's in which gang, current alliances)
-- Zone control state sync (who owns which zone)
+**Investigation System:**
+- Clues are highlighted when nearby
+- Examining clues provides narrative information
+- Some clues unlock new dialogue options
+- Investigation progress tracked in journal
 
-### Key Requirement
+**Design Goal:** Interaction drives the narrative forward and rewards exploration
 
-Multiplayer must feel:
-- Fast: Instant response to actions
-- Responsive: No lag during chaotic moments
-- Unpredictable: Anything can happen at any time
-- Social: Players constantly interact, cooperate, and betray
+---
 
-### Gang Visibility
+## Stealth Mechanics
 
-- Gang indicators above players (color-coded by gang)
-- Alliance indicators (show who's allied with whom)
-- Zone ownership markers on the map
-- Chaos contribution per gang (visible in UI)
+### Detection System
+
+**Overview:** Enemies can detect the player through sight and sound
+
+**Mechanics:**
+- Visual detection: Enemies see player within line of sight
+- Audio detection: Enemies hear player actions (running, shooting)
+- Detection states: Unaware → Suspicious → Alerted → Combat
+- Detection meter shows current alert level
+- Player can break line of sight to avoid detection
+
+**Stealth Actions:**
+- Crouch walking reduces noise
+- Hiding behind cover breaks line of sight
+- Silent takedowns with melee weapons
+- Distractions (throwing objects) can redirect enemy attention
+
+**Design Goal:** Provide stealth as a viable alternative to direct combat
+
+---
+
+## Weapon Systems
+
+### Weapon Categories
+
+**Throwable:**
+- Petrol Bomb: Area-of-effect fire damage, creates temporary fire zones
+
+**Explosive:**
+- Grenades: Standard fragmentation grenades for area damage
+
+**Ranged:**
+- Rifle: Primary weapon, good range and damage, semi-automatic or burst fire
+- Handgun: Secondary weapon, reliable backup, lower damage but higher accuracy
+
+**Melee:**
+- Knife: Silent takedowns, close-quarters combat
+- Other Melee: Improvised weapons found in the slum environment
+
+### Weapon Mechanics
+
+**Ammunition:**
+- Limited ammo for all weapons
+- Ammo pickups found in the environment
+- Different weapons use different ammo types
+- Ammo count displayed on HUD
+
+**Reloading:**
+- Manual reload required when magazine is empty
+- Reload time varies by weapon
+- Can interrupt reload to switch weapons
+- Reload animation plays in first-person view
+
+**Weapon Switching:**
+- Quick switch between equipped weapons
+- Weapon wheel for easy access
+- Can carry limited number of weapons (2-3)
+
+**Design Goal:** Weapons offer different tactical options - no single weapon is optimal for all situations
+
+---
+
+## Enemy AI
+
+### Enemy Types
+
+**Henchmen:**
+- Basic enemies, low health
+- Use basic weapons (handguns, melee)
+- Simple AI patterns
+- Appear in groups
+
+**Trusted Men:**
+- Mid-boss enemies, higher health
+- Better weapons (rifles)
+- More intelligent AI
+- Appear as mini-bosses in stages
+
+**Main Boss:**
+- Final enemy, highest health
+- Multiple attack patterns
+- Intelligent AI with special abilities
+- Appears in final stage
+
+### AI Behavior
+
+**Patrol:**
+- Enemies patrol designated areas
+- Follow set routes or random paths
+- React to sounds and visual cues
+
+**Investigate:**
+- When suspicious, enemies investigate the source
+- Move toward last known player position
+- Alert nearby enemies
+
+**Combat:**
+- Engage player when detected
+- Use cover and flanking tactics
+- Call for reinforcements
+- Adapt to player tactics
+
+**Design Goal:** Enemies provide meaningful challenge without being unfair - predictable but not easily exploited
+
+---
+
+## Progression Systems
+
+### Stage Progression
+
+**Linear Progression:**
+- 5 stages played in sequence
+- Each stage unlocks after completing the previous one
+- Stage completion criteria:
+  - Complete main objectives
+  - Defeat required enemies
+  - Reach the exit point
+
+**Optional Objectives:**
+- Side quests in each stage
+- Finding all clues
+- Stealth completion (no alerts)
+- Time challenges
+
+**Design Goal:** Clear progression path with optional content for completionists
+
+### Skill Progression
+
+**No RPG Elements:**
+- Player skills do not improve over time
+- Progression comes from player learning and mastery
+- Weapons and items are found, not unlocked
+- Focus on player skill, not character stats
+
+**Design Goal:** Keep the experience focused on narrative and gameplay mastery
 
 ---
 
 **Related Documents:**
-- [GDD.md](../GDD.md) – Master overview document
+- [GDD.md](GDD.md) – Master overview document
 - [Art-Design.md](Art%20Design.md) – Visual and audio design
-- [Technical-Plan.md](Technical%20Plan.md) – Prototype and technical implementation
-- [06 - Shaders.md](Shaders.md) – Shader technical documentation
+- [Technical-Plan.md](Technical%20Plan.md) – Technical implementation
+- [Shaders.md](Shaders.md) – Shader technical documentation

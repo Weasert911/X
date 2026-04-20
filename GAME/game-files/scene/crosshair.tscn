@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://script/ui/crosshair.gd" id="1_7d0b0"]
+
+[node name="Crosshair" type="CanvasLayer"]
+layer = 100
+script = ExtResource("1_7d0b0")
+
+[node name="CenterDot" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+position = Vector2(0, 0)
+
+[node name="Dot" type="Panel" parent="CenterDot"]
+size = Vector2(4, 4)
+position = Vector2(-2, -2)

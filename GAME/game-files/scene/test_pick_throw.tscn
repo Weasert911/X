@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" uid="uid://d5f8q8jvqj1v5" path="res://scene/player.tscn" id="1_7d0b0"]
+[ext_resource type="PackedScene" uid="uid://d5f8q8jvqj1v5" path="res://scene/test_pickable.tscn" id="2"]
+[ext_resource type="Script" path="res://autoload/input_setup.gd" id="3"]
+
+[node name="TestPickThrow" type="Node3D"]
+script = ExtResource("3")
+
+[node name="Player" parent="." instance="ExtResource("1_7d0b0")"]
+position = Vector3(0, 1, 0)
+
+[node name="PickableObject" parent="." instance="ExtResource("2")"]
+position = Vector3(2, 1, 0)

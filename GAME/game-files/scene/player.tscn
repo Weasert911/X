@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://btim62k8d8f6k"]
 
-[ext_resource type="Script" uid="uid://qnneu34nfteb" path="res://script/fps_player_controller.gd" id="1_fps_player"]
-[ext_resource type="Script" uid="uid://btcslbxp7bgwx" path="res://script/fps_camera_controller.gd" id="2_fps_camera"]
+[ext_resource type="Script" uid="uid://qnneu34nfteb" path="res://script/player/fps_player_controller.gd" id="1_fps_player"]
+[ext_resource type="Script" uid="uid://btcslbxp7bgwx" path="res://script/player/fps_camera_controller.gd" id="2_fps_camera"]
 [ext_resource type="Script" uid="uid://dda8s58dm7nsn" path="res://script/camera_effects/camera_effects_manager.gd" id="3_camera_effects"]
 [ext_resource type="Script" uid="uid://ch2hliwf0e8ut" path="res://script/camera_effects/head_bob_system.gd" id="4_head_bob"]
 [ext_resource type="Script" uid="uid://dtnhstfirhm2v" path="res://script/camera_effects/blink_system.gd" id="5_blink"]
@@ -25,12 +25,17 @@ mesh = SubResource("CapsuleMesh_hjaqi")
 shape = SubResource("CapsuleShape3D_fvtld")
 
 [node name="HeadPivot" type="Node3D" parent="." unique_id=651211487]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 1.6, 0)
 
 [node name="Camera3D" type="Camera3D" parent="HeadPivot" unique_id=573293508]
 current = true
 far = 1000.0
 script = ExtResource("2_fps_camera")
+
+[node name="RayCast3D" type="RayCast3D" parent="HeadPivot/Camera3D"]
+target_position = Vector3(0, 0, -3)
+enabled = true
+collision_mask = 4
 
 [node name="CameraEffectsManager" type="Node3D" parent="HeadPivot" unique_id=199790716]
 script = ExtResource("3_camera_effects")
@@ -46,7 +51,7 @@ blink_interval_max = 0.4
 [node name="MicroMotionSystem" type="Node" parent="HeadPivot/CameraEffectsManager" unique_id=1229485411]
 script = ExtResource("6_micro_motion")
 
-[node name="LandingWeightSystem" type="Node" parent="HeadPivot/CameraEffectsManager" unique_id=1534616450]
+[node name="LandingWeightSystem" type="Node" parent="HeadPivot/CameraEffectsManager" unique_id=1536416450]
 script = ExtResource("7_landing")
 
 [node name="BreathingSystem" type="Node" parent="HeadPivot/CameraEffectsManager" unique_id=2019672493]

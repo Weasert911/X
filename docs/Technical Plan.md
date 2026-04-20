@@ -1,175 +1,449 @@
 # Technical Plan & Implementation
 
-*Part of the Gali Chaos Game Design Document*
+*Part of the Game Design Document*
 
-**Version:** 1.2  
-**Last Updated:** 2026-04-16  
-**Source:** Extracted from GDD.md sections "Prototype Plan (MVP)" and "Technical Considerations"
+**Version:** 2.0  
+**Last Updated:** 2026-04-19  
+**Source:** Single-player FPS narrative game
 
 ---
 
 ## Table of Contents
 
-1. [Prototype Plan (MVP)](#prototype-plan-mvp)
-   - [Goal](#goal)
-   - [Phase 1: Core Setup](#phase-1-core-setup)
-   - [Phase 2: Core Mechanics](#phase-2-core-mechanics)
-   - [Phase 3: Multiplayer](#phase-3-multiplayer)
-   - [Phase 4: Events](#phase-4-events)
-   - [Phase 5: Signals (Basic)](#phase-5-signals-basic)
-   - [Phase 6: Territory Control (LIGHT)](#phase-6-territory-control-light)
-   - [Playtest Checklist](#playtest-checklist)
-   - [Success Criteria](#success-criteria)
-   - [Do NOT Build Yet](#do-not-build-yet)
-   - [Next Step After MVP](#next-step-after-mvp)
-2. [Technical Considerations](#technical-considerations)
-   - [Engine](#engine)
-   - [Asset Pipeline](#asset-pipeline)
-   - [Shader Implementation](#shader-implementation)
-   - [Performance Targets](#performance-targets)
-   - [Platform Targets](#platform-targets)
+1. [Technical Requirements](#technical-requirements)
+2. [Development Phases](#development-phases)
+3. [Engine & Tools](#engine--tools)
+4. [Asset Pipeline](#asset-pipeline)
+5. [Shader Implementation](#shader-implementation)
+6. [Performance Optimization](#performance-optimization)
+7. [Size Optimization](#size-optimization)
+8. [Platform Targets](#platform-targets)
 
 ---
 
-## Prototype Plan (MVP)
+## Technical Requirements
 
-### Goal
+### Core Specifications
 
-Build a playable version that proves:
-- Chaos is fun
-- Multiplayer works
-- Core loop is engaging
-- Gang identity adds personality without breaking balance
+- **Game Type:** Single-player First Person Shooter (FPS)
+- **Total Size:** Less than 500 MB
+- **Gameplay Duration:** Approximately 1 hour
+- **Number of Stages:** 5 distinct stages
+- **Target Frame Rate:** 60 FPS on mid-range hardware
+- **Resolution:** 1080p minimum, scalable to 4K
 
-### Phase 1: Core Setup
+### System Requirements (Target)
 
-- Player movement
-- Basic map (gali layout)
-- Camera (top-down angled)
+**Minimum:**
+- OS: Windows 10/11
+- CPU: Intel i5-4460 / AMD FX-6300
+- RAM: 8 GB
+- GPU: NVIDIA GTX 960 / AMD R9 280
+- Storage: 1 GB available space
+
+**Recommended:**
+- OS: Windows 10/11
+- CPU: Intel i7-8700 / AMD Ryzen 5 3600
+- RAM: 16 GB
+- GPU: NVIDIA GTX 1060 / AMD RX 580
+- Storage: 1 GB available space
+
+---
+
+## Development Phases
+
+### Phase 1: Core Foundation
+
+**Objectives:**
+- Set up Godot project with FPS template
+- Implement basic player controller (movement, camera)
+- Create basic test environment
+- Set up toon shader pipeline
+
+**Deliverables:**
+- Working FPS controller with run, walk, jump, crouch
+- First-person camera with basic effects
+- Simple test level
+- Toon outline shader working
 
 ### Phase 2: Core Mechanics
 
-**Chaos System:**
-- Basic meter
-- 2 levels (Low, High)
+**Objectives:**
+- Implement all movement mechanics (run, walk, jump, hide, crouch)
+- Implement attack and interaction systems
+- Create basic weapon system
+- Implement stealth mechanics
 
-**Jugaad Items:**
-- 1 throwable (chappal)
-- 1 explosive (cooker)
-- 1 vehicle (rickshaw)
+**Deliverables:**
+- Complete movement system with stamina
+- Attack system with hit detection
+- Interaction system for NPCs and objects
+- Basic weapon system (handgun, rifle)
+- Stealth detection system
 
-**Gang System (NEW):**
-- 2–3 gang archetypes (basic versions)
-  - IAS Aspirant
-  - Corporate Majdur
-  - Tapori Gunda
-- Basic gang selection UI
-- Gang visual identity (simple outfit differences)
-- Gang indicators above players
-- Minor passives implemented (very light, non-meta breaking)
+### Phase 3: Stage 1 Implementation
 
-### Phase 3: Multiplayer
+**Objectives:**
+- Build Stage 1 environment (slum streets)
+- Implement basic enemy AI
+- Create dialogue system
+- Implement investigation mechanics
 
-- 4–8 players
-- Basic sync (movement + actions)
-- Gang visibility in multiplayer
-- Gang indicators synced across clients
-- Basic gang scoring (points per gang)
+**Deliverables:**
+- Complete Stage 1 level
+- Basic enemy AI (henchmen)
+- Dialogue system with branching conversations
+- Investigation system with clues
+- Stage 1 playable from start to finish
 
-### Phase 4: Events
+### Phase 4: Weapons & Combat
 
-- Police spawn
-- Basic enemy AI
-- Chaos events affect all gangs equally
+**Objectives:**
+- Implement all weapon types
+- Create combat AI behaviors
+- Implement cover system
+- Add combat feedback systems
 
-### Phase 5: Signals (Basic)
+**Deliverables:**
+- All weapons (petrol bomb, grenades, rifle, handgun, knife)
+- Advanced enemy AI (trusted men)
+- Cover system with hiding mechanics
+- Combat feedback (damage, recoil, effects)
 
-- 3 signals
-- Radial menu
-- Gang-specific voice variations for signals
+### Phase 5: Stages 2-4 Implementation
 
-### Phase 6: Territory Control (LIGHT)
+**Objectives:**
+- Build Stages 2, 3, and 4 environments
+- Implement stage-specific mechanics
+- Create mini-boss encounters
+- Add environmental storytelling
 
-- Basic zone spawning
-- Zone capture mechanic
-- Gang ownership display
-- Simple scoring for zone control
+**Deliverables:**
+- Complete Stages 2, 3, and 4 levels
+- Stage-specific gameplay elements
+- Mini-boss fights (trusted men)
+- Environmental clues and storytelling
 
-### Playtest Checklist
+### Phase 6: Stage 5 & Boss Fight
 
-- Do players laugh?
-- Do players troll each other?
-- Does chaos feel fair?
-- Are gangs recognizable at a glance?
-- Do gang passives feel balanced (not overpowered)?
-- Do players form and break alliances naturally?
-- Does territory control add fun without dominating gameplay?
+**Objectives:**
+- Build Stage 5 environment (boss arena)
+- Implement main boss AI
+- Create boss fight mechanics
+- Implement death sequence and awakening
 
-### Success Criteria
+**Deliverables:**
+- Complete Stage 5 level
+- Main boss with advanced AI
+- Boss fight mechanics
+- Death sequence and awakening cutscene
 
-- Matches feel different each time
-- Players create their own fun
-- No major confusion during chaos
-- Gang identity is clear and adds personality
-- Social dynamics (alliances, betrayal) emerge naturally
-- Chaos system remains dominant over gang abilities
+### Phase 7: Polish & Optimization
 
-### Do NOT Build Yet
+**Objectives:**
+- Optimize performance to 60 FPS
+- Reduce size to under 500 MB
+- Polish visuals and audio
+- Fix bugs and balance gameplay
 
-- Advanced cosmetics
-- Progression systems
-- Store/monetization
-- Advanced UI
-- More than 3 gang archetypes
-- Complex alliance UI (keep it signal-based)
-
-### Next Step After MVP
-
-Expand:
-- More jugaad items
-- More chaos events
-- More maps
-- Additional gang archetypes (up to 5 total)
-- Refined territory control mechanics
-- More social chaos interactions
+**Deliverables:**
+- Performance optimized build
+- Size under 500 MB
+- Polished visuals and audio
+- Bug-free, balanced gameplay
 
 ---
 
-## Technical Considerations
+## Engine & Tools
 
-### Engine
+### Engine: Godot 4.x
 
-- Unity or Godot recommended for 3D stylized rendering and multiplayer support
+**Why Godot:**
+- Already in use in the project
+- Excellent 3D FPS support
+- Built-in toon shader capabilities
+- Lightweight and efficient
+- Free and open-source
+- Good export options for multiple platforms
 
-### Asset Pipeline
+**Key Godot Features Used:**
+- 3D rendering pipeline
+- GDScript for game logic
+- Shader language for custom effects
+- Animation system for characters
+- Audio system for sound and music
+- UI system for HUD and menus
 
-- All 3D assets created in Blender/Maya with toon shader and outline setup
-- Export as FBX/GLTF with consistent scale and pivot
-- Material definitions for flat colors and outline thickness
+### Development Tools
 
-### Shader Implementation
+**3D Modeling:**
+- Blender (free, open-source)
+- FBX/GLTF export pipeline
 
-- A custom screen‑space toon‑outline shader (`toon_outline.gdshader`) provides color controls, posterization, and edge detection.
-- Detailed documentation is available in [06 - Shaders.md](Shaders.md).
-- The shader is applied as a full‑screen post‑process effect via a `CanvasLayer` (`scene/shader.tscn`).
+**2D Art:**
+- Krita or GIMP for textures
+- Inkscape for UI icons
 
-### Performance Targets
+**Audio:**
+- Audacity for audio editing
+- Free sound libraries (Freesound, etc.)
 
-- 60 FPS on mid-range hardware
-- Support for 8+ players with minimal lag
-- Efficient netcode for chaotic real-time interactions
-- Outline rendering optimized for multiplayer visibility
+**Version Control:**
+- Git for source control
 
-### Platform Targets
+---
 
-- PC (Steam) primary
-- Consoles (Switch, PlayStation, Xbox) possible later
-- Mobile considered but not priority due to control complexity
+## Asset Pipeline
+
+### 3D Assets
+
+**Creation:**
+- Models created in Blender
+- Low-poly to mid-poly geometry
+- Clean topology for animation
+- UV unwrapping for textures
+
+**Export:**
+- Export as FBX or GLTF
+- Consistent scale (1 unit = 1 meter)
+- Proper pivot points
+- Include animation data
+
+**Import to Godot:**
+- Import with proper settings
+- Apply toon materials
+- Set up outline parameters
+- Configure animation tracks
+
+### Textures
+
+**Creation:**
+- Flat colors with minimal detail
+- High contrast for readability
+- Optimized size (512x512 or 1024x1024 max)
+- PNG format with compression
+
+**Optimization:**
+- Use texture atlases where possible
+- Compress textures for size reduction
+- Reuse textures across assets
+- Minimal texture variety
+
+### Audio
+
+**Creation:**
+- High-quality source audio
+- Clear, distinct sounds
+- Emotional voice acting
+- Atmospheric music
+
+**Optimization:**
+- Compress audio files (OGG format)
+- Loop background music
+- Short, efficient sound effects
+- Minimal audio variety
+
+---
+
+## Shader Implementation
+
+### Toon Outline Shader
+
+**Current Implementation:**
+- Custom screen-space toon-outline shader (`toon_outline.gdshader`)
+- Applied as full-screen post-process effect
+- Provides color controls, posterization, and edge detection
+
+**Shader Features:**
+- Adjustable outline thickness
+- Color posterization for toon effect
+- Edge detection for outlines
+- Performance-optimized implementation
+
+**Usage:**
+- Applied via `CanvasLayer` (`scene/shader.tscn`)
+- Consistent across all assets
+- Configurable parameters for different effects
+
+**Documentation:**
+- Detailed shader documentation in [Shaders.md](Shaders.md)
+
+---
+
+## Performance Optimization
+
+### Rendering Optimization
+
+**Level of Detail (LOD):**
+- Multiple LOD levels for distant objects
+- Automatic LOD switching based on distance
+- Reduced polygon count for distant objects
+
+**Culling:**
+- Frustum culling for off-screen objects
+- Occlusion culling for hidden objects
+- Portal culling for indoor areas
+
+**Batching:**
+- Static batching for environment objects
+- Dynamic batching for similar objects
+- Instanced rendering for repeated objects
+
+### Memory Optimization
+
+**Asset Streaming:**
+- Load assets per stage
+- Unload unused assets
+- Efficient memory management
+
+**Texture Optimization:**
+- Compressed texture formats
+- Texture atlases to reduce draw calls
+- Mipmaps for distant objects
+
+**Audio Optimization:**
+- Compressed audio formats
+- Streaming for long audio files
+- Pooling for frequently used sounds
+
+### Code Optimization
+
+**Efficient Algorithms:**
+- Optimized collision detection
+- Efficient AI pathfinding
+- Minimal garbage collection
+
+**Profiling:**
+- Regular performance profiling
+- Identify and fix bottlenecks
+- Optimize hot code paths
+
+---
+
+## Size Optimization
+
+### Target: Less than 500 MB
+
+**Asset Compression:**
+- Compressed textures (ASTC, ETC2, or BC7)
+- Compressed audio (OGG Vorbis)
+- Compressed models (GLTF with Draco compression)
+
+**Asset Reuse:**
+- Reuse textures across multiple objects
+- Reuse models with variations
+- Reuse audio clips where possible
+
+**Minimal Assets:**
+- Only essential assets included
+- No unused assets in final build
+- Optimized asset count
+
+**Code Optimization:**
+- Strip unused code
+- Minimize script size
+- Efficient data structures
+
+**Build Optimization:**
+- Exclude debug symbols
+- Optimize build settings
+- Use efficient compression for final package
+
+### Size Breakdown (Estimated)
+
+- Engine and code: ~50 MB
+- Textures: ~150 MB
+- Models: ~100 MB
+- Audio: ~150 MB
+- Other assets: ~50 MB
+- **Total: ~500 MB**
+
+---
+
+## Platform Targets
+
+### Primary Platform: PC (Windows)
+
+**Requirements:**
+- Windows 10/11
+- DirectX 11 or 12
+- Keyboard and mouse support
+- Optional controller support
+
+**Distribution:**
+- Steam (primary)
+- Itch.io (alternative)
+- Direct download (website)
+
+### Future Platforms (Post-Release)
+
+**Consoles:**
+- PlayStation 4/5
+- Xbox One/Series X|S
+- Nintendo Switch (performance considerations)
+
+**Mobile:**
+- Android (performance and control considerations)
+- iOS (performance and control considerations)
+
+**Note:** Console and mobile ports require additional optimization and control scheme adjustments.
+
+---
+
+## Testing & Quality Assurance
+
+### Performance Testing
+
+- Frame rate monitoring (target 60 FPS)
+- Memory usage monitoring
+- Load time testing
+- Stress testing with maximum activity
+
+### Compatibility Testing
+
+- Different hardware configurations
+- Different screen resolutions
+- Different graphics settings
+- Different input devices
+
+### Gameplay Testing
+
+- Playthrough of all 5 stages
+- Combat balance testing
+- Stealth mechanics testing
+- Dialogue and story testing
+
+### Bug Testing
+
+- Regression testing
+- Edge case testing
+- User acceptance testing
+- Beta testing
+
+---
+
+## Success Criteria
+
+### Technical Success
+
+- Game runs at 60 FPS on target hardware
+- Total size under 500 MB
+- All 5 stages complete and playable
+- No critical bugs
+- Smooth performance throughout
+
+### User Experience Success
+
+- 1-hour gameplay experience
+- Engaging story and gameplay
+- Intuitive controls
+- Clear visual and audio feedback
+- Immersive first-person experience
 
 ---
 
 **Related Documents:**
-- [GDD.md](../GDD.md) – Master overview document
-- [Gameplay-Core.md](Gameplay%20Core.md) – Core gameplay mechanics and multiplayer systems
+- [GDD.md](GDD.md) – Master overview document
+- [Gameplay-Core.md](Gameplay%20Core.md) – Core gameplay mechanics
 - [Art-Design.md](Art%20Design.md) – Visual and audio design
-- [06 - Shaders.md](Shaders.md) – Shader technical documentation
+- [Shaders.md](Shaders.md) – Shader technical documentation
