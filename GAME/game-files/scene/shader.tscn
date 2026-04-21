@@ -1,16 +1,19 @@
 [gd_scene format=3 uid="uid://d2a8ok7hsjbj5"]
 
-[ext_resource type="Shader" uid="uid://brgu53fwnrm71" path="res://shader/toon_outline_postprocess.gdshader" id="1_3b8aj"]
-[ext_resource type="Shader" uid="uid://bi40dj8qnc6g2" path="res://shader/comic_ink_single_pass.gdshader" id="1_4gvyu"]
+[ext_resource type="Shader" uid="uid://brgu53fwnrm71" path="res://script/_shader/toon_outline_postprocess.gdshader" id="1_3b8aj"]
+[ext_resource type="Shader" uid="uid://bi40dj8qnc6g2" path="res://script/_shader/comic_ink_single_pass.gdshader" id="1_4gvyu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_651et"]
 shader = ExtResource("1_4gvyu")
-shader_parameter/crush = 0.55
 shader_parameter/contrast = 1.8
-shader_parameter/red_threshold = 0.35
-shader_parameter/red_boost = 4.0
-shader_parameter/outline_thickness = 1.2
-shader_parameter/edge_threshold = 0.12
+shader_parameter/hatch_scale = 260.0
+shader_parameter/hatch_angle = 135.0
+shader_parameter/hatch_softness = 1.0
+shader_parameter/black_level = 0.2
+shader_parameter/white_level = 0.92
+shader_parameter/red_keep_color = Color(1, 0, 0, 1)
+shader_parameter/red_threshold = 0.2
+shader_parameter/red_keep_strength = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4gvyu"]
 shader = ExtResource("1_3b8aj")

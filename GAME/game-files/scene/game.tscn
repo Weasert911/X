@@ -1,11 +1,10 @@
 [gd_scene format=4 uid="uid://4jrcmrrb2rx2"]
 
 [ext_resource type="PackedScene" uid="uid://d2a8ok7hsjbj5" path="res://scene/shader.tscn" id="1_33cqm"]
-[ext_resource type="Script" uid="uid://pjtdsrfmrr7y" path="res://script/postprocess/auto_shader_applier.gd" id="1_xwcet"]
 [ext_resource type="Texture2D" uid="uid://d2dl3awb7y3cd" path="res://assets/sky/sky_01_2k/sky_01_2k.png" id="2_33cqm"]
 [ext_resource type="PackedScene" uid="uid://btim62k8d8f6k" path="res://scene/player.tscn" id="2_dbls1"]
-[ext_resource type="Shader" uid="uid://chnkmnw85wtq6" path="res://script/_shader/hashing_shadows_spatial.gdshader" id="2_p1ry8"]
 [ext_resource type="PackedScene" uid="uid://dul2ydjs8g8n7" path="res://scene/fps_meter.tscn" id="2_xwcet"]
+[ext_resource type="Shader" uid="uid://c4va0ur7kf5xn" path="res://script/_shader/red.gdshader" id="4_p1ry8"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_xwcet"]
 panorama = ExtResource("2_33cqm")
@@ -46,6 +45,12 @@ _surfaces = [{
 "vertex_count": 36,
 "vertex_data": PackedByteArray("AAAAvwAAAL8AAAA/AAAAvwAAAL8AAAC/AAAAvwAAAD8AAAC/AAAAPwAAAL8AAAC/AAAAvwAAAL8AAAC/AAAAvwAAAL8AAAA/AAAAvwAAAD8AAAC/AAAAvwAAAL8AAAC/AAAAPwAAAL8AAAC/AAAAvwAAAD8AAAC/AAAAvwAAAD8AAAA/AAAAvwAAAL8AAAA/AAAAvwAAAL8AAAA/AAAAvwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAvwAAAD8AAAA/AAAAvwAAAD8AAAC/AAAAvwAAAL8AAAA/AAAAPwAAAL8AAAA/AAAAPwAAAL8AAAC/AAAAPwAAAD8AAAA/AAAAPwAAAL8AAAA/AAAAvwAAAL8AAAA/AAAAPwAAAL8AAAC/AAAAPwAAAL8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAL8AAAC/AAAAPwAAAD8AAAC/AAAAvwAAAD8AAAC/AAAAvwAAAD8AAAC/AAAAPwAAAD8AAAC/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAC/AAAAPwAAAL8AAAC/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAA/////wAA/z//////AAD/P/////8AAP8/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//3//fwAA/z//f/9/AAD/P/9//38AAP8//3//////AAD/f/////8AAP9//////wAA/38AAP//AAD/fwAA//8AAP9/AAD//wAA/3//fwAA/z//f/9/AAD/P/9//38AAP8/////f/9//n////9//3/+f////3//f/5//////wAA/z//////AAD/P/////8AAP8//3//////AAD/f/////8AAP9//////wAA////f/9//n////9//3/+f////3//f/5/")
 }]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xlg7c"]
+render_priority = 0
+shader = ExtResource("4_p1ry8")
+shader_parameter/tint_color = Color(1, 0, 0, 1)
+shader_parameter/tint_strength = 1.0
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xlg7c"]
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
@@ -93,8 +98,6 @@ _surfaces = [{
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
 
 [node name="game" type="Node3D" unique_id=493351623]
-script = ExtResource("1_xwcet")
-shader = ExtResource("2_p1ry8")
 
 [node name="shaderPass" parent="." unique_id=1490553368 instance=ExtResource("1_33cqm")]
 
@@ -126,6 +129,7 @@ shape = SubResource("ConvexPolygonShape3D_xwcet")
 [node name="house" type="MeshInstance3D" parent="level" unique_id=363886803]
 transform = Transform3D(2.7963536, 0, 0, 0, 3.6489384, 0, 0, 0, 2.2049816, -2.0221975, 0.59279263, 4.376685)
 mesh = SubResource("ArrayMesh_p1ry8")
+surface_material_override/0 = SubResource("ShaderMaterial_xlg7c")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/house" unique_id=1497818115]
 
