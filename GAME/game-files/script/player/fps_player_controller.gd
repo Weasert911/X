@@ -48,7 +48,7 @@ var previous_horizontal_velocity: Vector3 = Vector3.ZERO
 var held_object: Pickable = null
 
 # Crosshair UI
-var crosshair: Control
+var crosshair: CanvasLayer
 
 func _get_movement_input() -> Vector2:
 	return Input.get_vector("move_left", "move_right", "move_backward", "move_forward")

@@ -25,7 +25,7 @@ mesh = SubResource("CapsuleMesh_hjaqi")
 shape = SubResource("CapsuleShape3D_fvtld")
 
 [node name="HeadPivot" type="Node3D" parent="." unique_id=651211487]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 1.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
 [node name="Camera3D" type="Camera3D" parent="HeadPivot" unique_id=573293508]
 current = true

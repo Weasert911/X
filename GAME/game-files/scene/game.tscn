@@ -4,9 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://d2dl3awb7y3cd" path="res://assets/sky/sky_01_2k/sky_01_2k.png" id="2_33cqm"]
 [ext_resource type="PackedScene" uid="uid://btim62k8d8f6k" path="res://scene/player.tscn" id="2_dbls1"]
 [ext_resource type="PackedScene" uid="uid://dul2ydjs8g8n7" path="res://scene/fps_meter.tscn" id="2_xwcet"]
-[ext_resource type="PackedScene" uid="uid://bffc16j64v52c" path="res://scene/pickup_item.tscn" id="7_17rxn"]
-[ext_resource type="Script" uid="uid://db44gir7idmy1" path="res://script/pickable.gd" id="7_qpk70"]
-[ext_resource type="PackedScene" uid="uid://b8x7lam3n5p2q" path="res://scene/interaction_prompt.tscn" id="8_interaction_prompt"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_xwcet"]
 panorama = ExtResource("2_33cqm")
@@ -96,12 +93,8 @@ points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 
 [node name="game" type="Node3D" unique_id=493351623]
 
 [node name="shaderPass" parent="." unique_id=1490553368 instance=ExtResource("1_33cqm")]
-visible = false
 
 [node name="fps meter" parent="shaderPass" unique_id=1332310309 instance=ExtResource("2_xwcet")]
-mouse_filter = 2
-
-[node name="InteractionPrompt" parent="." unique_id=987654321 instance=ExtResource("8_interaction_prompt")]
 mouse_filter = 2
 
 [node name="env" type="Node3D" parent="." unique_id=220677502]
@@ -200,7 +193,3 @@ shape = SubResource("ConvexPolygonShape3D_ll5lq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3668694, 0)
 floor_stop_on_slope = false
 floor_max_angle = 0.7853982
-
-[node name="PickupItem" parent="." unique_id=721490389 instance=ExtResource("7_17rxn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1194036, 2.8899975, 2.3957105)
-script = ExtResource("7_qpk70")
