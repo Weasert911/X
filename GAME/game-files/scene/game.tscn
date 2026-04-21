@@ -117,7 +117,7 @@ points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 
 environment = SubResource("Environment_n4st5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="env" unique_id=935261986]
-transform = Transform3D(1, 0, 0, 0, 0.97434247, 0.22507006, 0, -0.22507006, 0.9743425, 2.9096751, 0, 16.250313)
+transform = Transform3D(0.9240759, -0.2539014, -0.28568834, 0.3255624, 0.91446704, 0.2403315, 0.20023197, -0.31509396, 0.9276977, 2.9096751, 4.5846014, 16.250313)
 light_indirect_energy = 16.0
 light_volumetric_fog_energy = 16.0
 shadow_enabled = true
