@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://btim62k8d8f6k" path="res://scene/player.tscn" id="2_dbls1"]
 [ext_resource type="PackedScene" uid="uid://dul2ydjs8g8n7" path="res://scene/fps_meter.tscn" id="2_xwcet"]
 [ext_resource type="Shader" uid="uid://c4va0ur7kf5xn" path="res://script/_shader/red.gdshader" id="4_p1ry8"]
+[ext_resource type="Shader" uid="uid://53bwp2li0w37" path="res://script/_shader/ouliner.gdshader" id="4_xlg7c"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_xwcet"]
 panorama = ExtResource("2_33cqm")
@@ -35,11 +36,18 @@ _surfaces = [{
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xwcet"]
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5)
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_p1ry8"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p1ry8"]
+render_priority = 0
+shader = ExtResource("4_xlg7c")
+shader_parameter/weight = 9.475
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ll5lq"]
 _surfaces = [{
 "aabb": AABB(-0.5, -0.5, -0.5, 1, 1, 1),
 "attribute_data": PackedByteArray("AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/"),
 "format": 34359738391,
+"material": SubResource("ShaderMaterial_p1ry8"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 36,
@@ -50,7 +58,7 @@ _surfaces = [{
 render_priority = 0
 shader = ExtResource("4_p1ry8")
 shader_parameter/tint_color = Color(1, 0, 0, 1)
-shader_parameter/tint_strength = 1.0
+shader_parameter/roughness_val = 0.55
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xlg7c"]
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
@@ -109,7 +117,7 @@ points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 
 environment = SubResource("Environment_n4st5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="env" unique_id=935261986]
-transform = Transform3D(1, 0, 0, 0, 0.55234444, 0.833616, 0, -0.833616, 0.55234444, 2.9096751, 0, 16.250313)
+transform = Transform3D(1, 0, 0, 0, 0.97434247, 0.22507006, 0, -0.22507006, 0.9743425, 2.9096751, 0, 16.250313)
 light_indirect_energy = 16.0
 light_volumetric_fog_energy = 16.0
 shadow_enabled = true
@@ -128,7 +136,7 @@ shape = SubResource("ConvexPolygonShape3D_xwcet")
 
 [node name="house" type="MeshInstance3D" parent="level" unique_id=363886803]
 transform = Transform3D(2.7963536, 0, 0, 0, 3.6489384, 0, 0, 0, 2.2049816, -2.0221975, 0.59279263, 4.376685)
-mesh = SubResource("ArrayMesh_p1ry8")
+mesh = SubResource("ArrayMesh_ll5lq")
 surface_material_override/0 = SubResource("ShaderMaterial_xlg7c")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="level/house" unique_id=1497818115]
