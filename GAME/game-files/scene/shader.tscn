@@ -1,18 +1,16 @@
 [gd_scene format=3 uid="uid://d2a8ok7hsjbj5"]
 
 [ext_resource type="Shader" uid="uid://brgu53fwnrm71" path="res://shader/toon_outline_postprocess.gdshader" id="1_3b8aj"]
-[ext_resource type="Shader" uid="uid://dubf5iwu2v8d6" path="res://shader/comic_ink_postprocess.gdshader" id="2_4gvyu"]
+[ext_resource type="Shader" uid="uid://bi40dj8qnc6g2" path="res://shader/comic_ink_single_pass.gdshader" id="1_4gvyu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_651et"]
-shader = ExtResource("2_4gvyu")
+shader = ExtResource("1_4gvyu")
+shader_parameter/crush = 0.55
 shader_parameter/contrast = 1.8
-shader_parameter/bands = 3
+shader_parameter/red_threshold = 0.35
+shader_parameter/red_boost = 4.0
 shader_parameter/outline_thickness = 1.2
 shader_parameter/edge_threshold = 0.12
-shader_parameter/outline_intensity = 1.2
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/edge_darkening = 0.3
-shader_parameter/ink_variation = 0.05
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4gvyu"]
 shader = ExtResource("1_3b8aj")
@@ -31,7 +29,6 @@ shader_parameter/depth_influence = 0.5
 [node name="shaderPass" type="CanvasLayer" unique_id=1490553368]
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1256329914]
-visible = false
 material = SubResource("ShaderMaterial_651et")
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,6 +37,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Toon_outline" type="ColorRect" parent="." unique_id=852271112]
+visible = false
 material = SubResource("ShaderMaterial_4gvyu")
 anchors_preset = 15
 anchor_right = 1.0

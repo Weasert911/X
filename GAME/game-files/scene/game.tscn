@@ -1,8 +1,10 @@
 [gd_scene format=4 uid="uid://4jrcmrrb2rx2"]
 
 [ext_resource type="PackedScene" uid="uid://d2a8ok7hsjbj5" path="res://scene/shader.tscn" id="1_33cqm"]
+[ext_resource type="Script" uid="uid://pjtdsrfmrr7y" path="res://script/postprocess/auto_shader_applier.gd" id="1_xwcet"]
 [ext_resource type="Texture2D" uid="uid://d2dl3awb7y3cd" path="res://assets/sky/sky_01_2k/sky_01_2k.png" id="2_33cqm"]
 [ext_resource type="PackedScene" uid="uid://btim62k8d8f6k" path="res://scene/player.tscn" id="2_dbls1"]
+[ext_resource type="Shader" uid="uid://chnkmnw85wtq6" path="res://script/_shader/hashing_shadows_spatial.gdshader" id="2_p1ry8"]
 [ext_resource type="PackedScene" uid="uid://dul2ydjs8g8n7" path="res://scene/fps_meter.tscn" id="2_xwcet"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_xwcet"]
@@ -91,11 +93,12 @@ _surfaces = [{
 points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
 
 [node name="game" type="Node3D" unique_id=493351623]
+script = ExtResource("1_xwcet")
+shader = ExtResource("2_p1ry8")
 
 [node name="shaderPass" parent="." unique_id=1490553368 instance=ExtResource("1_33cqm")]
 
 [node name="fps meter" parent="shaderPass" unique_id=1332310309 instance=ExtResource("2_xwcet")]
-mouse_filter = 2
 
 [node name="env" type="Node3D" parent="." unique_id=220677502]
 
@@ -104,7 +107,10 @@ environment = SubResource("Environment_n4st5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="env" unique_id=935261986]
 transform = Transform3D(1, 0, 0, 0, 0.55234444, 0.833616, 0, -0.833616, 0.55234444, 2.9096751, 0, 16.250313)
+light_indirect_energy = 16.0
+light_volumetric_fog_energy = 16.0
 shadow_enabled = true
+shadow_blur = 0.0
 
 [node name="level" type="Node3D" parent="." unique_id=1907808767]
 
