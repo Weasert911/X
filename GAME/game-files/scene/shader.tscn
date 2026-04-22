@@ -2,6 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://brgu53fwnrm71" path="res://script/_shader/toon_outline_postprocess.gdshader" id="1_3b8aj"]
 [ext_resource type="Shader" uid="uid://bi40dj8qnc6g2" path="res://script/_shader/comic_ink_single_pass.gdshader" id="1_4gvyu"]
+[ext_resource type="Shader" uid="uid://53bwp2li0w37" path="res://script/_shader/ouliner.gdshader" id="2_651et"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_651et"]
 shader = ExtResource("1_4gvyu")
@@ -15,6 +16,19 @@ shader_parameter/outline_thickness = 1.6490000545775
 shader_parameter/outline_threshold = 0.15400000568506
 shader_parameter/deep_shadow_threshold = 0.1250000059375
 shader_parameter/paper_color = Color(0.4, 0.4, 0.4, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vhu4l"]
+shader = ExtResource("2_651et")
+shader_parameter/contrast = 0.9970000473575
+shader_parameter/hatch_scale = 1000.0
+shader_parameter/hatch_softness = 0.20000000298023
+shader_parameter/scene_hardness = 0.73900003184262
+shader_parameter/accent_color = Color(0.4296193, 4.2716042e-07, 1.6845763e-07, 1)
+shader_parameter/red_threshold = 0.50800002413
+shader_parameter/outline_thickness = 3.1970001281075
+shader_parameter/outline_threshold = 0.22800000920006
+shader_parameter/deep_shadow_threshold = 0.150000007125
+shader_parameter/paper_color = Color(0.5529558, 0.5529555, 0.5529556, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4gvyu"]
 shader = ExtResource("1_3b8aj")
@@ -33,7 +47,17 @@ shader_parameter/depth_influence = 0.5
 [node name="shaderPass" type="CanvasLayer" unique_id=1490553368]
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1256329914]
+visible = false
 material = SubResource("ShaderMaterial_651et")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=1445230477]
+visible = false
+material = SubResource("ShaderMaterial_vhu4l")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
