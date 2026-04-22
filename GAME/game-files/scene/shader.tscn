@@ -5,22 +5,16 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_651et"]
 shader = ExtResource("1_4gvyu")
-shader_parameter/contrast = 4.0
-shader_parameter/hatch_scale = 800.0
-shader_parameter/hatch_angle = 180.0
-shader_parameter/hatch_softness = 1.0
-shader_parameter/black_level = 0.266000012635
-shader_parameter/white_level = 0.92
-shader_parameter/red_keep_color = Color(0.44894928, 2.5088154e-06, 1.2513996e-06, 1)
-shader_parameter/red_threshold = 0.518000024605
-shader_parameter/red_keep_strength = 1.0
-shader_parameter/vignette_strength = 1.0
-shader_parameter/grain_strength = 0.0
-shader_parameter/shadow_crush = 1.6450000781375
-shader_parameter/highlight_fade = 2.0
-shader_parameter/outline_strength = 0.810000038475
-shader_parameter/outline_threshold = 0.0
-shader_parameter/outline_color = Color(0, 1, 0, 1)
+shader_parameter/contrast = 1.4070000668325
+shader_parameter/hatch_scale = 450.0
+shader_parameter/hatch_softness = 0.0
+shader_parameter/scene_hardness = 1.0
+shader_parameter/accent_color = Color(0.26208812, 1.0302989e-06, 5.2943824e-07, 1)
+shader_parameter/red_threshold = 0.582000027645
+shader_parameter/outline_thickness = 1.6490000545775
+shader_parameter/outline_threshold = 0.15400000568506
+shader_parameter/deep_shadow_threshold = 0.1250000059375
+shader_parameter/paper_color = Color(0.4, 0.4, 0.4, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4gvyu"]
 shader = ExtResource("1_3b8aj")
