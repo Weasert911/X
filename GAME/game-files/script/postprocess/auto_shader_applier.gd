@@ -13,12 +13,10 @@ func _ready():
 func apply_shader_recursive(node: Node):
 	for child in node.get_children():
 
-		# If it's a mesh
 		if child is MeshInstance3D:
 			var mat := ShaderMaterial.new()
 			mat.shader = shader
 
 			child.material_override = mat
 
-		# Recurse
 		apply_shader_recursive(child)

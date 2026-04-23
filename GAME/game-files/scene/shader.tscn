@@ -24,10 +24,10 @@ shader_parameter/hatch_scale = 1000.0
 shader_parameter/hatch_softness = 0.20000000298023
 shader_parameter/scene_hardness = 0.73900003184262
 shader_parameter/accent_color = Color(0.4296193, 4.2716042e-07, 1.6845763e-07, 1)
-shader_parameter/red_threshold = 0.50800002413
-shader_parameter/outline_thickness = 3.1970001281075
-shader_parameter/outline_threshold = 0.22800000920006
-shader_parameter/deep_shadow_threshold = 0.150000007125
+shader_parameter/red_threshold = 0.410000019475
+shader_parameter/outline_thickness = 0.5
+shader_parameter/outline_threshold = 0.40500001760756
+shader_parameter/deep_shadow_threshold = 0.01200000057
 shader_parameter/paper_color = Color(0.5529558, 0.5529555, 0.5529556, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4gvyu"]
@@ -56,7 +56,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect2" type="ColorRect" parent="." unique_id=1445230477]
-visible = false
 material = SubResource("ShaderMaterial_vhu4l")
 anchors_preset = 15
 anchor_right = 1.0
