@@ -14,6 +14,3 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
-
-# python files
-remove_comments.py
