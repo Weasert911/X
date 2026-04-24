@@ -5,6 +5,10 @@ class_name FPSPlayerController
 @export var walk_speed: float = 5.0
 @export var sprint_speed: float = 8.0
 @export var acceleration: float = 15.0
+
+@export_group("Player Stats")
+@export var health: int = 100
+@export var ammo: int = 30
 @export var deceleration: float = 20.0
 @export var air_acceleration: float = 5.0
 @export var air_deceleration: float = 2.0
@@ -44,10 +48,8 @@ var just_jumped: bool = false
 var current_acceleration: float = 0.0
 var previous_horizontal_velocity: Vector3 = Vector3.ZERO
 
-## Currently held pickable object
 var held_object: Pickable = null
 
-# Crosshair UI
 var crosshair: CanvasLayer
 
 func _get_movement_input() -> Vector2:
@@ -60,10 +62,10 @@ func _get_jump_input() -> bool:
 	return Input.is_action_just_pressed("jump")
 
 func _ready() -> void:
-	# Set raycast to detect all layers
+	add_to_group("player")
+	
 	ray.collision_mask = 1
 	
-	# Load crosshair scene
 	var crosshair_scene = preload("res://scene/crosshair.tscn")
 	var crosshair_instance = crosshair_scene.instantiate()
 	add_child(crosshair_instance)
@@ -89,7 +91,6 @@ func _physics_process(delta: float) -> void:
 	
 	_handle_held_object(delta)
 	
-	# Update crosshair color based on target
 	if ray.is_colliding() and ray.get_collider() is Pickable:
 		crosshair.set_color(Color.GREEN)
 	else:
@@ -201,7 +202,6 @@ func is_player_sprinting() -> bool:
 func is_player_grounded() -> bool:
 	return is_on_floor()
 
-## Handles the held object position during movement
 func _handle_held_object(delta: float) -> void:
 	if held_object:
 		var target_pos = ray.global_transform.origin + ray.global_transform.basis.z * -hold_distance
@@ -217,7 +217,6 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("throw"):
 		throw_object()
 
-## Attempts to pick up an object using raycast
 func try_pick() -> void:
 	if ray.is_colliding():
 		var obj = ray.get_collider()
@@ -225,13 +224,11 @@ func try_pick() -> void:
 			held_object = obj
 			obj.pick_up()
 
-## Drops the currently held object
 func drop() -> void:
 	if held_object:
 		held_object.release(global_position, Vector3.ZERO)
 		held_object = null
 
-## Throws the currently held object
 func throw_object() -> void:
 	if held_object:
 		var dir = -ray.global_transform.basis.z

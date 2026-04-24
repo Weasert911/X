@@ -1,14 +1,12 @@
 extends Node
 
 func _ready():
-    # Define interact action (E)
     if not InputMap.has_action("interact"):
         InputMap.add_action("interact")
         var event = InputEventKey.new()
         event.keycode = KEY_E
         InputMap.action_add_event("interact", event)
     
-    # Define throw action (Q)
     if not InputMap.has_action("throw"):
         InputMap.add_action("throw")
         var event = InputEventKey.new()

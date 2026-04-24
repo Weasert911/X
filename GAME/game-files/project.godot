@@ -14,12 +14,22 @@ config/name="X"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameManager="*res://autoload/GameManager+SaveSys.gd"
+
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/mode=3
 window/vsync/vsync_mode=0
+
+[global_group]
+
+checkpoint_area=""
+spawn=""
+checkpoint_marker=""
 
 [input]
 
