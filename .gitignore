@@ -16,4 +16,4 @@ data_*/
 mono_crash.*.json
 
 # python files
-.py
+remove_comments.py
