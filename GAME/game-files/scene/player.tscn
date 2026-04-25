@@ -9,6 +9,9 @@
 [ext_resource type="Script" uid="uid://b7nhvginkkqog" path="res://script/camera_effects/landing_weight_system.gd" id="7_landing"]
 [ext_resource type="Script" uid="uid://bpl74yvb3j55" path="res://script/camera_effects/breathing_system.gd" id="8_breathing"]
 [ext_resource type="Script" uid="uid://coxqri56bdwno" path="res://script/camera_effects/dynamic_fov_system.gd" id="9_dynamic_fov"]
+[ext_resource type="Script" uid="uid://kvs4nxvpwyx4" path="res://script/WeaponManager.gd" id="10_ml7e8"]
+[ext_resource type="PackedScene" uid="uid://blxoo4iux048q" path="res://scene/smg.tscn" id="11_dk1vr"]
+[ext_resource type="Resource" uid="uid://bns014hurho8f" path="res://resources/smg_01.tres" id="12_34jf3"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hjaqi"]
 
@@ -32,9 +35,8 @@ current = true
 far = 1000.0
 script = ExtResource("2_fps_camera")
 
-[node name="RayCast3D" type="RayCast3D" parent="HeadPivot/Camera3D"]
+[node name="RayCast3D" type="RayCast3D" parent="HeadPivot/Camera3D" unique_id=682635758]
 target_position = Vector3(0, 0, -3)
-enabled = true
 collision_mask = 4
 
 [node name="CameraEffectsManager" type="Node3D" parent="HeadPivot" unique_id=199790716]
@@ -59,3 +61,16 @@ script = ExtResource("8_breathing")
 
 [node name="DynamicFOVSystem" type="Node" parent="HeadPivot/CameraEffectsManager" unique_id=1099268961]
 script = ExtResource("9_dynamic_fov")
+
+[node name="WeaponManager" type="Node" parent="." unique_id=1523049351 node_paths=PackedStringArray("weapon_holder")]
+script = ExtResource("10_ml7e8")
+weapon_holder = NodePath("../WeaponHolder")
+weapon_scenes = {
+"smg_01": ExtResource("11_dk1vr")
+}
+weapon_datas = {
+"smg_01": ExtResource("12_34jf3")
+}
+
+[node name="WeaponHolder" type="Node3D" parent="." unique_id=1985905682]
+transform = Transform3D(-3, 0, -4.5298742e-07, 0, 3, 0, 4.5298742e-07, 0, -3, 0, 0, 0)

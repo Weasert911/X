@@ -1,5 +1,4 @@
 extends RigidBody3D
-class_name Pickable
 
 var is_held = false
 

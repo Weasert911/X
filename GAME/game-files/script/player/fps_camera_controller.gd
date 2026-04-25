@@ -49,6 +49,7 @@ var movement_speed: float = 0.0
 signal camera_direction_changed(forward: Vector3, right: Vector3)
 
 func _ready() -> void:
+	add_to_group("player_camera")
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	_current_fov = base_fov

@@ -2,15 +2,36 @@ extends Node
 
 const SAVE_PATH = "user://save.json"
 
+var weapon_manager
+
 var current_level: String = ""
 var player: Node3D = null
 
 var checkpoint_transform: Transform3D = Transform3D.IDENTITY
+var pending_weapon_data = {}
+
+func register_weapon_manager(wm):
+	weapon_manager = wm
+	print("[GM] WeaponManager registered safely")
+
+func _refresh_weapon_manager():
+	await get_tree().process_frame
+	weapon_manager = get_tree().get_first_node_in_group("weapon_manager")
+	if weapon_manager:
+		print("[GM] WeaponManager refreshed")
+		return
+	# If still null, wait another frame
+	await get_tree().process_frame
+	weapon_manager = get_tree().get_first_node_in_group("weapon_manager")
+	if weapon_manager:
+		print("[GM] WeaponManager refreshed after retry")
+	else:
+		print("[GM] WARNING: WeaponManager not found in group")
 
 func _ready():
 	print("[GM] Initialized")
-
-	await get_tree().process_frame
+	add_to_group("game_manager")
+	await _refresh_weapon_manager()
 
 	if FileAccess.file_exists(SAVE_PATH):
 		print("[GM] Save found → loading")
@@ -33,11 +54,13 @@ func reload_level():
 	
 	print("[GM] Reloading:", current_level)
 	get_tree().change_scene_to_file(current_level)
+	call_deferred("_refresh_weapon_manager")
 
 func load_level(path: String):
 	current_level = path
 	print("[GM] Loading:", path)
 	get_tree().change_scene_to_file(path)
+	call_deferred("_refresh_weapon_manager")
 
 func set_checkpoint_from_area(area: Area3D):
 	var markers = get_tree().get_nodes_in_group("checkpoint_marker")
@@ -77,8 +100,18 @@ func respawn_player():
 	print("[GM] Player respawned")
 
 func save_game():
+	if weapon_manager == null:
+		weapon_manager = get_tree().get_first_node_in_group("weapon_manager")
+	
+	var weapon_data = {}
+	if weapon_manager:
+		weapon_data = weapon_manager.get_save_data()
+	else:
+		push_error("WeaponManager still null - cannot save weapons")
+		# Continue saving without weapon data
+	
 	var data = {
-		"version": 1,  # Current schema version
+		"version": 1,
 		"level": get_tree().current_scene.scene_file_path,
 		"checkpoint": {
 			"position": {
@@ -86,7 +119,8 @@ func save_game():
 				"y": checkpoint_transform.origin.y,
 				"z": checkpoint_transform.origin.z
 			}
-		}
+		},
+		"weapons": weapon_data
 	}
 
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
@@ -100,13 +134,11 @@ func load_game():
 
 	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
 	var data = JSON.parse_string(file.get_as_text())
-
 	if data == null:
 		print("[GM] Save corrupted - deleting")
 		delete_save()
 		respawn_player()
 		return
-
 	current_level = data["level"]
 
 	if data.get("version", 0) != 1:
@@ -121,6 +153,8 @@ func load_game():
 
 	checkpoint_transform = Transform3D(Basis.IDENTITY, origin)
 
+	pending_weapon_data = data.get("weapons", {})
+
 	print("[GM] Loading game...")
 
 	await load_level_async(current_level)
@@ -130,6 +164,22 @@ func load_level_async(path):
 	get_tree().change_scene_to_file(path)
 	await get_tree().process_frame
 	await get_tree().process_frame
+
+	# 🔥 re-fetch AFTER scene is ready
+	_refresh_weapon_manager()
+
+	# If still null, wait a bit more (max 5 frames)
+	var attempts = 0
+	while weapon_manager == null and attempts < 5:
+		await get_tree().process_frame
+		weapon_manager = get_tree().get_first_node_in_group("weapon_manager")
+		attempts += 1
+
+	if weapon_manager:
+		weapon_manager.load_from_save(pending_weapon_data)
+		pending_weapon_data = {}  # clear after applying
+	else:
+		print("[GM] ERROR: WeaponManager not found after load")
 
 	respawn_player()
 	print("[GM] Load complete")

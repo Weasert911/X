@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://bns014hurho8f"]
+
+[ext_resource type="Script" uid="uid://44gpb187j0od" path="res://script/WeaponData.gd" id="1_n0o03"]
+
+[resource]
+script = ExtResource("1_n0o03")
+gun_id = "pistol_01"
+mag_size = 12
+max_mags = 2
+reload_time = 2.0
+metadata/_custom_type_script = "uid://44gpb187j0od"

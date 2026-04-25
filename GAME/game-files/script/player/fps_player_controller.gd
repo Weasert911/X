@@ -26,9 +26,7 @@ class_name FPSPlayerController
 @export var ground_check_offset: float = 0.05
 @export var max_slope_angle: float = 45.0
 
-@export_group("Pick & Throw")
-@export var hold_distance: float = 2.0
-@export var throw_force: float = 10.0
+@onready var weapon_manager = $WeaponManager
 
 @onready var head_pivot: Node3D = $HeadPivot
 @onready var camera_controller: FPSCameraController = $HeadPivot/Camera3D
@@ -47,8 +45,6 @@ var is_strafing_right: bool = false
 var just_jumped: bool = false
 var current_acceleration: float = 0.0
 var previous_horizontal_velocity: Vector3 = Vector3.ZERO
-
-var held_object: Pickable = null
 
 var crosshair: CanvasLayer
 
@@ -70,6 +66,17 @@ func _ready() -> void:
 	var crosshair_instance = crosshair_scene.instantiate()
 	add_child(crosshair_instance)
 	crosshair = crosshair_instance
+	if not InputMap.has_action("shoot"):
+		InputMap.add_action("shoot")
+		var key_event = InputEventMouseButton.new()
+		key_event.button_index = MOUSE_BUTTON_LEFT
+		InputMap.action_add_event("shoot", key_event)
+
+	if not InputMap.has_action("reload"):
+		InputMap.add_action("reload")
+		var key_event = InputEventKey.new()
+		key_event.keycode = KEY_R
+		InputMap.action_add_event("reload", key_event)
 
 func _physics_process(delta: float) -> void:
 	input_dir = _get_movement_input()
@@ -89,14 +96,6 @@ func _physics_process(delta: float) -> void:
 	
 	_update_camera_state()
 	
-	_handle_held_object(delta)
-	
-	if ray.is_colliding() and ray.get_collider() is Pickable:
-		crosshair.set_color(Color.GREEN)
-	else:
-		crosshair.set_color(Color.WHITE)
-	
-
 func _handle_movement(delta: float) -> void:
 	var direction = Vector3.ZERO
 	
@@ -202,35 +201,11 @@ func is_player_sprinting() -> bool:
 func is_player_grounded() -> bool:
 	return is_on_floor()
 
-func _handle_held_object(delta: float) -> void:
-	if held_object:
-		var target_pos = ray.global_transform.origin + ray.global_transform.basis.z * -hold_distance
-		held_object.global_position = held_object.global_position.lerp(target_pos, 10 * delta)
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("interact"):
-		if held_object == null:
-			try_pick()
-		else:
-			drop()
+
+	if event.is_action_pressed("shoot"):
+		weapon_manager.shoot()
 	
-	if event.is_action_pressed("throw"):
-		throw_object()
-
-func try_pick() -> void:
-	if ray.is_colliding():
-		var obj = ray.get_collider()
-		if obj is Pickable:
-			held_object = obj
-			obj.pick_up()
-
-func drop() -> void:
-	if held_object:
-		held_object.release(global_position, Vector3.ZERO)
-		held_object = null
-
-func throw_object() -> void:
-	if held_object:
-		var dir = -ray.global_transform.basis.z
-		held_object.release(global_position, dir * throw_force)
-		held_object = null
+	if event.is_action_pressed("reload"):
+		weapon_manager.reload()
