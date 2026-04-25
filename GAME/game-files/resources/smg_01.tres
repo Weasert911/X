@@ -6,5 +6,6 @@
 script = ExtResource("1_n0o03")
 gun_id = "smg_01"
 weapon_type = 1
+recoil = -0.2
 spread = 5.0
 metadata/_custom_type_script = "uid://44gpb187j0od"
