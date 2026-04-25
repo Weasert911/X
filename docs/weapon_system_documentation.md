@@ -50,12 +50,13 @@ The weapon system is built on **three distinct layers**. This separation is mand
 **Purpose:** Execute weapon behavior and visuals
 
 **Responsibilities:**
-- Raycast-based shooting
-- Playing animations (shoot, reload, draw)
-- Applying recoil and spread
-- Managing runtime ammo state:
+- Raycast-based shooting (`Weapon.gd`)
+- Playing animations (shoot, reload, draw) - implemented in weapon scenes
+- Applying recoil and spread (`Weapon.gd`)
+- Managing runtime ammo state (`Weapon.gd`):
   - `ammo_in_mag`
   - `mags_left`
+- Handling weapon firing modes (single, burst, auto)
 
 **Exclusions:**
 - No saving logic
@@ -97,6 +98,8 @@ var inventory = {} # gun_id -> weapon instance
 | Weapon type enum | WeaponData         |
 | Gun ID system    | WeaponData         |
 | Equip tracking   | WeaponManager      |
+| Pickup system    | PickupWeapon.gd    |
+| Camera effects   | CameraEffectsManager.gd |
 
 ---
 
@@ -231,15 +234,17 @@ enum WeaponType {
 
 ---
 
-## 🚀 Implementation Order
+## 🚀 Implementation Status
 
-1. Create WeaponData resources (SMG, pistol, rifle)
-2. Implement Weapon.gd (shooting + reload + ammo)
-3. Implement WeaponManager.gd
-4. Connect signals to GameManager
-5. Extend save system
-6. Build pickup system
-7. Integrate animations (draw, shoot, reload)
+1. [x] Create WeaponData resources (SMG, pistol)
+   - `resources/smg_01.tres`
+   - `resources/pistol_01.tres`
+2. [x] Implement Weapon.gd (shooting + reload + ammo)
+3. [x] Implement WeaponManager.gd
+4. [x] Connect signals to GameManager
+5. [ ] Extend save system
+6. [x] Build pickup system (`PickupWeapon.gd`, `smg_pickup.tscn`)
+7. [x] Integrate animations (draw, shoot, reload) for SMG
 
 ---
 
@@ -248,4 +253,17 @@ enum WeaponType {
 **Separation of Data, Behavior, and Control is non-negotiable.**
 
 Breaking this rule will lead to scaling issues, bugs, and poor maintainability as more weapons are added.
+
+## Implemented Weapons
+
+### SMG
+- Resource: `resources/smg_01.tres`
+- Scene: `scene/smg.tscn`
+- Pickup: `scene/smg_pickup.tscn`
+- Features: Automatic fire, recoil, reload animation
+
+### Pistol
+- Resource: `resources/pistol_01.tres`
+- Scene: In development
+- Features: Single-shot, high damage
 

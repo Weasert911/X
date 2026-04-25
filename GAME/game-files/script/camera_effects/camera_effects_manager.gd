@@ -8,6 +8,8 @@ extends Node3D
 @onready var breathing: BreathingSystem = $BreathingSystem
 @onready var dynamic_fov: DynamicFOVSystem = $DynamicFOVSystem
 
+var blink_alpha: float = 0.0
+
 var is_sprinting: bool = false
 var is_grounded: bool = true
 var movement_speed: float = 0.0
@@ -58,5 +60,6 @@ func get_effects(delta: float) -> EffectsData:
 	total_rotation += micro_motion.get_rotation()
 	
 	var target_fov = dynamic_fov.get_fov()
+	blink_alpha = blink.get_alpha()
 	
-	return EffectsData.new(total_offset, total_rotation, target_fov)
+	return EffectsData.new(total_offset, total_rotation, target_fov, blink_alpha)

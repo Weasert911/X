@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://btim62k8d8f6k" path="res://scene/player.tscn" id="2_dbls1"]
 [ext_resource type="PackedScene" uid="uid://dul2ydjs8g8n7" path="res://scene/fps_meter.tscn" id="2_xwcet"]
 [ext_resource type="Shader" uid="uid://c4va0ur7kf5xn" path="res://script/_shader/red.gdshader" id="4_p1ry8"]
-[ext_resource type="Shader" uid="uid://53bwp2li0w37" path="res://script/_shader/ouliner.gdshader" id="4_xlg7c"]
+[ext_resource type="Shader" uid="uid://dyoh6ohrely55" path="res://script/_shader/comic_ink_single_passREM.gdshader" id="4_xlg7c"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_xwcet"]
 panorama = ExtResource("2_33cqm")
@@ -219,22 +219,3 @@ shape = SubResource("ConvexPolygonShape3D_ll5lq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3668694, 0)
 floor_stop_on_slope = false
 floor_max_angle = 0.7853982
-walk_speed = null
-sprint_speed = null
-acceleration = null
-health = null
-ammo = null
-deceleration = null
-air_acceleration = null
-air_deceleration = null
-ground_control = null
-air_control = null
-jump_force = null
-gravity = null
-coyote_time = null
-jump_buffer = null
-ground_check_distance = null
-ground_check_offset = null
-max_slope_angle = null
-hold_distance = null
-throw_force = null

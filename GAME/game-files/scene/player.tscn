@@ -18,6 +18,7 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fvtld"]
 
 [node name="Player" type="CharacterBody3D" unique_id=106805292]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 floor_max_angle = 45.0
 script = ExtResource("1_fps_player")
 

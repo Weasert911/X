@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://brgu53fwnrm71" path="res://script/_shader/toon_outline_postprocess.gdshader" id="1_3b8aj"]
 [ext_resource type="Shader" uid="uid://bi40dj8qnc6g2" path="res://script/_shader/comic_ink_single_pass.gdshader" id="1_4gvyu"]
-[ext_resource type="Shader" uid="uid://53bwp2li0w37" path="res://script/_shader/ouliner.gdshader" id="2_651et"]
+[ext_resource type="Shader" uid="uid://dyoh6ohrely55" path="res://script/_shader/comic_ink_single_passREM.gdshader" id="2_651et"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_651et"]
 shader = ExtResource("1_4gvyu")

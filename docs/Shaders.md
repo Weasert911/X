@@ -15,12 +15,19 @@ The shader is implemented in Godot’s shading language (`gdshader`) and is atta
 
 ## Shader Files
 
-| File                           | Purpose                                         | Status          |
-| ------------------------------ | ----------------------------------------------- | --------------- |
-| `shader/toon_outline.gdshader` | Main post‑process toon + outline shader         | ✅ Implemented   |
+| File                                       | Purpose                                         | Status          |
+| ------------------------------------------ | ----------------------------------------------- | --------------- |
+| `script/_shader/toon_outline_postprocess.gdshader` | Main post‑process toon + outline shader | ✅ Implemented   |
+| `script/_shader/comic_ink_single_pass.gdshader` | Comic ink effect for stylized rendering | ✅ Implemented   |
+| `script/_shader/comic_ink_single_passREM.gdshader`         | omic ink effect for stylized rendering remastered                   | ✅ Implemented   |
+| `script/_shader/red.gdshader`             | Special effect shader (e.g., damage indicators) | ✅ Implemented   |
 
 
-## `toon_outline.gdshader` – Reference
+## Implemented Shaders
+
+### `toon_outline_postprocess.gdshader` – Reference
+
+*Note: This replaces the original `toon_outline.gdshader`*
 
 ### Shader Type
 `canvas_item` – runs in screen space after the 3D scene is rendered.
@@ -71,6 +78,23 @@ The shader is implemented in Godot’s shading language (`gdshader`) and is atta
 
 ## Usage in the Project
 
+### Additional Shaders
+
+#### `comic_ink_single_pass.gdshader`
+- Applied to specific materials for stylized comic effects
+- Creates ink-like outlines and flat color fills
+- Used for environmental elements and special effects
+
+#### `ouliner.gdshader`
+- Applied to character models and important objects
+- Creates consistent outlines regardless of camera angle
+- Works with the main post-process shader for layered effects
+
+#### `red.gdshader`
+- Special effect shader for damage indicators and alerts
+- Creates pulsing red effects on UI elements and scene objects
+- Used in combat feedback systems
+
 ### Scene Setup
 The shader is applied via a `CanvasLayer` node named `shaderPass` (see `scene/shader.tscn`). Inside it, a `ColorRect` named `Toon_outline` covers the whole screen and uses a `ShaderMaterial` that references `toon_outline.gdshader`.
 
@@ -102,6 +126,13 @@ The shader works as a **post‑process** effect, meaning all 3D models should us
 - The `bands` integer loop is unrolled at compile time (max 6), so no dynamic branching cost.
 
 ## Art Direction Guidelines
+
+### Shader Coordination
+All shaders are designed to work together:
+1. `ouliner.gdshader` provides per-object outlines
+2. `toon_outline_postprocess.gdshader` adds screen-space effects
+3. `comic_ink_single_pass.gdshader` enhances specific materials
+4. `red.gdshader` provides contextual feedback
 
 ### Recommended Values for Final Art
 | Parameter | Recommended Value | Notes |

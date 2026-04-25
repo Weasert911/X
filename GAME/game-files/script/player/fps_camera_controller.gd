@@ -8,26 +8,14 @@ class_name FPSCameraController
 @export var enable_smoothing: bool = false
 @export var smoothing_speed: float = 10.0
 
-@export_group("FOV")
+@export_group("Camera Settings")
 @export var base_fov: float = 75.0
-@export var fov_kick_enabled: bool = true
-@export var fov_kick_amount: float = 10.0
-@export var fov_kick_speed: float = 5.0
-
-@export_group("Head Bob")
-@export var head_bob_enabled: bool = true
-@export var head_bob_speed: float = 12.0
-@export var head_bob_amount: float = 0.05
-@export var head_bob_sprint_multiplier: float = 1.5
-
-@export_group("Landing")
-@export var landing_dip_enabled: bool = true
-@export var landing_dip_amount: float = 0.1
-@export var landing_dip_speed: float = 8.0
+@export var fov_smoothing: float = 0.15
 
 @onready var head_pivot: Node3D = get_parent()
 @onready var player: CharacterBody3D = head_pivot.get_parent()
 @onready var camera_effects_manager: CameraEffectsManager = get_node_or_null("../CameraEffectsManager")
+@onready var blink_overlay: ColorRect = get_node_or_null("../UI/BlinkOverlay") # Make sure this node exists in the player scene
 
 var _yaw_input: float = 0.0
 var _pitch_input: float = 0.0
@@ -37,10 +25,7 @@ var _target_yaw: float = 0.0
 var _target_pitch: float = 0.0
 var recoil_offset: float = 0.0
 
-var _head_bob_timer: float = 0.0
 var _current_fov: float = 75.0
-var _landing_dip_offset: float = 0.0
-var _landing_dip_velocity: float = 0.0
 
 var is_sprinting: bool = false
 var is_grounded: bool = true
@@ -77,15 +62,33 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	_handle_mouse_look(delta)
 	
+	var effects_offset := Vector3.ZERO
+	var effects_rotation := Vector3.ZERO
+	var effects_fov := base_fov
+	var blink_alpha := 0.0
+	
 	if camera_effects_manager:
 		var effects = camera_effects_manager.get_effects(delta)
-		position = effects.position_offset
-		rotation += effects.rotation_offset
-		fov = effects.fov
-	else:
-		_update_head_bob(delta)
-		_update_fov_kick(delta)
-		_update_landing_dip(delta)
+		effects_offset = effects.position_offset
+		effects_rotation = effects.rotation_offset
+		effects_fov = effects.fov
+		blink_alpha = effects.blink_alpha
+	
+	# Set camera position relative to head pivot
+	global_position = head_pivot.global_position + effects_offset
+	
+	# Apply rotations additively
+	rotation.x = _current_pitch + recoil_offset + effects_rotation.x
+	rotation.y = 0.0  # Y rotation is handled by the head pivot
+	rotation.z = effects_rotation.z  # Apply tilt effects
+	
+	# Apply FOV changes
+	_current_fov = lerp(_current_fov, effects_fov, fov_smoothing)
+	fov = _current_fov
+	
+	# Apply blink effect
+	if blink_overlay:
+		blink_overlay.modulate.a = blink_alpha
 	
 	_emit_camera_direction()
 	
@@ -108,66 +111,11 @@ func _handle_mouse_look(delta: float) -> void:
 	
 	head_pivot.rotation.y = 0.0
 	player.rotation.y = _current_yaw
-	rotation.x = _current_pitch + recoil_offset
+	# Pitch is now handled in _process with additive effects
 	
 	_yaw_input = 0.0
 	_pitch_input = 0.0
 
-func _update_head_bob(delta: float) -> void:
-	if not head_bob_enabled:
-		return
-	
-	if is_grounded and movement_speed > 0.1:
-		var bob_speed: float = head_bob_speed
-		if is_sprinting:
-			bob_speed *= head_bob_sprint_multiplier
-		
-		_head_bob_timer += bob_speed * delta
-		
-		var bob_offset: float = sin(_head_bob_timer) * head_bob_amount
-		
-		position.y = bob_offset
-	else:
-		position.y = lerp(position.y, 0.0, 10.0 * delta)
-
-func _update_fov_kick(delta: float) -> void:
-	if not fov_kick_enabled:
-		return
-	
-	var target_fov: float = base_fov
-	if is_sprinting:
-		target_fov += fov_kick_amount
-	
-	var fov_diff: float = target_fov - _current_fov
-	var fov_change: float = fov_kick_speed * delta
-	
-	if abs(fov_diff) < fov_change:
-		_current_fov = target_fov
-	else:
-		_current_fov += sign(fov_diff) * fov_change
-	
-	fov = _current_fov
-
-func _update_landing_dip(delta: float) -> void:
-	if not landing_dip_enabled:
-		return
-	
-	if just_landed:
-		_landing_dip_offset = -landing_dip_amount
-		_landing_dip_velocity = 0.0
-		just_landed = false
-	
-	if abs(_landing_dip_offset) > 0.001:
-		var spring_force: float = -_landing_dip_offset * landing_dip_speed * landing_dip_speed
-		var damping: float = -_landing_dip_velocity * landing_dip_speed * 0.5
-		
-		_landing_dip_velocity += (spring_force + damping) * delta
-		_landing_dip_offset += _landing_dip_velocity * delta
-		
-		position.y += _landing_dip_offset
-	else:
-		_landing_dip_offset = 0.0
-		_landing_dip_velocity = 0.0
 
 func _emit_camera_direction() -> void:
 	var forward: Vector3 = -global_transform.basis.z
@@ -191,26 +139,24 @@ func get_right_direction() -> Vector3:
 	right.y = 0.0
 	return right.normalized()
 
-func set_player_state(sprinting: bool, grounded: bool, landed: bool, speed: float) -> void:
-	is_sprinting = sprinting
-	is_grounded = grounded
-	just_landed = landed
-	movement_speed = speed
 
 func add_recoil(amount: float) -> void:
 	recoil_offset -= amount
 
 func reset_camera() -> void:
-	_current_yaw = 0.0
+	# Preserve current player yaw to avoid camera snapping
+	_current_yaw = player.rotation.y
+	_target_yaw = _current_yaw
+	
+	# Reset pitch and other camera properties
 	_current_pitch = 0.0
-	_target_yaw = 0.0
 	_target_pitch = 0.0
+	
+	recoil_offset = 0.0
+	
 	_current_fov = base_fov
 	fov = base_fov
-	_head_bob_timer = 0.0
-	_landing_dip_offset = 0.0
-	_landing_dip_velocity = 0.0
-	position.y = 0.0
-	head_pivot.rotation.y = 0.0
-	player.rotation.y = 0.0
-	rotation.x = 0.0
+	
+	# Reset base position and rotation
+	position = Vector3.ZERO
+	rotation = Vector3.ZERO

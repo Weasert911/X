@@ -52,7 +52,7 @@
 
 ## Development Phases
 
-### Phase 1: Core Foundation
+### Phase 1: Core Foundation (Completed)
 
 **Objectives:**
 - Set up Godot project with FPS template
@@ -61,12 +61,12 @@
 - Set up toon shader pipeline
 
 **Deliverables:**
-- Working FPS controller with run, walk, jump, crouch
-- First-person camera with basic effects
-- Simple test level
-- Toon outline shader working
+- [x] Working FPS controller with run, walk, jump, crouch (`fps_player_controller.gd`)
+- [x] First-person camera with controller (`fps_camera_controller.gd`)
+- [x] Simple test environment (`game.tscn`)
+- [x] Toon outline shader implementation (`toon_outline_postprocess.gdshader`)
 
-### Phase 2: Core Mechanics
+### Phase 2: Core Mechanics (Completed)
 
 **Objectives:**
 - Implement all movement mechanics (run, walk, jump, hide, crouch)
@@ -75,11 +75,11 @@
 - Implement stealth mechanics
 
 **Deliverables:**
-- Complete movement system with stamina
-- Attack system with hit detection
-- Interaction system for NPCs and objects
-- Basic weapon system (handgun, rifle)
-- Stealth detection system
+- [x] Complete movement system with stamina (`fps_player_controller.gd`)
+- [x] Attack system with hit detection (`Weapon.gd`, `WeaponManager.gd`)
+- [x] Interaction system for objects (`pickable.gd`, `interaction_prompt.tscn`)
+- [x] Basic weapon system (SMG implemented: `smg.tscn`, `smg_01.tres`)
+- [ ] Stealth detection system (in progress)
 
 ### Phase 3: Stage 1 Implementation
 
@@ -250,9 +250,14 @@
 ### Toon Outline Shader
 
 **Current Implementation:**
-- Custom screen-space toon-outline shader (`toon_outline.gdshader`)
-- Applied as full-screen post-process effect
+- Custom screen-space toon-outline shader (`toon_outline_postprocess.gdshader`)
+- Applied as full-screen post-process effect via `shader.tscn`
 - Provides color controls, posterization, and edge detection
+
+### Additional Shaders Implemented:
+- Comic ink single-pass shader (`comic_ink_single_pass.gdshader`)
+- Ouliner shader (`ouliner.gdshader`)
+- Red shader (`red.gdshader`)
 
 **Shader Features:**
 - Adjustable outline thickness
@@ -368,12 +373,16 @@
 - Windows 10/11
 - DirectX 11 or 12
 - Keyboard and mouse support
-- Optional controller support
+- Controller support (implemented in `input_setup.gd`)
 
 **Distribution:**
 - Steam (primary)
 - Itch.io (alternative)
 - Direct download (website)
+
+### New Platform Target: Linux
+- Added due to Godot's excellent Linux support
+- Same system requirements as Windows version
 
 ### Future Platforms (Post-Release)
 
@@ -386,7 +395,7 @@
 - Android (performance and control considerations)
 - iOS (performance and control considerations)
 
-**Note:** Console and mobile ports require additional optimization and control scheme adjustments.
+**Note:** Console and mobile ports require additional optimization and control scheme adjustments. Linux support is now confirmed.
 
 ---
 
