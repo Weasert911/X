@@ -87,9 +87,6 @@ mesh = SubResource("ArrayMesh_xf6k3")
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1745867089]
 mesh = SubResource("ArrayMesh_j1qw1")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1901428164]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.039656743, 0.07917652, 0.28533742)
-
 [node name="Area3D" type="Area3D" parent="." unique_id=187221520]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=250872807]

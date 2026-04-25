@@ -16,9 +16,8 @@ func apply_recoil(recoil_value: float):
 	if camera == null:
 		return
 
-	camera.rotation_degrees.x -= recoil_value
-	camera.rotation_degrees.y += randf_range(-recoil_value, recoil_value)
-	
+	if camera.has_method("add_recoil"):
+		camera.add_recoil(recoil_value)
 func shoot():
 	if not can_shoot:
 		return
@@ -33,7 +32,14 @@ func shoot():
 	var space = get_world_3d().direct_space_state
 
 	var from = camera.global_transform.origin
-	var to = from + (-camera.global_transform.basis.z * 1000)
+	var forward = -camera.global_transform.basis.z
+	
+	var spread_strength = data.spread
+	var spread_x = randf_range(-spread_strength, spread_strength) * 0.01
+	var spread_y = randf_range(-spread_strength, spread_strength) * 0.01
+	
+	var direction = (forward + Vector3(spread_x, spread_y, 0)).normalized()
+	var to = from + direction * 1000
 
 	var query = PhysicsRayQueryParameters3D.create(from, to)
 

@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_mck3a")
-gun_id = "smg_01"
-weapon_type = 1
+gun_id = "pistol_01"
+mag_size = 12
+max_mags = 2
 metadata/_custom_type_script = "uid://44gpb187j0od"

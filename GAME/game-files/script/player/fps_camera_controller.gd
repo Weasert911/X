@@ -35,6 +35,7 @@ var _current_yaw: float = 0.0
 var _current_pitch: float = 0.0
 var _target_yaw: float = 0.0
 var _target_pitch: float = 0.0
+var recoil_offset: float = 0.0
 
 var _head_bob_timer: float = 0.0
 var _current_fov: float = 75.0
@@ -87,6 +88,9 @@ func _process(delta: float) -> void:
 		_update_landing_dip(delta)
 	
 	_emit_camera_direction()
+	
+	# Decay recoil
+	recoil_offset = lerp(recoil_offset, 0.0, 10.0 * delta)
 
 func _handle_mouse_look(delta: float) -> void:
 	_target_yaw += _yaw_input
@@ -104,7 +108,7 @@ func _handle_mouse_look(delta: float) -> void:
 	
 	head_pivot.rotation.y = 0.0
 	player.rotation.y = _current_yaw
-	rotation.x = _current_pitch
+	rotation.x = _current_pitch + recoil_offset
 	
 	_yaw_input = 0.0
 	_pitch_input = 0.0
@@ -192,6 +196,9 @@ func set_player_state(sprinting: bool, grounded: bool, landed: bool, speed: floa
 	is_grounded = grounded
 	just_landed = landed
 	movement_speed = speed
+
+func add_recoil(amount: float) -> void:
+	recoil_offset -= amount
 
 func reset_camera() -> void:
 	_current_yaw = 0.0
