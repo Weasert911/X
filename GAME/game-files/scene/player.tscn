@@ -45,21 +45,29 @@ script = ExtResource("3_camera_effects")
 
 [node name="HeadBobSystem" type="Node" parent="HeadPivot/CameraEffectsManager" unique_id=602541375]
 script = ExtResource("4_head_bob")
+idle_bob_amount = 0.02
+walk_bob_amount = 0.05
+sprint_bob_amount = 0.1
 footstep_sync_enabled = true
 
 [node name="BlinkSystem" type="Node" parent="HeadPivot/CameraEffectsManager" unique_id=543077356]
 script = ExtResource("5_blink")
-blink_interval_min = 0.2
-blink_interval_max = 0.4
+blink_interval_min = 0.01
+blink_interval_max = 0.04
 
 [node name="MicroMotionSystem" type="Node" parent="HeadPivot/CameraEffectsManager" unique_id=1229485411]
 script = ExtResource("6_micro_motion")
+position_noise_scale = 0.009
+rotation_noise_scale = 0.007
+noise_seed = 10000000
 
 [node name="LandingWeightSystem" type="Node" parent="HeadPivot/CameraEffectsManager" unique_id=1536416450]
 script = ExtResource("7_landing")
 
 [node name="BreathingSystem" type="Node" parent="HeadPivot/CameraEffectsManager" unique_id=2019672493]
 script = ExtResource("8_breathing")
+idle_breath_amount = 0.009
+sprint_breath_amount = 0.01
 
 [node name="DynamicFOVSystem" type="Node" parent="HeadPivot/CameraEffectsManager" unique_id=1099268961]
 script = ExtResource("9_dynamic_fov")
