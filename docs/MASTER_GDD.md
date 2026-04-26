@@ -63,7 +63,7 @@ They are a predatory entity that operates on the principle of hunger—both lite
 ### 4.2 Narrative Structure (The 5 Acts)
 
 #### Act I: The Return (The Veins)
-Arjun returns to Dharavi at 2:17 AM under a shroud of rain. He must rediscover the rhythm of the streets, navigating the narrowest veins and avoiding patrols.
+Act I begins during the day. Arjun is lying drunk in the street outside his rented house. A man nearby kicks him and tells him to go elsewhere. Arjun returns to his house and falls asleep, eventually waking up at night to the sound of his phone ringing. From here, he returns to Dharavi, navigating the narrowest veins and avoiding patrols.
 - **Goal:** Locate an old informant.
 - **Climax:** Finding the informant dead. The realization that the Syndicate knows he is back.
 
