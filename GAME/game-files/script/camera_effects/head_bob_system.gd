@@ -43,11 +43,23 @@ func update(delta: float, speed: float, sprinting: bool, grounded: bool) -> void
 		bob_amount = lerp(walk_bob_amount, sprint_bob_amount, _current_state - 1.0)
 		bob_speed = lerp(walk_bob_speed, sprint_bob_speed, _current_state - 1.0)
 	
+	# Step 4: Add speed-based amplitude
+	var speed_factor = clamp(speed, 0.0, 1.0)
+	bob_amount *= speed_factor
+	bob_speed *= lerp(0.5, 1.2, speed_factor)
+	
+	# Step 6: Fix airborne behavior
 	if not grounded:
-		bob_amount *= airborne_reduction
+		_bob_timer = lerp(_bob_timer, 0.0, 5.0 * delta)
+		return
 	
 	var prev_timer = _bob_timer
 	_bob_timer += bob_speed * delta
+	
+	# Step 5: Impact snap
+	var wave = sin(_bob_timer)
+	if wave > 0.95:
+		_bob_timer += 0.02  # small snap forward
 	
 	if footstep_sync_enabled and grounded and speed > 0.1:
 		if sin(prev_timer) < 0.0 and sin(_bob_timer) >= 0.0:
@@ -57,10 +69,18 @@ func get_offset() -> Vector3:
 	if not enabled:
 		return Vector3.ZERO
 	
-	var vertical_bob = sin(_bob_timer) * _get_current_amount()
-	var horizontal_bob = cos(_bob_timer * 0.5) * _get_current_amount() * horizontal_bob_ratio
+	var amount = _get_current_amount()
 	
-	return Vector3(horizontal_bob, vertical_bob, 0.0)
+	# 🔥 Weighty vertical motion (main impact)
+	var vertical = sin(_bob_timer) * amount
+	
+	# 🔥 Secondary horizontal sway (delayed, subtle)
+	var horizontal = sin(_bob_timer * 0.5 + PI * 0.5) * amount * horizontal_bob_ratio
+	
+	# 🔥 Add slight forward/back kick (THIS adds realism)
+	var forward = sin(_bob_timer * 2.0) * amount * 0.15
+	
+	return Vector3(horizontal, vertical, forward)
 
 func _get_current_amount() -> float:
 	if _current_state <= 1.0:

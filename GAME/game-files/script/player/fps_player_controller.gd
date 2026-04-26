@@ -175,14 +175,15 @@ func _check_ground_state() -> void:
 
 func _update_camera_state(delta: float) -> void:
 	var current_speed = horizontal_velocity.length()
+	var normalized_speed = clamp(current_speed / sprint_speed, 0.0, 1.0)
 	var t := 1.0 - exp(-10.0 * delta)
-	smoothed_speed = lerp(smoothed_speed, current_speed, t)
+	smoothed_speed = lerp(smoothed_speed, normalized_speed, t)
 	
 	camera_effects_manager.set_player_state(
 		is_sprinting,
 		is_on_floor(),
 		just_landed,
-		smoothed_speed,
+		smoothed_speed, # 🔥 FIXED - now normalized
 		is_strafing_left,
 		is_strafing_right,
 		just_jumped,
@@ -243,6 +244,8 @@ func _apply_ground_movement(direction: Vector3, target_speed: float, accel: floa
 	
 	if abs(velocity.x) < 0.01: velocity.x = 0
 	if abs(velocity.z) < 0.01: velocity.z = 0
+	
+	horizontal_velocity = Vector3(velocity.x, 0, velocity.z) # 🔥 FIXED - update horizontal velocity
 
 func is_player_sprinting() -> bool:
 	return is_sprinting

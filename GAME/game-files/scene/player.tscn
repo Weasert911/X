@@ -45,6 +45,7 @@ script = ExtResource("3_camera_effects")
 
 [node name="HeadBobSystem" type="Node" parent="HeadPivot/CameraEffectsManager" unique_id=602541375]
 script = ExtResource("4_head_bob")
+footstep_sync_enabled = true
 
 [node name="BlinkSystem" type="Node" parent="HeadPivot/CameraEffectsManager" unique_id=543077356]
 script = ExtResource("5_blink")
