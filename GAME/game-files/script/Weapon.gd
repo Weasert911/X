@@ -7,7 +7,7 @@ extends Node3D
 var ammo_in_mag: int
 var mags_left: int
 @onready var camera: Camera3D = get_tree().get_first_node_in_group("player_camera")
-@onready var weapon_model: Node3D = $WeaponMesh
+@onready var weapon_model: Node3D = $Sketchfab_model
 @onready var crosshair: Control = get_tree().get_first_node_in_group("crosshair")
 @onready var hit_feedback: Control = get_tree().get_first_node_in_group("hit_feedback")
 var impact_scene = preload("res://scene/effects/impact_particles.tscn")
@@ -116,10 +116,14 @@ func play_shoot_fx():
 func play_draw():
 	$AnimationPlayer.play("Rig|KDW_Draw")
 
+var base_position: Vector3
+
+func _ready():
+	base_position = weapon_model.position
+
 func play_kick():
-	var original_position = weapon_model.position
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(weapon_model, "position", original_position + Vector3(0, kick_up, -kick_back), 0.1)
-	tween.tween_property(weapon_model, "position", original_position, 0.2)
+	tween.tween_property(weapon_model, "position", base_position + Vector3(0, kick_up, -kick_back), 0.1)
+	tween.tween_property(weapon_model, "position", base_position, 0.2)
