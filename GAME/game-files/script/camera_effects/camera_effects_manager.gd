@@ -19,6 +19,7 @@ var just_landed: bool = false
 var just_jumped: bool = false
 var current_acceleration: float = 0.0
 var is_aiming: bool = false
+var is_crouching: bool = false
 
 func set_player_state(
 	sprinting: bool,
@@ -29,7 +30,8 @@ func set_player_state(
 	strafe_right: bool = false,
 	jumped: bool = false,
 	accel: float = 0.0,
-	aiming: bool = false
+	aiming: bool = false,
+	crouching: bool = false
 ) -> void:
 	is_sprinting = sprinting
 	is_grounded = grounded
@@ -40,6 +42,7 @@ func set_player_state(
 	just_jumped = jumped
 	current_acceleration = accel
 	is_aiming = aiming
+	is_crouching = crouching
 
 func get_effects(delta: float) -> EffectsData:
 	head_bob.update(delta, movement_speed, is_sprinting, is_grounded)

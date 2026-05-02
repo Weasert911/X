@@ -20,7 +20,6 @@ func _refresh_weapon_manager():
 	if weapon_manager:
 		print("[GM] WeaponManager refreshed")
 		return
-	# If still null, wait another frame
 	await get_tree().process_frame
 	weapon_manager = get_tree().get_first_node_in_group("weapon_manager")
 	if weapon_manager:
@@ -108,7 +107,6 @@ func save_game():
 		weapon_data = weapon_manager.get_save_data()
 	else:
 		push_error("WeaponManager still null - cannot save weapons")
-		# Continue saving without weapon data
 	
 	var data = {
 		"version": 1,
@@ -165,10 +163,8 @@ func load_level_async(path):
 	await get_tree().process_frame
 	await get_tree().process_frame
 
-	# 🔥 re-fetch AFTER scene is ready
 	_refresh_weapon_manager()
 
-	# If still null, wait a bit more (max 5 frames)
 	var attempts = 0
 	while weapon_manager == null and attempts < 5:
 		await get_tree().process_frame

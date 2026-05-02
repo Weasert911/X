@@ -12,6 +12,10 @@ class_name FPSCameraController
 @export var base_fov: float = 75.0
 @export var fov_smoothing: float = 0.15
 
+@export_group("Recoil")
+@export var recoil_recovery_speed: float = 10.0
+@export var kick_strength: float = 2.5
+
 @onready var head_pivot: Node3D = get_parent()
 @onready var player: CharacterBody3D = head_pivot.get_parent()
 @onready var camera_effects_manager: CameraEffectsManager = get_node_or_null("../CameraEffectsManager")
@@ -23,7 +27,8 @@ var _current_yaw: float = 0.0
 var _current_pitch: float = 0.0
 var _target_yaw: float = 0.0
 var _target_pitch: float = 0.0
-var recoil_offset: float = 0.0
+var recoil_pitch: float = 0.0
+var recoil_yaw: float = 0.0
 
 var _current_fov: float = 75.0
 
@@ -62,6 +67,9 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	_handle_mouse_look(delta)
 	
+	# Apply sustained recoil yaw to player rotation (on top of mouse look)
+	player.rotation.y = _current_yaw + recoil_yaw
+	
 	var effects_offset := Vector3.ZERO
 	var effects_rotation := Vector3.ZERO
 	var effects_fov := base_fov
@@ -74,26 +82,24 @@ func _process(delta: float) -> void:
 		effects_fov = effects.fov
 		blink_alpha = effects.blink_alpha
 	
-	# Set camera position relative to head pivot
 	global_position = head_pivot.global_position + effects_offset
 	
-	# Apply rotations additively
-	rotation.x = _current_pitch + recoil_offset + effects_rotation.x
+	# Apply sustained recoil pitch to camera rotation
+	rotation.x = _current_pitch + recoil_pitch + effects_rotation.x
 	rotation.y = 0.0  # Y rotation is handled by the head pivot
 	rotation.z = effects_rotation.z  # Apply tilt effects
 	
-	# Apply FOV changes
+	# Recover sustained recoil over time
+	recoil_pitch = lerp(recoil_pitch, 0.0, recoil_recovery_speed * delta)
+	recoil_yaw = lerp(recoil_yaw, 0.0, recoil_recovery_speed * delta)
+	
 	_current_fov = lerp(_current_fov, effects_fov, fov_smoothing)
 	fov = _current_fov
 	
-	# Apply blink effect
 	if blink_overlay:
 		blink_overlay.modulate.a = blink_alpha
 	
 	_emit_camera_direction()
-	
-	# Decay recoil
-	recoil_offset = lerp(recoil_offset, 0.0, 10.0 * delta)
 
 func _handle_mouse_look(delta: float) -> void:
 	_target_yaw += _yaw_input
@@ -111,7 +117,6 @@ func _handle_mouse_look(delta: float) -> void:
 	
 	head_pivot.rotation.y = 0.0
 	player.rotation.y = _current_yaw
-	# Pitch is now handled in _process with additive effects
 	
 	_yaw_input = 0.0
 	_pitch_input = 0.0
@@ -140,23 +145,26 @@ func get_right_direction() -> Vector3:
 	return right.normalized()
 
 
-func add_recoil(amount: float) -> void:
-	recoil_offset -= amount
+func add_recoil(vertical: float, horizontal: float) -> void:
+	recoil_pitch -= vertical
+	recoil_yaw -= horizontal
+
+func add_kick() -> void:
+	_target_pitch -= deg_to_rad(kick_strength)
+	_current_pitch -= deg_to_rad(kick_strength)
 
 func reset_camera() -> void:
-	# Preserve current player yaw to avoid camera snapping
 	_current_yaw = player.rotation.y
 	_target_yaw = _current_yaw
 	
-	# Reset pitch and other camera properties
 	_current_pitch = 0.0
 	_target_pitch = 0.0
 	
-	recoil_offset = 0.0
+	recoil_pitch = 0.0
+	recoil_yaw = 0.0
 	
 	_current_fov = base_fov
 	fov = base_fov
 	
-	# Reset base position and rotation
 	position = Vector3.ZERO
 	rotation = Vector3.ZERO

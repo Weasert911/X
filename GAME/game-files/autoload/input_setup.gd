@@ -12,3 +12,9 @@ func _ready():
         var event = InputEventKey.new()
         event.keycode = KEY_Q
         InputMap.action_add_event("throw", event)
+    
+    if not InputMap.has_action("crouch"):
+        InputMap.add_action("crouch")
+        var event = InputEventKey.new()
+        event.physical_keycode = KEY_C
+        InputMap.action_add_event("crouch", event)

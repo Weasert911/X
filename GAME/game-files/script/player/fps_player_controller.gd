@@ -33,12 +33,19 @@ class_name FPSPlayerController
 @export var ground_check_offset: float = 0.05
 @export var max_slope_angle: float = 45.0
 
+@export_group("Crouch")
+@export var crouch_speed: float = 3.0
+@export var crouch_height: float = 1.2
+@export var stand_height: float = 1.8
+@export var crouch_lerp_speed: float = 8.0
+
 @onready var weapon_manager = $WeaponManager
 
 @onready var head_pivot: Node3D = $HeadPivot
 @onready var camera_controller: FPSCameraController = $HeadPivot/Camera3D
 @onready var camera_effects_manager: CameraEffectsManager = $HeadPivot/CameraEffectsManager
 @onready var ray: RayCast3D = $HeadPivot/Camera3D/RayCast3D
+@onready var collider: CollisionShape3D = $CollisionShape3D
 
 var input_dir: Vector2 = Vector2.ZERO
 var is_sprinting: bool = false
@@ -57,6 +64,10 @@ var stamina_delay_timer: float = 0.0
 var sprint_factor: float = 0.0
 var smoothed_speed: float = 0.0
 var coyote_timer: float = 0.0
+var is_crouching: bool = false
+var noise_level: float = 0.0
+var current_height: float = 0.0
+var _original_collider_height: float = 0.0
 
 var crosshair: CanvasLayer
 
@@ -71,6 +82,10 @@ func _get_jump_input() -> bool:
 
 func _ready() -> void:
 	add_to_group("player")
+	
+	current_height = stand_height
+	head_pivot.position.y = stand_height
+	_original_collider_height = collider.shape.height
 	
 	ray.collision_mask = 1
 	
@@ -92,7 +107,11 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	input_dir = _get_movement_input()
+	_update_crouch()
 	_update_stamina(delta)
+	
+	if Input.is_action_pressed("shoot"):
+		weapon_manager.try_shoot()
 	
 	if is_sprinting:
 		sprint_factor = lerp(sprint_factor, 1.0, 8.0 * delta)
@@ -111,6 +130,9 @@ func _physics_process(delta: float) -> void:
 	
 	_update_movement_state(delta)
 	
+	_update_camera_height(delta)
+	_update_collider()
+	_update_noise_level()
 	_update_camera_state(delta)
 	
 func _handle_movement(delta: float) -> void:
@@ -122,7 +144,13 @@ func _handle_movement(delta: float) -> void:
 		
 		direction = (forward * input_dir.y + right * input_dir.x).normalized()
 	
-	var target_speed = lerp(walk_speed, sprint_speed, sprint_factor)
+	var target_speed: float
+	if is_crouching:
+		target_speed = crouch_speed
+	elif is_sprinting:
+		target_speed = lerp(walk_speed, sprint_speed, sprint_factor)
+	else:
+		target_speed = walk_speed
 	
 	var accel = acceleration
 	var decel = deceleration
@@ -183,15 +211,15 @@ func _update_camera_state(delta: float) -> void:
 		is_sprinting,
 		is_on_floor(),
 		just_landed,
-		smoothed_speed, # 🔥 FIXED - now normalized
+		smoothed_speed,
 		is_strafing_left,
 		is_strafing_right,
 		just_jumped,
 		current_acceleration,
-		false
+		false,
+		is_crouching
 	)
 	
-	# Set idle state for blink system
 	var is_idle: bool = input_dir == Vector2.ZERO and horizontal_velocity.length() < 0.1
 	camera_effects_manager.blink.set_idle_state(is_idle)
 	
@@ -212,7 +240,7 @@ func get_movement_speed() -> float:
 	return horizontal_velocity.length()
 
 func _update_stamina(delta: float) -> void:
-	var wants_sprint = Input.is_action_pressed("sprint") and input_dir != Vector2.ZERO
+	var wants_sprint = Input.is_action_pressed("sprint") and input_dir != Vector2.ZERO and not is_crouching
 
 	if wants_sprint and stamina > min_stamina_to_sprint:
 		is_sprinting = true
@@ -253,11 +281,45 @@ func is_player_sprinting() -> bool:
 func is_player_grounded() -> bool:
 	return is_on_floor()
 
+func is_player_crouching() -> bool:
+	return is_crouching
+
+func get_noise_level() -> float:
+	return noise_level
+
+func _update_crouch() -> void:
+	if Input.is_action_pressed("crouch"):
+		is_crouching = true
+		is_sprinting = false
+	else:
+		is_crouching = false
+
+func _update_camera_height(delta: float) -> void:
+	var target_height = crouch_height if is_crouching else stand_height
+	current_height = lerp(current_height, target_height, delta * crouch_lerp_speed)
+	head_pivot.position.y = current_height
+
+func _update_collider() -> void:
+	var shape = collider.shape
+	if shape is CapsuleShape3D:
+		var target_height = crouch_height if is_crouching else stand_height
+		shape.height = target_height
+		# Offset collider to keep feet at the same position
+		collider.position.y = -(_original_collider_height - target_height) / 2.0
+
+func _update_noise_level() -> void:
+	if horizontal_velocity.length() > 0.1:
+		if is_crouching:
+			noise_level = 0.2
+		elif is_sprinting:
+			noise_level = 1.0
+		else:
+			noise_level = 0.5
+	else:
+		noise_level = 0.0
+
 
 func _input(event: InputEvent) -> void:
 
-	if event.is_action_pressed("shoot"):
-		weapon_manager.shoot()
-	
 	if event.is_action_pressed("reload"):
 		weapon_manager.reload()

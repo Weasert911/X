@@ -57,6 +57,10 @@ func shoot():
 	if current_weapon:
 		current_weapon.shoot()
 
+func try_shoot():
+	if current_weapon:
+		current_weapon.try_shoot()
+
 func reload():
 	if current_weapon:
 		current_weapon.reload()

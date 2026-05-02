@@ -10,10 +10,10 @@
 ## 2. Movement & Traversal
 
 ### 2.1 Core Movement States
-| State | Speed | Noise | Purpose |
-|-------|-------|-------|---------|
-| **Sprint** | 1.5x Walk | High | Rapid repositioning / Escape |
-| **Walk** | 1.0x | Low | Tactical exploration |
+| State      | Speed     | Noise   | Purpose                         |
+| ---------- | --------- | ------- | ------------------------------- |
+| **Sprint** | 1.5x Walk | High    | Rapid repositioning / Escape    |
+| **Walk**   | 1.0x      | Low     | Tactical exploration            |
 | **Crouch** | 0.6x Walk | Minimal | Stealth infiltration / Accuracy |
 
 #### Mechanics:

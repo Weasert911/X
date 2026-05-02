@@ -16,7 +16,8 @@ enum WeaponType {
 @export var reload_time: float = 1.5
 @export var fire_rate: float = 0.1
 
-@export var recoil: float = 1.0
+@export var recoil_vertical: float = 1.5
+@export var recoil_horizontal: float = 0.5
 @export var spread: float = 1.0
 
 @export var damage: int = 10

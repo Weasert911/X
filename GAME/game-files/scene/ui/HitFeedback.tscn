@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" uid="uid://placeholder" path="res://icon.svg" id="1"]
+
+[node name="HitFeedback" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="HitMarker" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("1")
+modulate = Color(1, 0, 0, 0)
+expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
